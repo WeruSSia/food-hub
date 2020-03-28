@@ -1,4 +1,17 @@
-## FoodHUB
+**1. Temat projektu**
+
+FoodHUB - aplikacja webowa wspomagająca wybór przepisu kulinarnego na podstawie dostępnych składników
+
+**2. Dane składu zespołu projektowego**
+
+- Weronika Mirek, WZISS2-1211, 215916
+- Konrad Adamik, WZISS2-1211, 215941
+- Arkadiusz Hadała, WZISS22411IS, 192980
+
+**3. Dane kierownika projektu**
+- Kamil Cała, WZISS2-1211, 192426
+
+**4. Opis aplikacji, główne cele, zasadnicza funkcjonalność**
 
 Projekt realizowany będzie w formie aplikacji SPA przy użyciu frameworka Vue.js.
 
@@ -7,3 +20,7 @@ Aplikacja ma za zadanie wyszukać w swojej bazie odpowiedni przepis (“spoonacu
 Zalogowanie do aplikacji umożliwia przeglądanie historii wyszukiwanych przepisów oraz dodawanie przepisów do ulubionych.
 
 Do zapisywania profili użytkowników, ich danych oraz preferencji (ulubione przepisy), zostanie wykorzystana baza danych oraz autentykacja Firebase. Będzie również możliwe korzystanie bez logowania, lecz z ograniczoną funkcjonalnością (wyłącznie wyszukiwanie przepisów).
+
+-------------------
+
+*Link do repozytoriunm na Github: https://github.com/Riserax/food-hub*
