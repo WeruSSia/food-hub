@@ -10,3 +10,7 @@ Project Team:
 
 ------------------
 **Github Page link: https://riserax.github.io/food-hub/**
+
+**spoonacular API: https://spoonacular.com/food-api**
+
+**Interface project: https://dyf2f8.axshare.com**
