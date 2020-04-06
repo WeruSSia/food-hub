@@ -21,14 +21,24 @@ export default {
 
 <style>
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Poppins", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    background-color: white;
 }
 .view-wrapper {
-    padding-top: 100px;
+    position: relative;
     padding-bottom: 80px;
+}
+
+@media screen and (max-width: 960px) {
+    #app {
+        width: 100%;
+    }
 }
 </style>

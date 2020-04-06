@@ -127,9 +127,8 @@ export default {
 </script>
 <style scoped>
 .header {
-    position: absolute;
+    position: relative;
     display: flex;
-    overflow: auto;
     width: 100%;
     height: 80px;
     top: 0;
@@ -221,15 +220,12 @@ export default {
 
 #history-icon {
     margin-left: auto;
-    width: 34px;
-    height: 34p;
 }
 
 .button {
     width: 96px;
     height: 44px;
     margin-right: 10px;
-    font-family: "Poppins", sans-serif;
     font-weight: bolder;
     color: #555555;
     border: 1px solid rgba(242, 242, 242, 1);
@@ -265,9 +261,12 @@ export default {
 
 .menu {
     display: none;
+    -webkit-transition: -webkit-transform 0.1s ease-in-out;
+    -ms-transition: -ms-transform 0.1s ease-in-out;
+    transition: transform 0.1s ease-in-out;
 }
 
-/* RESPONSIVENESS */
+/* RESPONSIVE VIEW */
 
 @media screen and (max-width: 780px) {
     .header div#items {
@@ -279,7 +278,7 @@ export default {
         float: right;
         position: relative;
         margin-left: auto;
-        margin-right: 2%;
+        margin-right: 4%;
     }
 
     .header div.menu:hover {
@@ -289,19 +288,41 @@ export default {
 
 @media screen and (max-width: 780px) {
     .header.responsive {
-        position: absolute;
-        height: 200px;
+        position: relative;
+        align-items: flex-start;
+        height: 360px;
+        padding-top: 10px;
     }
     .header.responsive .menu {
         right: 0;
-        top: 0;
+        margin-top: 10px;
+        float: left;
+        transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
     }
     .header.responsive div#items {
-        position: relative;
-        float: left;
         display: block;
         width: 100%;
-        background-color: aquamarine;
+        height: 280px;
+        margin-top: 80px;
+        margin-left: -60px;
+    }
+    .header.responsive div#items #search {
+        width: 200px;
+    }
+    .header.responsive div#items #search input {
+        width: 140px;
+        font-size: 14px;
+    }
+    .header.responsive div#items #search,
+    .header.responsive div#items #history-icon,
+    .header.responsive div#items #favourites-icon,
+    .header.responsive div#items .button,
+    .header.responsive div#items #profile-icon {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 6px;
     }
 }
 </style>
