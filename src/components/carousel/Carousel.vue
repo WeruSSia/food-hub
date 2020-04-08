@@ -9,32 +9,43 @@
 		<slide>
 			<img src="../../assets/slide1.jpg" />
 			<div class="slide-description">
-				Search for recipes by entering the ingredients that you have
+				<div class="slide-description-text">
+					Search for recipes by entering the ingredients that you have
+				</div>
 			</div>
 		</slide>
 		<slide>
 			<img src="../../assets/slide2.jpg" />
 			<div class="slide-description">
-				Mark which ingredients are not to appear in the recipe
+				<div class="slide-description-text">
+					Mark which ingredients are not to appear in the recipe
+				</div>
 			</div>
 		</slide>
 		<slide>
 			<img src="../../assets/slide3.jpg" />
 			<div class="slide-description">
-				Follow the recipes without any problems thanks to clear and
-				simple steps
+				<div class="slide-description-text">
+					Follow the recipes without any problems thanks to simple
+					steps
+				</div>
 			</div>
 		</slide>
 		<slide>
 			<img src="../../assets/slide4.jpg" />
 			<div class="slide-description">
-				Store the best recipes in one place by adding them to favourites
+				<div class="slide-description-text">
+					Store the best recipes in one place by adding them to
+					favourites
+				</div>
 			</div>
 		</slide>
 		<slide>
 			<img src="../../assets/slide5.jpg" />
 			<div class="slide-description">
-				Browse the history of recently seen recipes
+				<div class="slide-description-text">
+					Browse the history of recently seen recipes
+				</div>
 			</div>
 		</slide>
 	</carousel>
@@ -52,7 +63,7 @@ export default {
 
 <style scoped>
 img {
-	width: 960px;
+	width: 100%;
 	height: 483px;
 	object-fit: cover;
 }
@@ -62,18 +73,30 @@ img {
 	opacity: 70%;
 	position: absolute;
 	bottom: 20px;
-	color: white;
-	height: 20%;
+	height: 30%;
 	width: 100%;
-	padding: 15px;
-	font-size: 1em;
-	font-family: "Courier New", Courier, monospace;
 }
 
-@media only screen and (max-width: 370px) {
-	img,
-	.slide-description {
-		width: 370px;
+.slide-description-text {
+	color: white;
+	font-family: "Poppins", sans-serif;
+	text-align: left;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+@media screen and (min-width: 370px) {
+	.slide-description-text {
+		font-size: 30px;
+	}
+}
+
+@media screen and (max-width: 371px) {
+	img {
+		height: 300px;
 	}
 }
 </style>
