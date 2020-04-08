@@ -6,7 +6,7 @@
 
         <div id="items">
             <div id="search">
-                <input type="text" placeholder="Search for receips" />
+                <input type="text" placeholder="Search for recipes" />
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
