@@ -88,15 +88,18 @@ img {
 	padding-right: 12px;
 }
 
-@media screen and (min-width: 370px) {
+@media screen and (min-width: 400px) {
 	.slide-description-text {
 		font-size: 30px;
 	}
 }
 
-@media screen and (max-width: 371px) {
+@media screen and (max-width: 401px) {
 	img {
 		height: 300px;
+	}
+	.slide-description-text {
+		font-size: 20px;
 	}
 }
 </style>
