@@ -1,12 +1,23 @@
 <template functional>
-    <router-link :to="'recipe/' + props.data.id">
+    <router-link
+        v-if="props.recipeData.id"
+        :to="'recipe/' + props.recipeData.id"
+    >
         <div class="card">
-            <img class="image" :src="props.data.image" />
+            <img
+                v-if="props.recipeData.image"
+                class="image"
+                :src="props.recipeData.image"
+            />
+            <img
+                v-else
+                class="image"
+                src="../../assets/recipe-card-no-image.jpg"
+            />
             <div class="infobox">
-                <div class="info-container">
-                    <p class="title">{{ props.data.title }}</p>
-                    <p class="description">
-                        //description
+                <div class="title-container">
+                    <p v-if="props.recipeData.title" class="title">
+                        {{ props.recipeData.title }}
                     </p>
                 </div>
             </div>
@@ -18,8 +29,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 0 0 8px 3px rgba(85, 85, 85, 0.3);
-    min-height: 120px;
-    min-width: 180px;
+    min-height: 85px;
     max-height: 170px;
     max-width: 300px;
     position: relative;
@@ -44,36 +54,32 @@
     background-color: rgba(85, 85, 85, 0.8);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     height: 85px;
     position: absolute;
     width: 100%;
 }
 
-.info-container {
+.title-container {
     align-items: flex-start;
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    padding: 15px 15px;
+    padding: 0px 15px;
 }
 
 .title {
+    display: -webkit-box;
     font-size: 18px;
-    font-weight: 500;
+    line-height: 24px;
     text-align: start;
-}
-
-.description {
-    font-size: 13px;
-    line-height: 15px;
-    text-align: start;
-    max-height: 30px;
+    max-height: 72px;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
 }
@@ -86,5 +92,11 @@ p.title {
 p.description {
     margin-block-start: 0;
     margin-block-end: 0;
+}
+
+@media screen and (max-width: 250px) {
+    .title {
+        font-size: 16px;
+    }
 }
 </style>
