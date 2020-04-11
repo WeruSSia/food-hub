@@ -2,22 +2,22 @@
     <div class="cards-container">
         <RecipeCard
             v-for="recipe in recipeList"
-            :data="recipe"
+            :recipeData="recipe"
             :key="recipe.id"
         />
     </div>
 </template>
 <script>
 import RecipeCard from "@/components/recipe-card/RecipeCard.vue";
-import { getMockRecipeData } from "../../mock/RecipeData";
 export default {
     components: {
         RecipeCard,
     },
-    data() {
-        return {
-            recipeList: getMockRecipeData(),
-        };
+    props: {
+        recipeList: {
+            type: Array,
+            required: true,
+        },
     },
 };
 </script>

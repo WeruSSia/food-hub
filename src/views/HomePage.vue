@@ -1,13 +1,16 @@
 <template>
     <div class="home">
         <Carousel />
-        <CardsContainer />
+        <CardsContainer :recipe-list="randomRecipeList" />
     </div>
 </template>
 
 <script>
 import Carousel from "@/components/carousel/Carousel.vue";
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
+
+//TODO: Change this to get random recipe API call
+import { getMockRecipeList } from "../mock/RecipeData.js";
 
 export default {
     name: "HomePage",
@@ -16,7 +19,9 @@ export default {
         CardsContainer,
     },
     data() {
-        return {};
+        return {
+            randomRecipeList: getMockRecipeList(),
+        };
     },
 };
 </script>
