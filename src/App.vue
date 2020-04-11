@@ -1,6 +1,7 @@
 <template>
     <div id="app" style="min-height: 100%; position:relative">
-        <Header />
+        <Header v-if="!showSearchArea" />
+        <SearchArea v-else />
         <div class="view-wrapper">
             <router-view />
         </div>
@@ -10,11 +11,18 @@
 <script>
 // @ is an alias to /src
 import Header from "@/components/header/Header.vue";
+import SearchArea from "@/components/header/SearchArea.vue";
 import Footer from "@/components/footer/Footer.vue";
 export default {
     components: {
         Header,
+        SearchArea,
         Footer,
+    },
+    data() {
+        return {
+            showSearchArea: false,
+        };
     },
 };
 </script>

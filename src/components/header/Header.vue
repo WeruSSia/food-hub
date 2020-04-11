@@ -7,6 +7,28 @@
         <div id="items">
             <div id="search">
                 <input type="text" placeholder="Search for recipes" />
+                <div>
+                    <button class="button" @click="ingredientsSearch">
+                        <span>Ingredients</span>
+                    </button>
+                </div>
+                <div @click="searchRecipes">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="#555555"
+                        width="36px"
+                        height="36px"
+                    >
+                        <path
+                            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                        />
+                        <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                </div>
+            </div>
+
+            <div id="search-icon" class="icon" @click="ingredientsSearch">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -73,19 +95,6 @@
                 </svg>
             </div>
         </div>
-
-        <div id="menu-icon" class="menu" @click="makeResponsive">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="#555555"
-                width="36px"
-                height="36px"
-            >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-            </svg>
-        </div>
     </div>
 </template>
 <script>
@@ -98,6 +107,12 @@ export default {
     methods: {
         goToHomePage() {
             this.$router.push("/");
+        },
+        ingredientsSearch() {
+            this.$parent.$data.showSearchArea = true;
+        },
+        searchRecipes() {
+            this.$router.push("/results");
         },
         goToHistory() {
             //TODO router
@@ -153,6 +168,7 @@ export default {
 }
 
 .img-box:hover,
+#search div,
 #history-icon:hover,
 #favourites-icon:hover,
 .button:hover,
@@ -175,19 +191,18 @@ export default {
 }
 
 #items {
-    width: 76%;
+    width: 100%;
     height: 80px;
-    margin-left: auto;
+    margin-left: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #search {
-    width: 300px;
+    width: 500px;
     height: 50px;
     display: flex;
-    justify-content: center;
     align-items: center;
     border: 1px solid rgba(242, 242, 242, 1);
     border-radius: 14px;
@@ -196,9 +211,10 @@ export default {
 
 #search input {
     float: left;
-    width: 240px;
+    width: 315px;
     height: 35px;
     margin-left: 10px;
+    margin-right: 10px;
     font-size: 16px;
     font-family: "Poppins", sans-serif;
     border: none;
@@ -209,13 +225,27 @@ export default {
     outline: none;
 }
 
+#search .button {
+    width: 100px;
+    height: 35px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    color: white;
+    border: none;
+    background-color: #cccccc;
+}
+
 #search svg {
     float: right;
-    margin-right: 2%;
+    margin-right: 15px;
 }
 
 .icon {
     margin-right: 2%;
+}
+
+#search-icon {
+    display: none;
 }
 
 #history-icon {
@@ -226,6 +256,7 @@ export default {
     width: 96px;
     height: 44px;
     margin-right: 10px;
+    font-family: "Poppins", sans-serif;
     font-weight: bolder;
     color: #555555;
     border: 1px solid rgba(242, 242, 242, 1);
@@ -259,70 +290,22 @@ export default {
     right: 0;
 }
 
-.menu {
-    display: none;
-    -webkit-transition: -webkit-transform 0.1s ease-in-out;
-    -ms-transition: -ms-transform 0.1s ease-in-out;
-    transition: transform 0.1s ease-in-out;
-}
-
 /* RESPONSIVE VIEW */
 
-@media screen and (max-width: 780px) {
-    .header div#items {
+@media screen and (max-width: 960px) {
+    #search,
+    .button {
         display: none;
     }
-
-    .header div.menu {
+    #search-icon {
         display: block;
-        float: right;
-        position: relative;
         margin-left: auto;
-        margin-right: 4%;
     }
-
-    .header div.menu:hover {
-        cursor: pointer;
+    #history-icon {
+        margin-left: 0;
     }
 }
 
-@media screen and (max-width: 780px) {
-    .header.responsive {
-        position: relative;
-        align-items: flex-start;
-        height: 360px;
-        padding-top: 10px;
-    }
-    .header.responsive .menu {
-        right: 0;
-        margin-top: 10px;
-        float: left;
-        transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        -webkit-transform: rotate(90deg);
-    }
-    .header.responsive div#items {
-        display: block;
-        width: 100%;
-        height: 280px;
-        margin-top: 80px;
-        margin-left: -60px;
-    }
-    .header.responsive div#items #search {
-        width: 200px;
-    }
-    .header.responsive div#items #search input {
-        width: 140px;
-        font-size: 14px;
-    }
-    .header.responsive div#items #search,
-    .header.responsive div#items #history-icon,
-    .header.responsive div#items #favourites-icon,
-    .header.responsive div#items .button,
-    .header.responsive div#items #profile-icon {
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 6px;
-    }
+@media screen and (max-width: 960px) {
 }
 </style>
