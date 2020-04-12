@@ -16,15 +16,39 @@
                 </svg>
                 <input type="text" class="input" placeholder="Keywords" />
             </div>
-            <div class="ingredients">
+            <div id="includes" class="ingredients">
                 <div class="ingredients-container">
                     <input
                         type="text"
                         class="input"
                         placeholder="Include ingredients"
+                        v-model="include"
                     />
+                    <div id="includedContainer">
+                        <div
+                            class="added"
+                            v-for="(item, index) in includings"
+                            :key="index"
+                        >
+                            {{ item }}
+                            <div @click="removeFromIncludings(index)">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="#555555"
+                                    width="16px"
+                                    height="16px"
+                                >
+                                    <path
+                                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                                    />
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="add">
+                <div class="add" @click="addIncluding">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -43,9 +67,10 @@
                         type="text"
                         class="input"
                         placeholder="Exclude ingredients"
+                        v-model="exclude"
                     />
                 </div>
-                <div class="add">
+                <div class="add" @click="addExcluding">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -84,14 +109,76 @@
 export default {
     data() {
         return {
-            //
+            include: "",
+            includings: [],
+            exclude: "",
+            excludings: [],
         };
     },
     methods: {
+        addIncluding() {
+            var a = document.getElementById("includedContainer");
+            var b = document.getElementById("header");
+            var c = document.getElementsByClassName("ingredients")[0];
+            var e = b.offsetHeight + 31;
+            var f = c.offsetHeight + 28;
+            var g = document.getElementById("items");
+            var h = document.getElementsByClassName("button")[0];
+            var i = document.getElementsByClassName("add")[0];
+
+            a.style.display = "inline-block";
+
+            b.style.height = e + "px";
+            c.style.height = f + "px";
+
+            c.style.alignItems = "flex-start";
+            g.style.alignItems = "flex-start";
+            g.style.paddingTop = "14px";
+
+            h.style.marginTop = "4px";
+
+            i.style.borderRadius = "0 14px 0 14px";
+
+            this.includings.push(this.include);
+            this.include = "";
+
+            console.log(c.offsetHeight);
+        },
+
+        removeFromIncludings(index) {
+            var a = document.getElementById("includedContainer");
+            var b = document.getElementById("header");
+            var c = document.getElementsByClassName("ingredients")[0];
+            var e = b.offsetHeight - 31;
+            var f = c.offsetHeight - 32;
+            var i = document.getElementsByClassName("add")[0];
+
+            console.log(c.offsetHeight);
+
+            if (c.offsetHeight === 82) {
+                a.style.display = "flex";
+                b.style.height = e + "px";
+                c.style.height = f + "px";
+                c.style.alignItems = "center";
+                i.style.borderRadius = "0 14px 14px 0";
+            } else if (c.offsetHeight > 82) {
+                b.style.height = e + "px";
+                c.style.height = f + "px";
+            }
+
+            this.includings.splice(index, 1);
+        },
+
+        addExcluding() {
+            this.excludings.push(this.exclude);
+            this.exclude = "";
+        },
+
         searchRecipes() {
             this.$router.push("/results");
             this.$parent.$data.showSearchArea = false;
         },
+
         close() {
             this.$parent.$data.showSearchArea = false;
         },
@@ -113,7 +200,7 @@ export default {
 
 #items {
     width: 100%;
-    height: 80px;
+    height: 100%;
     display: flex;
     margin-top: auto;
     margin-bottom: auto;
@@ -167,10 +254,43 @@ export default {
 }
 
 .ingredients-container {
+    display: inline-block;
     width: 80%;
-    height: 40px;
+    height: auto;
     margin-left: 10px;
     padding-top: 3px;
+}
+
+.ingredients-container .input {
+    width: 90%;
+    height: 20px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border-bottom: 2px solid rgba(242, 242, 242, 1);
+}
+
+#includedContainer {
+    display: none;
+    width: 100%;
+}
+
+.added {
+    display: flex;
+    width: 100%;
+    height: 25px;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    border-radius: 14px;
+    background-color: #eeeeee;
+}
+
+.added div {
+    margin-top: 5px;
+    margin-left: 10px;
 }
 
 .add {
@@ -203,7 +323,8 @@ export default {
 
 .button:hover,
 .add:hover,
-.icon:hover {
+.icon:hover,
+.added div:hover {
     cursor: pointer;
 }
 
