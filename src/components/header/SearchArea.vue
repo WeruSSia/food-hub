@@ -244,25 +244,9 @@ export default {
 
 /* RESPONSIVE VIEW */
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 960px) {
     .header #items {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 780px) {
-    .header.responsive {
-        position: relative;
-        align-items: flex-start;
-        height: 360px;
-        padding-top: 10px;
-    }
-    .header.responsive #items {
-        display: block;
-        width: 100%;
-        height: 280px;
-        margin-top: 80px;
-        margin-left: -60px;
+        width: 98%;
     }
 }
 </style>

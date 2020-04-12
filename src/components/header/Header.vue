@@ -1,10 +1,17 @@
 <template>
     <div id="header" class="header">
-        <div class="img-box" @click="goToHomePage">
+        <!-- <div class="img-box" @click="goToHomePage">
             <img src="../../assets/food-hub-logo.png" width="70" height="56" />
-        </div>
+        </div> -->
 
         <div id="items">
+            <div class="img-box" @click="goToHomePage">
+                <img
+                    src="../../assets/food-hub-logo.png"
+                    width="70"
+                    height="56"
+                />
+            </div>
             <div id="search">
                 <input type="text" placeholder="Search for recipes" />
                 <div>
@@ -28,7 +35,7 @@
                 </div>
             </div>
 
-            <div id="search-icon" class="icon" @click="ingredientsSearch">
+            <div id="search-icon" @click="toggleResponsive">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -95,6 +102,70 @@
                 </svg>
             </div>
         </div>
+        <div id="responsiveSearch">
+            <div id="keywords">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="#555555"
+                    width="36px"
+                    height="36px"
+                >
+                    <path
+                        d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                    />
+                    <path d="M0 0h24v24H0z" fill="none" />
+                </svg>
+                <input type="text" class="input" placeholder="Keywords" />
+            </div>
+            <div class="ingredients">
+                <div class="ingredients-container">
+                    <input
+                        type="text"
+                        class="input"
+                        placeholder="Include ingredients"
+                    />
+                </div>
+                <div class="add">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        width="30px"
+                        height="30px"
+                    >
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                        <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                </div>
+            </div>
+            <div class="ingredients">
+                <div class="ingredients-container">
+                    <input
+                        type="text"
+                        class="input"
+                        placeholder="Exclude ingredients"
+                    />
+                </div>
+                <div class="add">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        width="30px"
+                        height="30px"
+                    >
+                        <path d="M19 13H5v-2h14v2z" />
+                        <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                </div>
+            </div>
+            <div id="searchButton">
+                <button class="button" @click="searchRecipes">
+                    <span>SEARCH</span>
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -107,19 +178,23 @@ export default {
     methods: {
         goToHomePage() {
             this.$router.push("/");
+            this.clearResponsive();
         },
         ingredientsSearch() {
             this.$parent.$data.showSearchArea = true;
         },
         searchRecipes() {
             this.$router.push("/results");
+            this.clearResponsive();
         },
         goToHistory() {
             //TODO router
             // this.$router.push("/history");
+            // this.clearResponsive();
         },
         goToFavourites() {
             this.$router.push("/favourites");
+            this.clearResponsive();
         },
         goToSignIn() {
             //TODO router
@@ -128,13 +203,25 @@ export default {
         goToProfile() {
             //TODO router
             // this.$router.push("/profile");
+            // this.clearResponsive();
         },
-        makeResponsive() {
+        toggleResponsive() {
             var x = document.getElementById("header");
+            var y = document.getElementById("search-icon");
             if (x.className === "header") {
                 x.className += " responsive";
+                y.style.backgroundColor = "#f9f9f9";
             } else {
                 x.className = "header";
+                y.style.backgroundColor = "";
+            }
+        },
+        clearResponsive() {
+            var x = document.getElementById("header");
+            var y = document.getElementById("search-icon");
+            if (x.className !== "header") {
+                x.className = "header";
+                y.style.backgroundColor = "";
             }
         },
     },
@@ -168,7 +255,7 @@ export default {
 }
 
 .img-box:hover,
-#search div,
+#search-icon:hover,
 #history-icon:hover,
 #favourites-icon:hover,
 .button:hover,
@@ -182,28 +269,20 @@ export default {
     transform: translateY(2px);
 }
 
-#history-icon:active,
-#favourites-icon:active,
-#profile-icon:active {
-    border-radius: 10px;
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.17);
-    transform: translateY(2px);
-}
-
 #items {
     width: 100%;
     height: 80px;
-    margin-left: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #search {
-    width: 500px;
+    width: 470px;
     height: 50px;
     display: flex;
     align-items: center;
+    margin-left: 20px;
     border: 1px solid rgba(242, 242, 242, 1);
     border-radius: 14px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
@@ -241,6 +320,7 @@ export default {
 }
 
 .icon {
+    margin-top: 7px;
     margin-right: 2%;
 }
 
@@ -290,16 +370,120 @@ export default {
     right: 0;
 }
 
+/* HIDDEN SEARCH */
+
+#responsiveSearch {
+    display: none;
+    padding-top: 20px;
+}
+
+#keywords {
+    width: 96%;
+    height: 50px;
+    display: flex;
+    margin-left: 2%;
+    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(242, 242, 242, 1);
+    border-radius: 14px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+    background-color: white;
+}
+
+#keywords svg {
+    float: right;
+    margin-left: 2%;
+}
+
+.input:focus,
+.add:focus {
+    outline: none;
+}
+
+#responsiveSearch .input {
+    float: left;
+    width: 90%;
+    height: 35px;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    border: none;
+}
+
+.ingredients {
+    width: 96%;
+    height: 50px;
+    display: flex;
+    margin-left: 2%;
+    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(242, 242, 242, 1);
+    border-radius: 14px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+    background-color: white;
+}
+
+.ingredients-container {
+    width: 80%;
+    height: 40px;
+    margin-left: 10px;
+    padding-top: 3px;
+    background-color: white;
+}
+
+.add {
+    width: 40px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: -1px;
+    border-radius: 0 14px 14px 0;
+    background-color: #cccccc;
+}
+
+#responsiveSearch #searchButton {
+    width: 96%;
+    height: 44px;
+}
+
+#responsiveSearch .button {
+    width: 96px;
+    height: 44px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    border: 0;
+    border-radius: 9px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+    background-color: #ea0a2a;
+}
+
+.add:hover {
+    cursor: pointer;
+}
+
 /* RESPONSIVE VIEW */
 
 @media screen and (max-width: 960px) {
+    .img-box {
+        margin-right: 10px;
+    }
     #search,
-    .button {
+    #items .button {
         display: none;
     }
     #search-icon {
         display: block;
+        height: 100%;
+        margin-top: 47px;
         margin-left: auto;
+        margin-right: 10px;
+        padding: 5px;
+        border-radius: 10px;
     }
     #history-icon {
         margin-left: 0;
@@ -307,5 +491,21 @@ export default {
 }
 
 @media screen and (max-width: 960px) {
+    .header.responsive {
+        display: inline-block;
+        height: 360px;
+        align-items: flex-start;
+    }
+    .header.responsive #items {
+        width: 100%;
+        margin-left: auto;
+    }
+    .header.responsive #responsiveSearch {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 260px;
+        background-color: #f9f9f9;
+    }
 }
 </style>
