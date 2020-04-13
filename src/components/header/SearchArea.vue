@@ -24,14 +24,21 @@
                         placeholder="Include ingredients"
                         v-model="include"
                     />
-                    <div id="includedContainer">
+                    <div class="includedExcludedContainer">
                         <div
                             class="added"
                             v-for="(item, index) in includings"
                             :key="index"
                         >
                             {{ item }}
-                            <div @click="removeFromIncludings(index)">
+                            <div
+                                @click="
+                                    removeFromIncludingsExcludings(
+                                        'include',
+                                        index
+                                    )
+                                "
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -48,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="add" @click="addIncluding">
+                <div class="add" @click="addIncludingExcluding('include')">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -69,8 +76,38 @@
                         placeholder="Exclude ingredients"
                         v-model="exclude"
                     />
+                    <div class="includedExcludedContainer">
+                        <div
+                            class="added"
+                            v-for="(item, index) in excludings"
+                            :key="index"
+                        >
+                            {{ item }}
+                            <div
+                                @click="
+                                    removeFromIncludingsExcludings(
+                                        'exclude',
+                                        index
+                                    )
+                                "
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="#555555"
+                                    width="16px"
+                                    height="16px"
+                                >
+                                    <path
+                                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                                    />
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="add" @click="addExcluding">
+                <div class="add" @click="addIncludingExcluding('exclude')">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -116,62 +153,114 @@ export default {
         };
     },
     methods: {
-        addIncluding() {
-            var a = document.getElementById("includedContainer");
-            var b = document.getElementById("header");
-            var c = document.getElementsByClassName("ingredients")[0];
-            var e = b.offsetHeight + 31;
-            var f = c.offsetHeight + 28;
-            var g = document.getElementById("items");
-            var h = document.getElementsByClassName("button")[0];
-            var i = document.getElementsByClassName("add")[0];
+        addIncludingExcluding(includeExclude) {
+            var header = document.getElementById("header");
+            var items = document.getElementById("items");
+            var button = document.getElementsByClassName("button")[0];
 
-            a.style.display = "inline-block";
-
-            b.style.height = e + "px";
-            c.style.height = f + "px";
-
-            c.style.alignItems = "flex-start";
-            g.style.alignItems = "flex-start";
-            g.style.paddingTop = "14px";
-
-            h.style.marginTop = "4px";
-
-            i.style.borderRadius = "0 14px 0 14px";
-
-            this.includings.push(this.include);
-            this.include = "";
-
-            console.log(c.offsetHeight);
-        },
-
-        removeFromIncludings(index) {
-            var a = document.getElementById("includedContainer");
-            var b = document.getElementById("header");
-            var c = document.getElementsByClassName("ingredients")[0];
-            var e = b.offsetHeight - 31;
-            var f = c.offsetHeight - 32;
-            var i = document.getElementsByClassName("add")[0];
-
-            console.log(c.offsetHeight);
-
-            if (c.offsetHeight === 82) {
-                a.style.display = "flex";
-                b.style.height = e + "px";
-                c.style.height = f + "px";
-                c.style.alignItems = "center";
-                i.style.borderRadius = "0 14px 14px 0";
-            } else if (c.offsetHeight > 82) {
-                b.style.height = e + "px";
-                c.style.height = f + "px";
+            var container;
+            var ingredients;
+            var add;
+            if (includeExclude === "include") {
+                container = document.getElementsByClassName(
+                    "includedExcludedContainer"
+                )[0];
+                ingredients = document.getElementsByClassName("ingredients")[0];
+                add = document.getElementsByClassName("add")[0];
+            } else {
+                container = document.getElementsByClassName(
+                    "includedExcludedContainer"
+                )[1];
+                ingredients = document.getElementsByClassName("ingredients")[1];
+                add = document.getElementsByClassName("add")[1];
             }
 
-            this.includings.splice(index, 1);
+            var headerHeight = header.offsetHeight + 30;
+            var ingredientsHeight = ingredients.offsetHeight + 28;
+
+            container.style.display = "inline-block";
+
+            if (header.offsetHeight - ingredients.offsetHeight === 28) {
+                header.style.height = headerHeight + "px";
+            }
+
+            ingredients.style.height = ingredientsHeight + "px";
+
+            ingredients.style.alignItems = "flex-start";
+            items.style.alignItems = "flex-start";
+            items.style.paddingTop = "14px";
+
+            button.style.marginTop = "4px";
+
+            add.style.borderRadius = "0 14px 0 14px";
+
+            if (includeExclude === "include") {
+                this.includings.push(this.include);
+                this.include = "";
+            } else {
+                this.excludings.push(this.exclude);
+                this.exclude = "";
+            }
         },
 
-        addExcluding() {
-            this.excludings.push(this.exclude);
-            this.exclude = "";
+        removeFromIncludingsExcludings(includeExclude, index) {
+            var header = document.getElementById("header");
+
+            var container;
+            var ingredients;
+            var ingredientsOther;
+            var add;
+            if (includeExclude === "include") {
+                container = document.getElementsByClassName(
+                    "includedExcludedContainer"
+                )[0];
+                ingredients = document.getElementsByClassName("ingredients")[0];
+                ingredientsOther = document.getElementsByClassName(
+                    "ingredients"
+                )[1];
+                add = document.getElementsByClassName("add")[0];
+            } else {
+                container = document.getElementsByClassName(
+                    "includedExcludedContainer"
+                )[1];
+                ingredients = document.getElementsByClassName("ingredients")[1];
+                ingredientsOther = document.getElementsByClassName(
+                    "ingredients"
+                )[0];
+                add = document.getElementsByClassName("add")[1];
+            }
+
+            var headerHeight = header.offsetHeight - 30;
+            var ingredientsHeight = ingredients.offsetHeight - 32;
+
+            if (ingredients.offsetHeight === 82) {
+                container.style.display = "flex";
+                if (
+                    header.offsetHeight - ingredients.offsetHeight === 28 &&
+                    ingredients.offsetHeight - ingredientsOther.offsetHeight !==
+                        0
+                ) {
+                    header.style.height = headerHeight + "px";
+                }
+                ingredients.style.height = ingredientsHeight + "px";
+                ingredients.style.alignItems = "center";
+                add.style.borderRadius = "0 14px 14px 0";
+            } else if (ingredients.offsetHeight > 82) {
+                if (
+                    header.offsetHeight - ingredients.offsetHeight === 28 &&
+                    ingredients.offsetHeight - ingredientsOther.offsetHeight !==
+                        0
+                ) {
+                    header.style.height = headerHeight + "px";
+                }
+                ingredients.style.height = ingredientsHeight + "px";
+            }
+
+            if (includeExclude === "include") {
+                this.includings.splice(index, 1);
+            } else {
+                this.excludings.splice(index, 1);
+            }
         },
 
         searchRecipes() {
@@ -269,7 +358,7 @@ export default {
     border-bottom: 2px solid rgba(242, 242, 242, 1);
 }
 
-#includedContainer {
+.includedExcludedContainer {
     display: none;
     width: 100%;
 }
