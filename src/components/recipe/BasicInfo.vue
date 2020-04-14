@@ -1,11 +1,13 @@
 <template>
 	<div>
 		<div class="header">
-			<div class="recipe-name">Fluffy pancakes</div>
+			<div class="recipe-name">{{ recipe.title }}</div>
 			<div class="recipe-info">
-				<div class="preparation-time">25 mins</div>
-				<div class="servings">4 servings</div>
-				<div class="calories">230 cals</div>
+				<div class="preparation-time">
+					{{ recipe.readyInMinutes }} mins
+				</div>
+				<div class="servings">{{ recipe.servings }} servings</div>
+				<div class="calories">{{ calories }} cals</div>
 			</div>
 		</div>
 		<div class="gallery"></div>
@@ -14,7 +16,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+	props: {
+		recipe: {
+			type: Object,
+			required: true,
+		},
+	},
+	computed: {
+		calories() {
+			return this.recipe.nutrition.nutrients[0].amount.toFixed(0);
+		},
+	},
+};
 </script>
  
 <style scoped>
