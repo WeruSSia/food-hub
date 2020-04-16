@@ -1,13 +1,17 @@
 <template>
     <div class="home">
-        <Carousel v-if="!searchStarted" />
-        <CardsContainer v-else />
+        <Carousel />
+        <CardsContainer :recipe-list="randomRecipeList" />
     </div>
 </template>
 
 <script>
 import Carousel from "@/components/carousel/Carousel.vue";
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
+
+//TODO: Change this to get random recipe API call
+import { getMockRecipeList } from "../mock/RecipeData.js";
+
 export default {
     name: "HomePage",
     components: {
@@ -16,14 +20,15 @@ export default {
     },
     data() {
         return {
-            searchStarted: false,
+            randomRecipeList: getMockRecipeList(),
         };
     },
 };
 </script>
 <style scoped>
 .home {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    row-gap: 20px;
+    margin-bottom: 20px;
 }
 </style>
