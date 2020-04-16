@@ -54,8 +54,9 @@
 			</div>
 			<div class="action-bar-div">
 				<div class="action-bar">
-					<div class="favourite-icon">
+					<div class="favourite-icon" @click="addToFavourites">
 						<svg
+							class="clickable-svg"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="#D9001B"
@@ -68,8 +69,9 @@
 							/>
 						</svg>
 					</div>
-					<div class="printer-icon">
+					<div class="printer-icon" @click="printRecipe">
 						<svg
+							class="clickable-svg"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="#555555"
@@ -82,8 +84,9 @@
 							<path d="M0 0h24v24H0z" fill="none" />
 						</svg>
 					</div>
-					<div class="share-icon">
+					<div class="share-icon" @click="shareRecipe">
 						<svg
+							class="clickable-svg"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="#555555"
@@ -96,8 +99,10 @@
 							/>
 						</svg>
 					</div>
-					<div class="facebook-icon">
+					<div id="snackbar">Link copied to clipboard</div>
+					<div class="facebook-icon" @click="shareOnFacebook">
 						<svg
+							class="clickable-svg"
 							xmlns:dc="http://purl.org/dc/elements/1.1/"
 							xmlns:cc="http://creativecommons.org/ns#"
 							xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -146,8 +151,9 @@
 							</g>
 						</svg>
 					</div>
-					<div class="pinterest-icon">
+					<div class="pinterest-icon" @click="shareOnPinterest">
 						<svg
+							class="clickable-svg"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 333333 333333"
 							shape-rendering="geometricPrecision"
@@ -183,6 +189,29 @@ export default {
 			return this.recipe.nutrition.nutrients[0].amount.toFixed(0);
 		},
 	},
+	methods: {
+		addToFavourites() {
+			//TODO addToFavourites(recipe.id);
+		},
+		printRecipe() {
+			window.print();
+		},
+		shareRecipe() {
+			const input = document.createElement("input");
+			input.setAttribute("value", window.location.href);
+			document.body.appendChild(input);
+			input.select();
+			document.execCommand("copy");
+			document.body.removeChild(input);
+			const snackbar = document.getElementById("snackbar");
+			snackbar.className = "show";
+			setTimeout(function() {
+				snackbar.className = snackbar.className.replace("show", "");
+			}, 3000);
+		},
+		shareOnFacebook() {},
+		shareOnPinterest() {},
+	},
 };
 </script>
 <style scoped>
@@ -199,7 +228,7 @@ export default {
 }
 
 .gallery {
-	width: 80%;
+	width: 70%;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -216,6 +245,7 @@ export default {
 	width: 60px;
 	box-shadow: 3px 3px 10px rgb(236, 236, 236);
 	background-color: white;
+	margin-left: 20px;
 }
 
 .favourite-icon,
@@ -247,12 +277,10 @@ export default {
 }
 
 .servings,
-.preparation-time {
-	float: right;
-	padding-right: 20px;
-}
+.preparation-time,
 .calories {
 	float: right;
+	padding-right: 20px;
 }
 
 .recipe-name {
@@ -279,7 +307,76 @@ svg {
 	filter: drop-shadow(3px 3px 5px #b1b1b1);
 }
 
+.clickable-svg {
+	cursor: pointer;
+}
+
 span {
 	color: #555555;
+}
+
+#snackbar {
+	visibility: hidden;
+	min-width: 250px;
+	margin-left: -125px;
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	bottom: 30px;
+}
+
+#snackbar.show {
+	visibility: visible;
+	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
 }
 </style>
