@@ -100,75 +100,79 @@
 						</svg>
 					</div>
 					<div id="snackbar">Link copied to clipboard</div>
-					<div class="facebook-icon" @click="shareOnFacebook">
-						<svg
-							class="clickable-svg"
-							xmlns:dc="http://purl.org/dc/elements/1.1/"
-							xmlns:cc="http://creativecommons.org/ns#"
-							xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-							xmlns:svg="http://www.w3.org/2000/svg"
-							xmlns="http://www.w3.org/2000/svg"
-							version="1.1"
-							id="svg4730"
-							viewBox="0 0 300 300.00223"
-							height="36"
-							width="36"
-						>
-							<g
-								transform="translate(-33.466291,-429.48076)"
-								id="layer1"
+					<div class="facebook-icon">
+						<a :href="facebookLink" target="_blank"
+							><svg
+								class="clickable-svg"
+								xmlns:dc="http://purl.org/dc/elements/1.1/"
+								xmlns:cc="http://creativecommons.org/ns#"
+								xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+								xmlns:svg="http://www.w3.org/2000/svg"
+								xmlns="http://www.w3.org/2000/svg"
+								version="1.1"
+								id="svg4730"
+								viewBox="0 0 300 300.00223"
+								height="36"
+								width="36"
 							>
 								<g
-									transform="matrix(1.1165523,0,0,-1.1165523,-103.48743,863.08638)"
-									id="g4670"
+									transform="translate(-33.466291,-429.48076)"
+									id="layer1"
 								>
 									<g
-										id="g4672"
-										clip-path="url(#clipPath4674)"
+										transform="matrix(1.1165523,0,0,-1.1165523,-103.48743,863.08638)"
+										id="g4670"
 									>
 										<g
-											id="g4678"
-											transform="translate(375.7163,120.5527)"
+											id="g4672"
+											clip-path="url(#clipPath4674)"
 										>
-											<path
-												d="m 0,0 c 8.134,0 14.73,6.596 14.73,14.73 l 0,237.434 c 0,8.137 -6.596,14.731 -14.73,14.731 l -237.433,0 c -8.137,0 -14.73,-6.594 -14.73,-14.731 l 0,-237.434 c 0,-8.134 6.593,-14.73 14.73,-14.73 L 0,0 Z"
-												style="fill:#3b5998;fill-opacity:1;fill-rule:nonzero;stroke:none"
-												id="path4680"
-											/>
-										</g>
-										<g
-											id="g4682"
-											transform="translate(307.7046,120.5527)"
-										>
-											<path
-												d="m 0,0 0,103.355 34.693,0 5.194,40.28 -39.887,0 0,25.717 c 0,11.662 3.238,19.609 19.962,19.609 l 21.33,0.01 0,36.026 c -3.69,0.49 -16.351,1.587 -31.081,1.587 -30.753,0 -51.806,-18.771 -51.806,-53.244 l 0,-29.705 -34.781,0 0,-40.28 34.781,0 L -41.595,0 0,0 Z"
-												style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-												id="path4684"
-											/>
+											<g
+												id="g4678"
+												transform="translate(375.7163,120.5527)"
+											>
+												<path
+													d="m 0,0 c 8.134,0 14.73,6.596 14.73,14.73 l 0,237.434 c 0,8.137 -6.596,14.731 -14.73,14.731 l -237.433,0 c -8.137,0 -14.73,-6.594 -14.73,-14.731 l 0,-237.434 c 0,-8.134 6.593,-14.73 14.73,-14.73 L 0,0 Z"
+													style="fill:#3b5998;fill-opacity:1;fill-rule:nonzero;stroke:none"
+													id="path4680"
+												/>
+											</g>
+											<g
+												id="g4682"
+												transform="translate(307.7046,120.5527)"
+											>
+												<path
+													d="m 0,0 0,103.355 34.693,0 5.194,40.28 -39.887,0 0,25.717 c 0,11.662 3.238,19.609 19.962,19.609 l 21.33,0.01 0,36.026 c -3.69,0.49 -16.351,1.587 -31.081,1.587 -30.753,0 -51.806,-18.771 -51.806,-53.244 l 0,-29.705 -34.781,0 0,-40.28 34.781,0 L -41.595,0 0,0 Z"
+													style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+													id="path4684"
+												/>
+											</g>
 										</g>
 									</g>
 								</g>
-							</g>
-						</svg>
+							</svg>
+						</a>
 					</div>
-					<div class="pinterest-icon" @click="shareOnPinterest">
-						<svg
-							class="clickable-svg"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 333333 333333"
-							shape-rendering="geometricPrecision"
-							text-rendering="geometricPrecision"
-							image-rendering="optimizeQuality"
-							fill-rule="evenodd"
-							clip-rule="evenodd"
-							height="36"
-							width="36"
-						>
-							<path
-								d="M302077 0H31255C14069 0 1 14068 1 31256v270822c0 17186 14068 31254 31254 31254h270822c17186 0 31254-14068 31254-31254l2-270824C333333 14068 319265 0 302079 0h-2zM116280 282807c12893-11499 21743-27876 26064-44672 1743-6620 8851-33730 8851-33730 4600 8851 18190 16308 32476 16308 42791 0 73594-39306 73594-88300 0-46902-38261-81957-87463-81957-61259 0-93735 41119-93735 85860 0 20768 11081 46693 28783 54917 2648 1324 4111 697 4739-1951 418-2021 2857-11569 3972-16099 348-1394 209-2718-976-4111-5854-7109-10593-20210-10593-32337 0-31291 23695-61607 64047-61607 34846 0 59238 23695 59238 57705 0 38400-19374 65023-44603 65023-13939 0-24393-11500-20977-25646 4042-16865 11778-35056 11778-47182 0-10872-5784-19931-17981-19931-14287 0-25646 14705-25646 34498 0 12544 4182 21047 4182 21047s-14078 59447-16656 70528c-2857 12266-1743 29480-488 40700l1254 11011 140-70z"
-								fill="#bd081c"
-							/>
-						</svg>
+					<div class="pinterest-icon">
+						<a :href="pinterestLink" target="_blank">
+							<svg
+								class="clickable-svg"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 333333 333333"
+								shape-rendering="geometricPrecision"
+								text-rendering="geometricPrecision"
+								image-rendering="optimizeQuality"
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								height="36"
+								width="36"
+							>
+								<path
+									d="M302077 0H31255C14069 0 1 14068 1 31256v270822c0 17186 14068 31254 31254 31254h270822c17186 0 31254-14068 31254-31254l2-270824C333333 14068 319265 0 302079 0h-2zM116280 282807c12893-11499 21743-27876 26064-44672 1743-6620 8851-33730 8851-33730 4600 8851 18190 16308 32476 16308 42791 0 73594-39306 73594-88300 0-46902-38261-81957-87463-81957-61259 0-93735 41119-93735 85860 0 20768 11081 46693 28783 54917 2648 1324 4111 697 4739-1951 418-2021 2857-11569 3972-16099 348-1394 209-2718-976-4111-5854-7109-10593-20210-10593-32337 0-31291 23695-61607 64047-61607 34846 0 59238 23695 59238 57705 0 38400-19374 65023-44603 65023-13939 0-24393-11500-20977-25646 4042-16865 11778-35056 11778-47182 0-10872-5784-19931-17981-19931-14287 0-25646 14705-25646 34498 0 12544 4182 21047 4182 21047s-14078 59447-16656 70528c-2857 12266-1743 29480-488 40700l1254 11011 140-70z"
+									fill="#bd081c"
+								/>
+							</svg>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -188,10 +192,24 @@ export default {
 		calories() {
 			return this.recipe.nutrition.nutrients[0].amount.toFixed(0);
 		},
+		facebookLink() {
+			return (
+				"https://www.facebook.com/sharer/sharer.php?u=" +
+				window.location.href
+			);
+		},
+		pinterestLink() {
+			return (
+				"http://pinterest.com/pin/create/button/?url=" +
+				window.location.href +
+				"&media=" +
+				this.recipe.image
+			);
+		},
 	},
 	methods: {
 		addToFavourites() {
-			//TODO addToFavourites(recipe.id);
+			//TODO addToFavourites(this.recipe.id);
 		},
 		printRecipe() {
 			window.print();
@@ -209,8 +227,6 @@ export default {
 				snackbar.className = snackbar.className.replace("show", "");
 			}, 3000);
 		},
-		shareOnFacebook() {},
-		shareOnPinterest() {},
 	},
 };
 </script>
