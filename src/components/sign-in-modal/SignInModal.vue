@@ -145,7 +145,7 @@ export default {
 	},
 	beforeDestroy() {
 		this.clearData();
-		document.body.style.overflowY = "";
+		document.body.style.overflowY = "overlay";
 		document.removeEventListener("keydown", this.handleEscapeClickedEvent);
 	},
 	methods: {
