@@ -1,52 +1,61 @@
 <template>
-    <div id="app" style="min-height: 100%; position:relative">
-        <Header v-if="!showSearchArea" />
-        <SearchArea v-else />
-        <div class="view-wrapper">
-            <router-view />
-        </div>
-        <Footer />
-    </div>
+	<div id="app" style="min-height: 100%; position:relative">
+		<Header v-if="!showSearchArea" @showSignInModal="onShowSignInModal" />
+		<SearchArea v-else />
+		<div class="view-wrapper">
+			<router-view />
+		</div>
+		<Footer />
+		<SignInModal :is-sign-in-modal-visible.sync="isSignInModalVisible" />
+	</div>
 </template>
 <script>
 // @ is an alias to /src
 import Header from "@/components/header/Header.vue";
 import SearchArea from "@/components/header/SearchArea.vue";
 import Footer from "@/components/footer/Footer.vue";
+import SignInModal from "@/components/sign-in-modal/SignInModal.vue";
 export default {
-    components: {
-        Header,
-        SearchArea,
-        Footer,
-    },
-    data() {
-        return {
-            showSearchArea: false,
-        };
-    },
+	components: {
+		Header,
+		SearchArea,
+		Footer,
+		SignInModal,
+	},
+	data() {
+		return {
+			showSearchArea: false,
+			isSignInModalVisible: false,
+		};
+	},
+	methods: {
+		onShowSignInModal() {
+			this.isSignInModalVisible = true;
+		},
+	},
 };
 </script>
 
 <style>
 #app {
-    width: 960px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: "Poppins", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    background-color: white;
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: "Poppins", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	background-color: white;
 }
 .view-wrapper {
-    position: relative;
-    padding-bottom: 80px;
+	position: relative;
+	padding-bottom: 80px;
 }
 
 @media screen and (max-width: 960px) {
-    #app {
-        width: 100%;
-    }
+	#app {
+		width: 100%;
+	}
 }
 </style>
