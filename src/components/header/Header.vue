@@ -1,9 +1,5 @@
 <template>
     <div id="header" class="header">
-        <!-- <div class="img-box" @click="goToHomePage">
-            <img src="../../assets/food-hub-logo.png" width="70" height="56" />
-        </div> -->
-
         <div id="items">
             <div class="img-box" @click="goToHomePage">
                 <img
@@ -13,13 +9,17 @@
                 />
             </div>
             <div id="search">
-                <input type="text" placeholder="Search for recipes" />
+                <input
+                    type="text"
+                    placeholder="Search for recipes"
+                    v-model="query"
+                />
                 <div>
                     <button class="button" @click="toggleSearchArea">
                         <span>Ingredients</span>
                     </button>
                 </div>
-                <div @click="searchRecipes">
+                <div id="searchSvg" @click="searchRecipes">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -118,7 +118,12 @@
                     />
                     <path d="M0 0h24v24H0z" fill="none" />
                 </svg>
-                <input type="text" class="input" placeholder="Keywords" />
+                <input
+                    type="text"
+                    class="input"
+                    placeholder="Keywords"
+                    v-model="keywords"
+                />
             </div>
             <div class="ingredients">
                 <div class="ingredients-container">
@@ -211,7 +216,7 @@
                 </div>
             </div>
             <div>
-                <button class="button" @click="searchRecipes">
+                <button class="button" @click="searchByIngredients">
                     <span>SEARCH</span>
                 </button>
             </div>
@@ -246,7 +251,12 @@
                     />
                     <path d="M0 0h24v24H0z" fill="none" />
                 </svg>
-                <input type="text" class="input" placeholder="Keywords" />
+                <input
+                    type="text"
+                    class="input"
+                    placeholder="Keywords"
+                    v-model="keywords"
+                />
             </div>
             <div class="ingredients">
                 <div class="ingredients-container">
@@ -343,7 +353,7 @@
                 </div>
             </div>
             <div id="searchButton">
-                <button class="button" @click="searchRecipes">
+                <button class="button" @click="searchByIngredients">
                     <span>SEARCH</span>
                 </button>
             </div>
@@ -351,13 +361,27 @@
     </div>
 </template>
 <script>
+//TODO: Change these two to get recipe API calls
+import { getMockResultsByName } from "../../mock/RecipeData.js";
+import { getMockSearchRecipesComplex } from "../../mock/RecipeData.js";
+
+import store from "../../store/index.js";
+
 export default {
     data() {
         return {
+            query: "",
+            keywords: "",
             include: "",
             includings: [],
             exclude: "",
             excludings: [],
+            searchData: {
+                queryString: "",
+                includes: [],
+                excludes: [],
+                number: 0,
+            },
         };
     },
     methods: {
@@ -367,6 +391,12 @@ export default {
         },
         searchRecipes() {
             this.$router.push("/results");
+            this.setQuery();
+            this.clearHeader();
+        },
+        searchByIngredients() {
+            this.$router.push("/results");
+            this.setIngredients();
             this.clearHeader();
         },
         goToHistory() {
@@ -387,6 +417,43 @@ export default {
             //TODO router
             // this.$router.push("/profile");
             // this.clearHeader();
+        },
+
+        setQuery() {
+            let query = this.query;
+            let number = 10;
+
+            this.setSearchData(query, null, null, number);
+
+            store.commit(
+                "setSearchResult",
+                getMockResultsByName(query, number)
+            );
+
+            store.commit("setSearchData", this.searchData);
+        },
+
+        setIngredients() {
+            let query = this.keywords;
+            let include = this.includings.join();
+            let exclude = this.excludings.join();
+            let number = 10;
+
+            this.setSearchData(query, this.includings, this.excludings, number);
+
+            store.commit(
+                "setSearchResult",
+                getMockSearchRecipesComplex(query, include, exclude, number)
+            );
+
+            store.commit("setSearchData", this.searchData);
+        },
+
+        setSearchData(query, include, exclude, number) {
+            this.searchData.queryString = query;
+            this.searchData.includes = include;
+            this.searchData.excludes = exclude;
+            this.searchData.number = number;
         },
 
         addItemStandard(includeExclude) {
@@ -625,7 +692,6 @@ export default {
 
         close() {
             this.clearHeader();
-            this.clearSearchArea();
         },
 
         toggleSearchArea() {
@@ -739,6 +805,8 @@ export default {
 
             this.includings = [];
             this.excludings = [];
+            this.keywords = "";
+            this.query = "";
         },
 
         clearHeader() {
@@ -749,6 +817,7 @@ export default {
                 y.style.backgroundColor = "";
             }
             x.style.height = "90px";
+            this.clearSearchArea();
         },
     },
 };
@@ -781,6 +850,7 @@ export default {
 }
 
 .img-box:hover,
+#searchSvg:hover,
 #search-icon:hover,
 .button:hover,
 .icon:hover {
