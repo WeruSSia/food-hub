@@ -1,5 +1,5 @@
 <template>
-	<div v-show="isSignInModalVisible" class="sign-in-modal">
+	<div class="sign-in-modal">
 		<div class="sign-in-modal-content">
 			<i
 				class="fas fa-times fa-lg sign-in-modal-close-button"
@@ -84,12 +84,6 @@
 import { MODAL_MODE } from "./ModalMode.js";
 
 export default {
-	props: {
-		isSignInModalVisible: {
-			type: Boolean,
-			required: true,
-		},
-	},
 	computed: {
 		headerTitle() {
 			let title = "";
@@ -144,10 +138,19 @@ export default {
 			modalMode: MODAL_MODE.SIGN_IN,
 		};
 	},
+	mounted() {
+		// prevent scrolling
+		document.body.style.overflowY = "hidden";
+		document.addEventListener("keydown", this.handleEscapeClickedEvent);
+	},
+	beforeDestroy() {
+		this.clearData();
+		document.body.style.overflowY = "";
+		document.removeEventListener("keydown", this.handleEscapeClickedEvent);
+	},
 	methods: {
 		onCloseButtonClicked() {
-			this.$emit("update:isSignInModalVisible", false);
-			this.clearData();
+			this.$emit("toggleSignInModal");
 		},
 		onContinueWithFacebookClicked() {
 			console.log("CONTIUNEWITHFB");
@@ -186,6 +189,11 @@ export default {
 		onFooterLinkSignInClicked() {
 			this.modalMode = MODAL_MODE.SIGN_IN;
 		},
+		handleEscapeClickedEvent(event) {
+			if (event.key === "Escape") {
+				this.$emit("toggleSignInModal");
+			}
+		},
 		clearData() {
 			this.email = "";
 			this.password = "";
@@ -219,7 +227,7 @@ export default {
 	flex-direction: column;
 	position: relative;
 	margin: auto;
-	width: 400px;
+	width: 340px;
 }
 
 .sign-in-modal-body {
@@ -373,7 +381,6 @@ export default {
 	font-size: 18px;
 	grid-column: 3;
 	justify-content: center;
-	padding-right: 37px;
 }
 
 .icon-input {

@@ -81,7 +81,7 @@
 			</div>
 
 			<div>
-				<button class="button" @click="showSignInModal">
+				<button class="button" @click="onSignInClicked">
 					<span>SIGN IN</span>
 				</button>
 			</div>
@@ -196,13 +196,18 @@ export default {
 			this.$router.push("/favourites");
 			this.clearResponsive();
 		},
-		showSignInModal() {
-			this.$emit("showSignInModal");
+		onSignInClicked() {
+			this.showSignInModal();
 		},
 		goToProfile() {
 			//TODO router
 			// this.$router.push("/profile");
 			// this.clearResponsive();
+			// TODO: add that modal is shown only when user is not logged in
+			this.showSignInModal();
+		},
+		showSignInModal() {
+			this.$emit("toggleSignInModal");
 		},
 		toggleResponsive() {
 			var x = document.getElementById("header");

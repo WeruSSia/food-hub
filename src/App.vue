@@ -1,12 +1,18 @@
 <template>
 	<div id="app" style="min-height: 100%; position:relative">
-		<Header v-if="!showSearchArea" @showSignInModal="onShowSignInModal" />
+		<Header
+			v-if="!showSearchArea"
+			@toggleSignInModal="onToggleSignInModal"
+		/>
 		<SearchArea v-else />
 		<div class="view-wrapper">
 			<router-view />
 		</div>
 		<Footer />
-		<SignInModal :is-sign-in-modal-visible.sync="isSignInModalVisible" />
+		<SignInModal
+			v-if="isSignInModalVisible"
+			@toggleSignInModal="onToggleSignInModal"
+		/>
 	</div>
 </template>
 <script>
@@ -29,8 +35,8 @@ export default {
 		};
 	},
 	methods: {
-		onShowSignInModal() {
-			this.isSignInModalVisible = true;
+		onToggleSignInModal() {
+			this.isSignInModalVisible = !this.isSignInModalVisible;
 		},
 	},
 };
@@ -39,6 +45,7 @@ export default {
 <style>
 #app {
 	width: 960px;
+	min-width: 360px;
 	margin-left: auto;
 	margin-right: auto;
 	font-family: "Poppins", sans-serif;
