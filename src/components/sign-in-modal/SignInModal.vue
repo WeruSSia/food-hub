@@ -16,7 +16,7 @@
 				>
 					<div class="grid-container-button">
 						<i class="fab fa-facebook-f fa-2x icon-button"></i>
-						<div class="text-button">Kontynuuj z Facebookiem</div>
+						<div class="text-button">Continue with Facebook</div>
 					</div>
 				</button>
 				<div class="email-input-container">
@@ -42,7 +42,7 @@
 							autocomplete="new-password"
 							type="password"
 							class="password-input text-input"
-							placeholder="Hasło"
+							placeholder="Password"
 						/>
 					</div>
 				</div>
@@ -53,26 +53,26 @@
 					<span
 						class="sign-in-modal-forgot-password"
 						@click="onForgotPasswordClicked"
-						>Zapomniałem/am hasła</span
+						>I forgot my password</span
 					>
 				</div>
 			</div>
 			<div v-if="!isInForgotPasswordState" class="sign-in-modal-footer">
 				<div class="sign-in-modal-footer-content">
 					<span v-if="isInSignInState"
-						>Nie masz konta?
+						>Don't have an account?
 						<span
 							class="sign-in-modal-footer-link"
 							@click="onFooterLinkSignUpClicked"
-							>Zarejestruj się</span
+							>Sign up</span
 						>
 					</span>
 					<span v-else-if="isInSignUpState"
-						>Masz już konto?
+						>Already have an account?
 						<span
 							class="sign-in-modal-footer-link"
 							@click="onFooterLinkSignInClicked"
-							>Zaloguj się</span
+							>Sign In</span
 						>
 					</span>
 				</div>
@@ -89,15 +89,15 @@ export default {
 			let title = "";
 			switch (this.modalMode) {
 				case MODAL_MODE.SIGN_IN: {
-					title = "Zaloguj się do swojego konta";
+					title = "Sign in to your account";
 					break;
 				}
 				case MODAL_MODE.SIGN_UP: {
-					title = "Zarejestruj nowe konto";
+					title = "Create an account";
 					break;
 				}
 				case MODAL_MODE.FORGOT_PASSWORD: {
-					title = "Przypomnij hasło";
+					title = "Reset password";
 					break;
 				}
 			}
@@ -107,15 +107,15 @@ export default {
 			let name = "";
 			switch (this.modalMode) {
 				case MODAL_MODE.SIGN_IN: {
-					name = "Zaloguj";
+					name = "Sign in";
 					break;
 				}
 				case MODAL_MODE.SIGN_UP: {
-					name = "Zarejestruj";
+					name = "Sign up";
 					break;
 				}
 				case MODAL_MODE.FORGOT_PASSWORD: {
-					name = "Przypomnij hasło";
+					name = "Reset password";
 					break;
 				}
 			}
@@ -339,7 +339,7 @@ export default {
 .email-input,
 .password-input {
 	border: none;
-	color: rgb(228, 228, 228);
+	color: rgb(201, 201, 201);
 	height: 35px;
 	font-size: 16px;
 	font-family: "Poppins", sans-serif;
@@ -381,6 +381,7 @@ export default {
 	font-size: 18px;
 	grid-column: 3;
 	justify-content: center;
+	padding-right: 20px;
 }
 
 .icon-input {
