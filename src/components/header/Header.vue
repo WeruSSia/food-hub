@@ -1,9 +1,5 @@
 <template>
 	<div id="header" class="header">
-		<!-- <div class="img-box" @click="goToHomePage">
-            <img src="../../assets/food-hub-logo.png" width="70" height="56" />
-        </div> -->
-
 		<div id="items">
 			<div class="img-box" @click="goToHomePage">
 				<img
@@ -13,13 +9,17 @@
 				/>
 			</div>
 			<div id="search">
-				<input type="text" placeholder="Search for recipes" />
+				<input
+					type="text"
+					placeholder="Search for recipes"
+					v-model="query"
+				/>
 				<div>
-					<button class="button" @click="ingredientsSearch">
+					<button class="button" @click="toggleSearchArea">
 						<span>Ingredients</span>
 					</button>
 				</div>
-				<div @click="searchRecipes">
+				<div id="searchSvg" @click="searchRecipes">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
@@ -102,8 +102,10 @@
 				</svg>
 			</div>
 		</div>
-		<div id="responsiveSearch">
-			<div id="keywords">
+
+		<!-- STANDARD SEARCH -->
+		<div id="standardSearch">
+			<div id="keywordsSearch">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
@@ -116,7 +118,12 @@
 					/>
 					<path d="M0 0h24v24H0z" fill="none" />
 				</svg>
-				<input type="text" class="input" placeholder="Keywords" />
+				<input
+					type="text"
+					class="input"
+					placeholder="Keywords"
+					v-model="keywords"
+				/>
 			</div>
 			<div class="ingredients">
 				<div class="ingredients-container">
@@ -124,9 +131,33 @@
 						type="text"
 						class="input"
 						placeholder="Include ingredients"
+						v-model="include"
 					/>
+					<div class="includedExcludedContainer">
+						<div
+							class="added"
+							v-for="(item, index) in includings"
+							:key="index"
+						>
+							{{ item }}
+							<div @click="removeItemStandard('include', index)">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="#555555"
+									width="16px"
+									height="16px"
+								>
+									<path
+										d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+									/>
+									<path d="M0 0h24v24H0z" fill="none" />
+								</svg>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="add">
+				<div class="add" @click="addItemStandard('include')">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
@@ -145,9 +176,170 @@
 						type="text"
 						class="input"
 						placeholder="Exclude ingredients"
+						v-model="exclude"
 					/>
+					<div class="includedExcludedContainer">
+						<div
+							class="added"
+							v-for="(item, index) in excludings"
+							:key="index"
+						>
+							{{ item }}
+							<div @click="removeItemStandard('exclude', index)">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="#555555"
+									width="16px"
+									height="16px"
+								>
+									<path
+										d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+									/>
+									<path d="M0 0h24v24H0z" fill="none" />
+								</svg>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="add">
+				<div class="add" @click="addItemStandard('exclude')">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="white"
+						width="30px"
+						height="30px"
+					>
+						<path d="M19 13H5v-2h14v2z" />
+						<path d="M0 0h24v24H0z" fill="none" />
+					</svg>
+				</div>
+			</div>
+			<div>
+				<button class="button" @click="searchByIngredients">
+					<span>SEARCH</span>
+				</button>
+			</div>
+			<div id="close" class="icon" @click="close">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="#555555"
+					width="16px"
+					height="16px"
+				>
+					<path
+						d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+					/>
+					<path d="M0 0h24v24H0z" fill="none" />
+				</svg>
+			</div>
+		</div>
+
+		<!-- RESPONSIVE SEARCH -->
+		<div id="responsiveSearch">
+			<div id="keywords">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="#555555"
+					width="36px"
+					height="36px"
+				>
+					<path
+						d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+					/>
+					<path d="M0 0h24v24H0z" fill="none" />
+				</svg>
+				<input
+					type="text"
+					class="input"
+					placeholder="Keywords"
+					v-model="keywords"
+				/>
+			</div>
+			<div class="ingredients">
+				<div class="ingredients-container">
+					<input
+						type="text"
+						class="input"
+						placeholder="Include ingredients"
+						v-model="include"
+					/>
+					<div class="includedExcludedContainer">
+						<div
+							class="added"
+							v-for="(item, index) in includings"
+							:key="index"
+						>
+							{{ item }}
+							<div
+								@click="removeItemResponsive('include', index)"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="#555555"
+									width="16px"
+									height="16px"
+								>
+									<path
+										d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+									/>
+									<path d="M0 0h24v24H0z" fill="none" />
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="add" @click="addItemResponsive('include')">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="white"
+						width="30px"
+						height="30px"
+					>
+						<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+						<path d="M0 0h24v24H0z" fill="none" />
+					</svg>
+				</div>
+			</div>
+			<div class="ingredients">
+				<div class="ingredients-container">
+					<input
+						type="text"
+						class="input"
+						placeholder="Exclude ingredients"
+						v-model="exclude"
+					/>
+					<div class="includedExcludedContainer">
+						<div
+							class="added"
+							v-for="(item, index) in excludings"
+							:key="index"
+						>
+							{{ item }}
+							<div
+								@click="removeItemResponsive('exclude', index)"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="#555555"
+									width="16px"
+									height="16px"
+								>
+									<path
+										d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+									/>
+									<path d="M0 0h24v24H0z" fill="none" />
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="add" @click="addItemResponsive('exclude')">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
@@ -161,7 +353,7 @@
 				</div>
 			</div>
 			<div id="searchButton">
-				<button class="button" @click="searchRecipes">
+				<button class="button" @click="searchByIngredients">
 					<span>SEARCH</span>
 				</button>
 			</div>
@@ -169,32 +361,55 @@
 	</div>
 </template>
 <script>
+//TODO: Change these two to get recipe API calls
+import { getMockResultsByName } from "../../mock/RecipeData.js";
+import { getMockSearchRecipesComplex } from "../../mock/RecipeData.js";
+
+import store from "../../store/index.js";
+
 export default {
 	data() {
 		return {
-			//
+			query: "",
+			keywords: "",
+			include: "",
+			includings: [],
+			exclude: "",
+			excludings: [],
+			searchData: {
+				queryString: "",
+				includes: [],
+				excludes: [],
+				number: 0,
+			},
 		};
 	},
 	methods: {
 		goToHomePage() {
 			this.$router.push("/");
-			this.clearResponsive();
-		},
-		ingredientsSearch() {
-			this.$parent.$data.showSearchArea = true;
+			this.clearHeader();
+			this.clearSearchData();
 		},
 		searchRecipes() {
 			this.$router.push("/results");
-			this.clearResponsive();
+			this.setQuery();
+			this.clearHeader();
+		},
+		searchByIngredients() {
+			this.$router.push("/results");
+			this.setIngredients();
+			this.clearHeader();
 		},
 		goToHistory() {
 			//TODO router
 			// this.$router.push("/history");
-			// this.clearResponsive();
+			// this.clearHeader();
+			//this.clearSearchData();
 		},
 		goToFavourites() {
 			this.$router.push("/favourites");
-			this.clearResponsive();
+			this.clearHeader();
+			this.clearSearchData();
 		},
 		onSignInClicked() {
 			this.showSignInModal();
@@ -209,24 +424,425 @@ export default {
 		showSignInModal() {
 			this.$emit("toggleSignInModal");
 		},
+		setQuery() {
+			let query = this.query;
+			let number = 10;
+
+			this.setSearchData(query, null, null, number);
+
+			store.commit(
+				"setSearchResult",
+				getMockResultsByName(query, number)
+			);
+
+			store.commit("setSearchData", this.searchData);
+		},
+
+		setIngredients() {
+			let cleanIncludings = this.removeEmpty(this.includings);
+			let cleanExcludings = this.removeEmpty(this.excludings);
+
+			let query = this.keywords;
+			let include = cleanIncludings.join();
+			let exclude = cleanExcludings.join();
+			let number = 10;
+
+			this.setSearchData(query, cleanIncludings, cleanExcludings, number);
+
+			store.commit(
+				"setSearchResult",
+				getMockSearchRecipesComplex(query, include, exclude, number)
+			);
+
+			store.commit("setSearchData", this.searchData);
+		},
+
+		removeEmpty(array) {
+			let toReturn = [];
+			array.forEach(item => {
+				if (item !== "") {
+					toReturn.push(item);
+				}
+			});
+			return toReturn;
+		},
+
+		setSearchData(query, include, exclude, number) {
+			this.searchData.queryString = query;
+			this.searchData.includes = include;
+			this.searchData.excludes = exclude;
+			this.searchData.number = number;
+		},
+
+		clearSearchData() {
+			store.commit("setSearchResult", null);
+			store.commit("setSearchData", null);
+		},
+
+		addItemStandard(includeExclude) {
+			var header = document.getElementById("header");
+			var standardSearch = document.getElementById("standardSearch");
+			var button = document.getElementsByClassName("button")[2];
+			var close = document.getElementById("close");
+
+			var container;
+			var ingredients;
+			var add;
+			if (includeExclude === "include") {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[0];
+				ingredients = document.getElementsByClassName("ingredients")[0];
+				add = document.getElementsByClassName("add")[0];
+			} else {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[1];
+				ingredients = document.getElementsByClassName("ingredients")[1];
+				add = document.getElementsByClassName("add")[1];
+			}
+
+			container.style.display = "inline-block";
+
+			var searchHeight;
+			var headerHeight = header.offsetHeight + 30;
+			var ingredientsHeight = ingredients.offsetHeight + 28;
+
+			if (
+				standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
+				standardSearch.offsetHeight < 102
+			) {
+				searchHeight = standardSearch.offsetHeight + 12;
+				header.style.height = headerHeight + "px";
+				standardSearch.style.height = searchHeight + "px";
+			} else if (
+				standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
+				standardSearch.offsetHeight >= 120
+			) {
+				searchHeight = standardSearch.offsetHeight + 30;
+				header.style.height = headerHeight + "px";
+				standardSearch.style.height = searchHeight - 18 + "px";
+			}
+
+			ingredients.style.height = ingredientsHeight + "px";
+
+			ingredients.style.alignItems = "flex-start";
+			standardSearch.style.alignItems = "flex-start";
+			standardSearch.style.paddingTop = "18px";
+
+			button.style.marginTop = "4px";
+
+			add.style.borderRadius = "0 14px 0 14px";
+
+			close.style.marginTop = "16px";
+
+			if (includeExclude === "include") {
+				this.includings.push(this.include);
+				this.include = "";
+			} else {
+				this.excludings.push(this.exclude);
+				this.exclude = "";
+			}
+		},
+
+		addItemResponsive(includeExclude) {
+			var header = document.getElementById("header");
+			var responsiveSearch = document.getElementById("responsiveSearch");
+
+			var container;
+			var ingredients;
+			var add;
+			if (includeExclude === "include") {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[2];
+				ingredients = document.getElementsByClassName("ingredients")[2];
+				add = document.getElementsByClassName("add")[2];
+			} else {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[3];
+				ingredients = document.getElementsByClassName("ingredients")[3];
+				add = document.getElementsByClassName("add")[3];
+			}
+
+			container.style.display = "inline-block";
+
+			var headerHeight = header.offsetHeight + 31;
+			var searchHeight = responsiveSearch.offsetHeight + 31;
+			var ingredientsHeight = ingredients.offsetHeight + 29;
+
+			header.style.height = headerHeight + "px";
+			responsiveSearch.style.height = searchHeight - 20 + "px";
+			ingredients.style.height = ingredientsHeight + "px";
+
+			ingredients.style.alignItems = "flex-start";
+
+			add.style.borderRadius = "0 14px 0 14px";
+
+			if (includeExclude === "include") {
+				this.includings.push(this.include);
+				this.include = "";
+			} else {
+				this.excludings.push(this.exclude);
+				this.exclude = "";
+			}
+		},
+
+		removeItemStandard(includeExclude, index) {
+			var header = document.getElementById("header");
+			var standardSearch = document.getElementById("standardSearch");
+			var button = document.getElementsByClassName("button")[2];
+			var close = document.getElementById("close");
+
+			var container;
+			var ingredients;
+			var ingredientsOther;
+			var add;
+			if (includeExclude === "include") {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[0];
+				ingredients = document.getElementsByClassName("ingredients")[0];
+				ingredientsOther = document.getElementsByClassName(
+					"ingredients"
+				)[1];
+				add = document.getElementsByClassName("add")[0];
+			} else {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[1];
+				ingredients = document.getElementsByClassName("ingredients")[1];
+				ingredientsOther = document.getElementsByClassName(
+					"ingredients"
+				)[0];
+				add = document.getElementsByClassName("add")[1];
+			}
+
+			var searchHeight;
+			var headerHeight = header.offsetHeight - 30;
+			var ingredientsHeight = ingredients.offsetHeight - 32;
+
+			if (ingredients.offsetHeight === 82) {
+				container.style.display = "flex";
+				if (
+					standardSearch.offsetHeight - ingredients.offsetHeight ===
+						38 &&
+					ingredients.offsetHeight - ingredientsOther.offsetHeight !==
+						0
+				) {
+					searchHeight = standardSearch.offsetHeight - 30;
+					header.style.height = headerHeight + "px";
+					standardSearch.style.height = searchHeight + "px";
+					standardSearch.style.paddingTop = "0";
+					standardSearch.style.alignItems = "center";
+					button.style.marginTop = "0";
+				}
+				ingredients.style.height = ingredientsHeight + "px";
+				ingredients.style.alignItems = "center";
+				add.style.borderRadius = "0 14px 14px 0";
+				close.style.marginTop = "6px";
+			} else if (ingredients.offsetHeight > 82) {
+				if (
+					standardSearch.offsetHeight - ingredients.offsetHeight ===
+						38 &&
+					ingredients.offsetHeight - ingredientsOther.offsetHeight !==
+						0
+				) {
+					searchHeight = standardSearch.offsetHeight - 30;
+					header.style.height = headerHeight + "px";
+					standardSearch.style.height = searchHeight - 18 + "px";
+				}
+				ingredients.style.height = ingredientsHeight + "px";
+			}
+
+			if (includeExclude === "include") {
+				this.includings.splice(index, 1);
+			} else {
+				this.excludings.splice(index, 1);
+			}
+		},
+
+		removeItemResponsive(includeExclude, index) {
+			var header = document.getElementById("header");
+			var responsiveSearch = document.getElementById("responsiveSearch");
+
+			var container;
+			var ingredients;
+			var add;
+			if (includeExclude === "include") {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[2];
+				ingredients = document.getElementsByClassName("ingredients")[2];
+				add = document.getElementsByClassName("add")[2];
+			} else {
+				container = document.getElementsByClassName(
+					"includedExcludedContainer"
+				)[3];
+				ingredients = document.getElementsByClassName("ingredients")[3];
+				add = document.getElementsByClassName("add")[3];
+			}
+
+			var headerHeight = header.offsetHeight - 31;
+			var searchHeight = responsiveSearch.offsetHeight - 31;
+			var ingredientsHeight = ingredients.offsetHeight - 33;
+
+			if (ingredients.offsetHeight === 83) {
+				container.style.display = "flex";
+
+				header.style.height = headerHeight + "px";
+
+				responsiveSearch.style.height = searchHeight - 20 + "px";
+				responsiveSearch.style.paddingTop = "20px";
+
+				ingredients.style.height = ingredientsHeight + "px";
+				ingredients.style.alignItems = "center";
+
+				add.style.borderRadius = "0 14px 14px 0";
+			} else if (ingredients.offsetHeight > 83) {
+				header.style.height = headerHeight + "px";
+				responsiveSearch.style.height = searchHeight - 20 + "px";
+				ingredients.style.height = ingredientsHeight + "px";
+			}
+
+			if (includeExclude === "include") {
+				this.includings.splice(index, 1);
+			} else {
+				this.excludings.splice(index, 1);
+			}
+		},
+
+		close() {
+			this.clearHeader();
+		},
+
+		toggleSearchArea() {
+			var x = document.getElementById("header");
+			var standardSearch = document.getElementById("standardSearch");
+			var y = document.getElementById("search-icon");
+			if (
+				x.className === "header" ||
+				x.className === "header responsive"
+			) {
+				x.className = "header searching";
+				x.style.height = "180px";
+				standardSearch.style.display = "flex";
+			} else if (x.className === "header searching") {
+				x.className = "header";
+				x.style.height = "90px";
+				this.clearSearchArea();
+			} else {
+				x.className = "header";
+			}
+			y.style.backgroundColor = "";
+		},
+
 		toggleResponsive() {
 			var x = document.getElementById("header");
 			var y = document.getElementById("search-icon");
-			if (x.className === "header") {
-				x.className += " responsive";
+			var responsiveSearch = document.getElementById("responsiveSearch");
+			if (
+				x.className === "header" ||
+				x.className === "header searching"
+			) {
+				x.className = "header responsive";
+				x.style.height = "370px";
 				y.style.backgroundColor = "#f9f9f9";
+				responsiveSearch.style.display = "inline-block";
+			} else if (x.className === "header responsive") {
+				x.className = "header";
+				x.style.height = "90px";
+				y.style.backgroundColor = "";
+				this.clearSearchArea();
 			} else {
 				x.className = "header";
 				y.style.backgroundColor = "";
 			}
 		},
-		clearResponsive() {
+
+		clearSearchArea() {
+			var standardSearch = document.getElementById("standardSearch");
+			var responsiveSearch = document.getElementById("responsiveSearch");
+			var container0 = document.getElementsByClassName(
+				"includedExcludedContainer"
+			)[0];
+			var container1 = document.getElementsByClassName(
+				"includedExcludedContainer"
+			)[1];
+			var container2 = document.getElementsByClassName(
+				"includedExcludedContainer"
+			)[2];
+			var container3 = document.getElementsByClassName(
+				"includedExcludedContainer"
+			)[3];
+			var ingredients0 = document.getElementsByClassName(
+				"ingredients"
+			)[0];
+			var ingredients1 = document.getElementsByClassName(
+				"ingredients"
+			)[1];
+			var ingredients2 = document.getElementsByClassName(
+				"ingredients"
+			)[2];
+			var ingredients3 = document.getElementsByClassName(
+				"ingredients"
+			)[3];
+			var add0 = document.getElementsByClassName("add")[0];
+			var add1 = document.getElementsByClassName("add")[1];
+			var add2 = document.getElementsByClassName("add")[2];
+			var add3 = document.getElementsByClassName("add")[3];
+			var button = document.getElementsByClassName("button")[2];
+			var close = document.getElementById("close");
+
+			standardSearch.style.display = "none";
+			standardSearch.style.height = "90px";
+			standardSearch.style.paddingTop = "0";
+			standardSearch.style.alignItems = "center";
+
+			responsiveSearch.style.display = "none";
+			responsiveSearch.style.height = "260px";
+			responsiveSearch.style.paddingTop = "20px";
+
+			container0.style.display = "none";
+			container1.style.display = "none";
+			container2.style.display = "none";
+			container3.style.display = "none";
+
+			ingredients0.style.height = "50px";
+			ingredients1.style.height = "50px";
+			ingredients0.style.alignItems = "center";
+			ingredients1.style.alignItems = "center";
+			ingredients2.style.height = "50px";
+			ingredients3.style.height = "50px";
+			ingredients2.style.alignItems = "center";
+			ingredients3.style.alignItems = "center";
+
+			add0.style.borderRadius = "0 14px 14px 0";
+			add1.style.borderRadius = "0 14px 14px 0";
+			add2.style.borderRadius = "0 14px 14px 0";
+			add3.style.borderRadius = "0 14px 14px 0";
+
+			button.style.marginTop = "0";
+			close.style.marginTop = "6px";
+
+			this.includings = [];
+			this.excludings = [];
+			this.include = "";
+			this.exclude = "";
+			this.keywords = "";
+			this.query = "";
+		},
+
+		clearHeader() {
 			var x = document.getElementById("header");
 			var y = document.getElementById("search-icon");
 			if (x.className !== "header") {
 				x.className = "header";
 				y.style.backgroundColor = "";
 			}
+			x.style.height = "90px";
+			this.clearSearchArea();
 		},
 	},
 };
@@ -236,7 +852,7 @@ export default {
 	position: relative;
 	display: flex;
 	width: 100%;
-	height: 80px;
+	height: 90px;
 	top: 0;
 	margin-bottom: 20px;
 	overflow: hidden;
@@ -259,11 +875,10 @@ export default {
 }
 
 .img-box:hover,
+#searchSvg:hover,
 #search-icon:hover,
-#history-icon:hover,
-#favourites-icon:hover,
 .button:hover,
-#profile-icon:hover {
+.icon:hover {
 	cursor: pointer;
 }
 
@@ -275,7 +890,7 @@ export default {
 
 #items {
 	width: 100%;
-	height: 80px;
+	height: 90px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -374,7 +989,172 @@ export default {
 	right: 0;
 }
 
-/* HIDDEN SEARCH */
+/* STANDARD SEARCH AREA */
+
+#standardSearch {
+	display: none;
+	width: 100%;
+	height: 90px;
+	align-items: center;
+}
+
+#keywordsSearch {
+	width: 200px;
+	height: 50px;
+	display: flex;
+	margin-left: 20px;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgba(242, 242, 242, 1);
+	border-radius: 14px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	background-color: white;
+}
+
+#keywordsSearch .input {
+	float: left;
+	width: 140px;
+	height: 35px;
+	margin-left: 10px;
+	font-size: 14px;
+	font-family: "Poppins", sans-serif;
+	border: none;
+}
+
+.add:focus,
+.input:focus {
+	outline: none;
+}
+
+#keywordsSearch svg {
+	float: right;
+	margin-left: 2%;
+}
+
+#standardSearch .ingredients {
+	width: 270px;
+	height: 50px;
+	display: flex;
+	margin-bottom: 0;
+	margin-left: 20px;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgba(242, 242, 242, 1);
+	border-radius: 14px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+}
+
+.ingredients-container {
+	display: inline-block;
+	width: 90%;
+	height: auto;
+	margin-left: 10px;
+	padding-top: 3px;
+}
+
+.ingredients-container .input {
+	width: 90%;
+	height: 20px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	font-family: "Poppins", sans-serif;
+	border: none;
+	border-bottom: 2px solid rgba(242, 242, 242, 1);
+}
+
+.includedExcludedContainer {
+	display: none;
+	width: 100%;
+}
+
+.added {
+	display: flex;
+	width: 100%;
+	height: 25px;
+	margin-top: 5px;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	font-size: 14px;
+	font-family: "Poppins", sans-serif;
+	border-radius: 14px;
+	background-color: #eeeeee;
+}
+
+.added div {
+	margin-top: 5px;
+	margin-left: 10px;
+}
+
+.add {
+	width: 40px;
+	height: 52px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	margin-right: -1px;
+	border-radius: 0 14px 14px 0;
+	background-color: #cccccc;
+}
+
+#standardSearch .icon {
+	margin-right: 2%;
+}
+
+#standardSearch .button {
+	width: 96px;
+	height: 44px;
+	margin-left: 20px;
+	font-weight: bold;
+	color: #ffffff;
+	border: 0;
+	border-radius: 9px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	background-color: #ea0a2a;
+}
+
+.add:hover,
+.icon:hover,
+.added div:hover {
+	cursor: pointer;
+}
+
+.button:active {
+	box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.17);
+	transform: translateY(2px);
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: "\00bb";
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -15px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 12px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+
+#close.icon {
+	margin-top: 6px;
+}
+
+/* RESPONSIVE SEARCH AREA */
 
 #responsiveSearch {
 	display: none;
@@ -400,12 +1180,7 @@ export default {
 	margin-left: 2%;
 }
 
-.input:focus,
-.add:focus {
-	outline: none;
-}
-
-#responsiveSearch .input {
+#keywords .input {
 	float: left;
 	width: 90%;
 	height: 35px;
@@ -429,26 +1204,6 @@ export default {
 	background-color: white;
 }
 
-.ingredients-container {
-	width: 80%;
-	height: 40px;
-	margin-left: 10px;
-	padding-top: 3px;
-	background-color: white;
-}
-
-.add {
-	width: 40px;
-	height: 52px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-left: auto;
-	margin-right: -1px;
-	border-radius: 0 14px 14px 0;
-	background-color: #cccccc;
-}
-
 #responsiveSearch #searchButton {
 	width: 96%;
 	height: 44px;
@@ -466,10 +1221,6 @@ export default {
 	background-color: #ea0a2a;
 }
 
-.add:hover {
-	cursor: pointer;
-}
-
 /* RESPONSIVE VIEW */
 
 @media screen and (max-width: 960px) {
@@ -483,7 +1234,7 @@ export default {
 	#search-icon {
 		display: block;
 		height: 100%;
-		margin-top: 47px;
+		margin-top: 57px;
 		margin-left: auto;
 		margin-right: 10px;
 		padding: 5px;
@@ -495,9 +1246,14 @@ export default {
 }
 
 @media screen and (max-width: 960px) {
+	.header {
+		display: flex;
+		height: 90px;
+		align-items: center;
+	}
 	.header.responsive {
 		display: inline-block;
-		height: 360px;
+		height: 370px;
 		align-items: flex-start;
 	}
 	.header.responsive #items {
@@ -509,6 +1265,25 @@ export default {
 		display: inline-block;
 		width: 100%;
 		height: 260px;
+		background-color: #f9f9f9;
+	}
+}
+
+@media screen and (min-width: 960px) {
+	.header {
+		display: flex;
+		height: 90px;
+		align-items: center;
+	}
+	.header.searching {
+		display: inline-block;
+		height: 180px;
+		align-items: flex-start;
+	}
+	.header.searching #standardSearch {
+		position: relative;
+		display: flex;
+		align-items: center;
 		background-color: #f9f9f9;
 	}
 }

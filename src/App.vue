@@ -1,10 +1,6 @@
 <template>
 	<div id="app" style="min-height: 100%; position:relative">
-		<Header
-			v-if="!showSearchArea"
-			@toggleSignInModal="onToggleSignInModal"
-		/>
-		<SearchArea v-else />
+		<Header @toggleSignInModal="onToggleSignInModal" />
 		<div class="view-wrapper">
 			<router-view />
 		</div>
@@ -18,19 +14,16 @@
 <script>
 // @ is an alias to /src
 import Header from "@/components/header/Header.vue";
-import SearchArea from "@/components/header/SearchArea.vue";
 import Footer from "@/components/footer/Footer.vue";
 import SignInModal from "@/components/sign-in-modal/SignInModal.vue";
 export default {
 	components: {
 		Header,
-		SearchArea,
 		Footer,
 		SignInModal,
 	},
 	data() {
 		return {
-			showSearchArea: false,
 			isSignInModalVisible: false,
 		};
 	},

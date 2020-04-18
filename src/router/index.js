@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomePage from "../views/HomePage.vue";
 import SearchResults from "../views/SearchResults.vue";
 import Favourites from "../views/Favourites.vue";
+import Recipe from "../views/Recipe.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,12 @@ const routes = [
         name: "Favourites",
         component: Favourites,
     },
+    {
+        path: "/recipe/:id",
+        name: "Recipe",
+        component: Recipe,
+    }
+
 ];
 
 const router = new VueRouter({
