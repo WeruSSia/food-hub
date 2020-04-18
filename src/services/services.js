@@ -1,6 +1,7 @@
 /**
  * All API calls will be maintainted here
  */
+
 const API_KEY = "5c4fccbf09894f23b5a22cec1c932533";
 var response = "";
 
@@ -29,6 +30,7 @@ export async function getResultByName(query, number) {
 
 /**
  *
+
  * @param {string} ingredients - A comma-separated list of ingredients that the recipes should contain.
  * @returns {Array}
  */
