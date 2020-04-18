@@ -388,6 +388,7 @@ export default {
         goToHomePage() {
             this.$router.push("/");
             this.clearHeader();
+            this.clearSearchData();
         },
         searchRecipes() {
             this.$router.push("/results");
@@ -403,20 +404,24 @@ export default {
             //TODO router
             // this.$router.push("/history");
             // this.clearHeader();
+            //this.clearSearchData();
         },
         goToFavourites() {
             this.$router.push("/favourites");
             this.clearHeader();
+            this.clearSearchData();
         },
         goToSignIn() {
             //TODO router
             // this.$router.push("/sign-in");
             // this.clearHeader();
+            //this.clearSearchData();
         },
         goToProfile() {
             //TODO router
             // this.$router.push("/profile");
             // this.clearHeader();
+            //this.clearSearchData();
         },
 
         setQuery() {
@@ -434,12 +439,15 @@ export default {
         },
 
         setIngredients() {
+            let cleanIncludings = this.removeEmpty(this.includings);
+            let cleanExcludings = this.removeEmpty(this.excludings);
+
             let query = this.keywords;
-            let include = this.includings.join();
-            let exclude = this.excludings.join();
+            let include = cleanIncludings.join();
+            let exclude = cleanExcludings.join();
             let number = 10;
 
-            this.setSearchData(query, this.includings, this.excludings, number);
+            this.setSearchData(query, cleanIncludings, cleanExcludings, number);
 
             store.commit(
                 "setSearchResult",
@@ -449,11 +457,26 @@ export default {
             store.commit("setSearchData", this.searchData);
         },
 
+        removeEmpty(array) {
+            let toReturn = [];
+            array.forEach(item => {
+                if (item !== "") {
+                    toReturn.push(item);
+                }
+            });
+            return toReturn;
+        },
+
         setSearchData(query, include, exclude, number) {
             this.searchData.queryString = query;
             this.searchData.includes = include;
             this.searchData.excludes = exclude;
             this.searchData.number = number;
+        },
+
+        clearSearchData() {
+            store.commit("setSearchResult", null);
+            store.commit("setSearchData", null);
         },
 
         addItemStandard(includeExclude) {
@@ -805,6 +828,8 @@ export default {
 
             this.includings = [];
             this.excludings = [];
+            this.include = "";
+            this.exclude = "";
             this.keywords = "";
             this.query = "";
         },

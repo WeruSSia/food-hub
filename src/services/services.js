@@ -51,41 +51,18 @@ export async function getRecipesByIngredients(ingredients, number) {
 
 /**
  *
- * @param {string} query - The (natural language) recipe search query.
- * @param {string} includeIngredients - A comma-separated list of ingredients that should/must be used in the recipes.
- * @param {string} excludeIngredients - A comma-separated list of ingredients or ingredient types that the recipes must not contain.
- * @param {string} number - The number of expected results (between 1 and 10).
- * @returns {Object}
+ * @param {string} number - The number of random recipes to be returned (between 1 and 100).
+ * @returns {Array} randomly picked recipes
  */
 
-export async function getRecipesComplex(query, include, exclude, number) {
+export async function getRandomRecipes(number) {
     axios
         .get(
-            "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
+            "https://api.spoonacular.com/recipes/random?apiKey=" +
                 API_KEY +
-                "&query=" +
-                query +
-                "&includeIngredients=" +
-                include +
-                "&excludeIngredients=" +
-                exclude +
                 "&number=" +
-                number +
-                "&sort=popularity&sortDirection=desc"
+                number
         )
-        .then(response => {
-            this.response = response.data.results;
-        });
-    return response;
-}
-
-/**
- * @returns {Array} randomly picked receipe
- */
-
-export async function getRandomReceipe() {
-    axios
-        .get("https://api.spoonacular.com/recipes/random?apiKey=" + API_KEY)
         .then(response => {
             this.response = response.data.results;
         });
