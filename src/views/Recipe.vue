@@ -20,7 +20,7 @@ export default {
 	},
 	data() {
 		return {
-			recipe: null,
+			recipe: {},
 		};
 	},
 };

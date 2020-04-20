@@ -11,12 +11,12 @@
 				v-for="ingredient in recipe.extendedIngredients"
 				v-bind:key="ingredient.id"
 			>
-				<span>
+				<p class="checkbox-p">
 					<input type="checkbox" class="checkbox-input" />
 					<label class="checkbox-label">
 						{{ ingredient.original }}</label
 					>
-				</span>
+				</p>
 			</div>
 		</div>
 	</div>
@@ -53,10 +53,10 @@ export default {
 .checkbox-input {
 	width: 30px;
 	height: 30px;
-	vertical-align: middle;
 }
-
-.checkbox {
-	line-height: 40px;
+label {
+	display: block;
+	margin-top: -30px;
+	margin-left: 50px;
 }
 </style>
