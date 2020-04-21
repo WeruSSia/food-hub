@@ -2,7 +2,7 @@
 	<div>
 		<div class="header">
 			<span class="header-name">
-				Ingredients
+				{{ headerTitle }}
 			</span>
 		</div>
 		<div class="ingredients-list">
@@ -12,12 +12,7 @@
 				v-bind:key="ingredient.id"
 			>
 				<p class="checkbox-p">
-					<input
-						type="checkbox"
-						class="checkbox-input"
-						:value="ingredient.original"
-						v-model="selectedIngredients"
-					/>
+					<input type="checkbox" class="checkbox-input" />
 					<span class="checkbox-label">
 						{{ ingredient.original }}
 					</span>
@@ -37,7 +32,7 @@ export default {
 	},
 	data() {
 		return {
-			selectedIngredients: [],
+			headerTitle: "Ingredients",
 		};
 	},
 };
