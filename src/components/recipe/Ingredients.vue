@@ -12,10 +12,15 @@
 				v-bind:key="ingredient.id"
 			>
 				<p class="checkbox-p">
-					<input type="checkbox" class="checkbox-input" />
-					<label class="checkbox-label">
-						{{ ingredient.original }}</label
-					>
+					<input
+						type="checkbox"
+						class="checkbox-input"
+						:value="ingredient.original"
+						v-model="selectedIngredients"
+					/>
+					<span class="checkbox-label">
+						{{ ingredient.original }}
+					</span>
 				</p>
 			</div>
 		</div>
@@ -29,6 +34,11 @@ export default {
 			type: Object,
 			required: true,
 		},
+	},
+	data() {
+		return {
+			selectedIngredients: [],
+		};
 	},
 };
 </script>
@@ -53,10 +63,16 @@ export default {
 .checkbox-input {
 	width: 30px;
 	height: 30px;
+	vertical-align: middle;
 }
-label {
+.checkbox-label {
 	display: block;
 	margin-top: -30px;
 	margin-left: 50px;
+}
+
+.checkbox-input:checked + .checkbox-label {
+	text-decoration: line-through;
+	color: #c4c4c4;
 }
 </style>
