@@ -551,9 +551,7 @@ export function getRecipeById(id) {
     }
 }
 
-export function getMockSearchRecipesComplex(query, include, exclude, number) {
-    console.log(query, include, exclude, number);
-
+export function getMockSearchRecipesComplex() {
     return {
         offset: 0,
         number: 4,
@@ -611,9 +609,7 @@ export function getMockSearchRecipesComplex(query, include, exclude, number) {
     };
 }
 
-export function getMockResultsByName(query, number) {
-    console.log(query, number);
-
+export function getMockResultsByName() {
     return {
         offset: 0,
         number: 4,
