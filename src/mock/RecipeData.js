@@ -83,32 +83,110 @@ export function getRecipeById(id) {
                         {
                             "title": "Calories",
                             "amount": 210.34,
-                            "unit": "cal"
+                            "unit": "cal",
+                            "percentOfDailyNeeds": 10.52
                         },
                         {
                             "title": "Fat",
                             "amount": 3.24,
-                            "unit": "g"
+                            "unit": "g",
+                            "percentOfDailyNeeds": 4.98
+                        },
+                        {
+                            "title": "Saturated Fat",
+                            "amount": 1.87,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 11.71
                         },
                         {
                             "title": "Carbohydrates",
                             "amount": 43.14,
-                            "unit": "g"
+                            "unit": "g",
+                            "percentOfDailyNeeds": 14.38
+                        },
+                        {
+                            "title": "Net Carbohydrates",
+                            "amount": 37.85,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 13.76
+                        },
+                        {
+                            "title": "Sugar",
+                            "amount": 26.51,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 29.46
                         },
                         {
                             "title": "Cholesterol",
                             "amount": 7.53,
-                            "unit": "mg"
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 2.51
                         },
                         {
                             "title": "Sodium",
                             "amount": 34.01,
-                            "unit": "mg"
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 1.48
+                        },
+                        {
+                            "title": "Alcohol",
+                            "amount": 3.09,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 17.17
                         },
                         {
                             "title": "Protein",
                             "amount": 0.86,
-                            "unit": "g"
+                            "unit": "g",
+                            "percentOfDailyNeeds": 1.71
+                        },
+                        {
+                            "title": "Fiber",
+                            "amount": 5.29,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 21.15
+                        },
+                        {
+                            "title": "Vitamin C",
+                            "amount": 9.17,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 11.11
+                        },
+                        {
+                            "title": "Potassium",
+                            "amount": 340.74,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 9.74
+                        },
+                        {
+                            "title": "Manganese",
+                            "amount": 0.17,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 8.41
+                        },
+                        {
+                            "title": "Vitamin B6",
+                            "amount": 0.12,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 5.89
+                        },
+                        {
+                            "title": "Copper",
+                            "amount": 0.09,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 4.6
+                        },
+                        {
+                            "title": "Vitamin B2",
+                            "amount": 0.08,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 4.57
+                        },
+                        {
+                            "title": "Magnesium",
+                            "amount": 17.18,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 4.3
                         }
                     ]
                 },
@@ -152,32 +230,176 @@ export function getRecipeById(id) {
                         {
                             "title": "Calories",
                             "amount": 225.87,
-                            "unit": "cal"
+                            "unit": "cal",
+                            "percentOfDailyNeeds": 11.29
                         },
                         {
                             "title": "Fat",
                             "amount": 10.03,
-                            "unit": "g"
+                            "unit": "g",
+                            "percentOfDailyNeeds": 15.44
+                        },
+                        {
+                            "title": "Saturated Fat",
+                            "amount": 5.04,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 31.47
                         },
                         {
                             "title": "Carbohydrates",
                             "amount": 32.62,
-                            "unit": "g"
+                            "unit": "g",
+                            "percentOfDailyNeeds": 10.87
+                        },
+                        {
+                            "title": "Net Carbohydrates",
+                            "amount": 31.4,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 11.42
+                        },
+                        {
+                            "title": "Sugar",
+                            "amount": 22.11,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 24.56
                         },
                         {
                             "title": "Cholesterol",
                             "amount": 10.61,
-                            "unit": "mg"
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.54
                         },
                         {
                             "title": "Sodium",
                             "amount": 198.63,
-                            "unit": "mg"
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 8.64
+                        },
+                        {
+                            "title": "Caffeine",
+                            "amount": 8.64,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 2.88
                         },
                         {
                             "title": "Protein",
                             "amount": 2.44,
-                            "unit": "g"
+                            "unit": "g",
+                            "percentOfDailyNeeds": 4.87
+                        },
+                        {
+                            "title": "Manganese",
+                            "amount": 0.15,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 7.69
+                        },
+                        {
+                            "title": "Copper",
+                            "amount": 0.15,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 7.5
+                        },
+                        {
+                            "title": "Phosphorus",
+                            "amount": 70.9,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 7.09
+                        },
+                        {
+                            "title": "Magnesium",
+                            "amount": 25.89,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 6.47
+                        },
+                        {
+                            "title": "Iron",
+                            "amount": 1.06,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 5.9
+                        },
+                        {
+                            "title": "Fiber",
+                            "amount": 1.23,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 4.9
+                        },
+                        {
+                            "title": "Vitamin B2",
+                            "amount": 0.07,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 4.25
+                        },
+                        {
+                            "title": "Calcium",
+                            "amount": 36.08,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.61
+                        },
+                        {
+                            "title": "Potassium",
+                            "amount": 121.88,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.48
+                        },
+                        {
+                            "title": "Vitamin B1",
+                            "amount": 0.05,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.11
+                        },
+                        {
+                            "title": "Vitamin A",
+                            "amount": 136.31,
+                            "unit": "IU",
+                            "percentOfDailyNeeds": 2.73
+                        },
+                        {
+                            "title": "Selenium",
+                            "amount": 1.88,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 2.69
+                        },
+                        {
+                            "title": "Zinc",
+                            "amount": 0.4,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 2.67
+                        },
+                        {
+                            "title": "Folate",
+                            "amount": 9.95,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 2.49
+                        },
+                        {
+                            "title": "Vitamin B3",
+                            "amount": 0.4,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 2.02
+                        },
+                        {
+                            "title": "Vitamin B12",
+                            "amount": 0.12,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 1.99
+                        },
+                        {
+                            "title": "Vitamin D",
+                            "amount": 0.26,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 1.71
+                        },
+                        {
+                            "title": "Vitamin B5",
+                            "amount": 0.13,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 1.34
+                        },
+                        {
+                            "title": "Vitamin K",
+                            "amount": 1.22,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 1.16
                         }
                     ]
                 },
@@ -250,16 +472,37 @@ export function getRecipeById(id) {
                             "title": "Calories",
                             "amount": 249.87,
                             "unit": "cal",
+                            "percentOfDailyNeeds": 12.49
                         },
                         {
                             "title": "Fat",
                             "amount": 0.97,
                             "unit": "g",
+                            "percentOfDailyNeeds": 1.49
+                        },
+                        {
+                            "title": "Saturated Fat",
+                            "amount": 0.24,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 1.53
                         },
                         {
                             "title": "Carbohydrates",
                             "amount": 60.61,
                             "unit": "g",
+                            "percentOfDailyNeeds": 20.2
+                        },
+                        {
+                            "title": "Net Carbohydrates",
+                            "amount": 55.99,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 20.36
+                        },
+                        {
+                            "title": "Sugar",
+                            "amount": 42.4,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 47.11
                         },
                         {
                             "title": "Cholesterol",
@@ -279,6 +522,126 @@ export function getRecipeById(id) {
                             "unit": "g",
                             "percentOfDailyNeeds": 5.51
                         },
+                        {
+                            "title": "Fiber",
+                            "amount": 4.62,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 18.49
+                        },
+                        {
+                            "title": "Manganese",
+                            "amount": 0.23,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 11.37
+                        },
+                        {
+                            "title": "Vitamin B1",
+                            "amount": 0.15,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 10.22
+                        },
+                        {
+                            "title": "Selenium",
+                            "amount": 7.15,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 10.21
+                        },
+                        {
+                            "title": "Vitamin C",
+                            "amount": 7.71,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 9.34
+                        },
+                        {
+                            "title": "Folate",
+                            "amount": 36.22,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 9.05
+                        },
+                        {
+                            "title": "Phosphorus",
+                            "amount": 89.3,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 8.93
+                        },
+                        {
+                            "title": "Vitamin B2",
+                            "amount": 0.15,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 8.86
+                        },
+                        {
+                            "title": "Potassium",
+                            "amount": 268.32,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 7.67
+                        },
+                        {
+                            "title": "Iron",
+                            "amount": 1.11,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 6.19
+                        },
+                        {
+                            "title": "Vitamin B3",
+                            "amount": 1.08,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 5.42
+                        },
+                        {
+                            "title": "Calcium",
+                            "amount": 46.13,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 4.61
+                        },
+                        {
+                            "title": "Vitamin B6",
+                            "amount": 0.09,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 4.27
+                        },
+                        {
+                            "title": "Copper",
+                            "amount": 0.07,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.74
+                        },
+                        {
+                            "title": "Vitamin K",
+                            "amount": 3.84,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 3.66
+                        },
+                        {
+                            "title": "Magnesium",
+                            "amount": 12.84,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.21
+                        },
+                        {
+                            "title": "Vitamin B5",
+                            "amount": 0.26,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 2.56
+                        },
+                        {
+                            "title": "Vitamin E",
+                            "amount": 0.38,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 2.5
+                        },
+                        {
+                            "title": "Vitamin A",
+                            "amount": 120.97,
+                            "unit": "IU",
+                            "percentOfDailyNeeds": 2.42
+                        },
+                        {
+                            "title": "Zinc",
+                            "amount": 0.26,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 1.74
+                        }
                     ],
                 },
                 "summary": "Apple Or Peach Strudel might be just the dessert you are searching for. This recipe makes 8 servings with <b>234 calories</b>, <b>3g of protein</b>, and <b>1g of fat</b> each. For <b>56 cents per serving</b>, this recipe <b>covers 5%</b> of your daily requirements of vitamins and minerals. 1 person has made this recipe and would make it again. It is a good option if you're following a <b>dairy free and vegetarian</b> diet. From preparation to the plate, this recipe takes about <b>16 minutes</b>. Head to the store and pick up baking apples, baking powder, salt, and a few other things to make it today. All things considered, we decided this recipe <b>deserves a spoonacular score of 27%</b>. This score is not so outstanding. Try <a href=\"https://spoonacular.com/recipes/apple-strudel-apfel-strudel-73414\">Apple Strudel (apfel Strudel)</a>, <a href=\"https://spoonacular.com/recipes/peach-strudel-507356\">Peach Strudel</a>, and <a href=\"https://spoonacular.com/recipes/peach-walnut-strudel-149300\">Peach Walnut Strudel</a> for similar recipes.",
@@ -323,32 +686,188 @@ export function getRecipeById(id) {
                             "title": "Calories",
                             "amount": 657.72,
                             "unit": "cal",
+                            "percentOfDailyNeeds": 32.89
                         },
                         {
                             "title": "Fat",
                             "amount": 35.24,
                             "unit": "g",
+                            "percentOfDailyNeeds": 54.22
+                        },
+                        {
+                            "title": "Saturated Fat",
+                            "amount": 21.91,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 136.92
                         },
                         {
                             "title": "Carbohydrates",
                             "amount": 84.34,
                             "unit": "g",
+                            "percentOfDailyNeeds": 28.11
+                        },
+                        {
+                            "title": "Net Carbohydrates",
+                            "amount": 77.16,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 28.06
+                        },
+                        {
+                            "title": "Sugar",
+                            "amount": 38.16,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 42.4
                         },
                         {
                             "title": "Cholesterol",
                             "amount": 91.11,
                             "unit": "mg",
+                            "percentOfDailyNeeds": 30.37
                         },
                         {
                             "title": "Sodium",
                             "amount": 322.58,
                             "unit": "mg",
+                            "percentOfDailyNeeds": 14.03
                         },
                         {
                             "title": "Protein",
                             "amount": 5.89,
                             "unit": "g",
+                            "percentOfDailyNeeds": 11.78
                         },
+                        {
+                            "title": "Manganese",
+                            "amount": 0.58,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 28.84
+                        },
+                        {
+                            "title": "Fiber",
+                            "amount": 7.18,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 28.71
+                        },
+                        {
+                            "title": "Vitamin B1",
+                            "amount": 0.41,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 27.21
+                        },
+                        {
+                            "title": "Vitamin A",
+                            "amount": 1202.82,
+                            "unit": "IU",
+                            "percentOfDailyNeeds": 24.06
+                        },
+                        {
+                            "title": "Selenium",
+                            "amount": 16.61,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 23.73
+                        },
+                        {
+                            "title": "Folate",
+                            "amount": 93.9,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 23.48
+                        },
+                        {
+                            "title": "Vitamin B2",
+                            "amount": 0.31,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 18.15
+                        },
+                        {
+                            "title": "Vitamin B3",
+                            "amount": 3.01,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 15.03
+                        },
+                        {
+                            "title": "Iron",
+                            "amount": 2.59,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 14.38
+                        },
+                        {
+                            "title": "Vitamin C",
+                            "amount": 11.18,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 13.55
+                        },
+                        {
+                            "title": "Vitamin E",
+                            "amount": 1.45,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 9.66
+                        },
+                        {
+                            "title": "Potassium",
+                            "amount": 311.16,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 8.89
+                        },
+                        {
+                            "title": "Phosphorus",
+                            "amount": 86.27,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 8.63
+                        },
+                        {
+                            "title": "Vitamin K",
+                            "amount": 8.32,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 7.93
+                        },
+                        {
+                            "title": "Copper",
+                            "amount": 0.15,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 7.57
+                        },
+                        {
+                            "title": "Magnesium",
+                            "amount": 23.9,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 5.98
+                        },
+                        {
+                            "title": "Vitamin B6",
+                            "amount": 0.12,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 5.85
+                        },
+                        {
+                            "title": "Calcium",
+                            "amount": 44.49,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 4.45
+                        },
+                        {
+                            "title": "Vitamin D",
+                            "amount": 0.64,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 4.24
+                        },
+                        {
+                            "title": "Vitamin B5",
+                            "amount": 0.39,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.94
+                        },
+                        {
+                            "title": "Zinc",
+                            "amount": 0.49,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 3.25
+                        },
+                        {
+                            "title": "Vitamin B12",
+                            "amount": 0.07,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 1.2
+                        }
                     ],
                 },
                 "summary": "If you have about <b>about 45 minutes</b> to spend in the kitchen, Apricot Glazed Apple Tart might be a great <b>lacto ovo vegetarian</b> recipe to try. For <b>$1.59 per serving</b>, you get a dessert that serves 4. One serving contains <b>658 calories</b>, <b>6g of protein</b>, and <b>35g of fat</b>. It is brought to you by Foodista. Not a lot of people made this recipe, and 3 would say it hit the spot. If you have cinnamon, pinch of salt, butter butter, and a few other ingredients on hand, you can make it. Overall, this recipe earns a <b>not so great spoonacular score of 29%</b>. If you like this recipe, take a look at these similar recipes: <a href=\"https://spoonacular.com/recipes/tarte-aux-abricots-glazed-french-apricot-tart-with-almonds-124725\">Tarte Aux Abricots - Glazed French Apricot Tart With Almonds</a>, <a href=\"https://spoonacular.com/recipes/apricot-apple-glazed-gammon-513531\">Apricot & Apple Glazed Gammon</a>, and <a href=\"https://spoonacular.com/recipes/orange-glazed-apple-apricot-crisp-481367\">Orange glazed Apple Apricot Crisp</a>.",
@@ -447,33 +966,194 @@ export function getRecipeById(id) {
                             "title": "Calories",
                             "amount": 584.46,
                             "unit": "cal",
+                            "percentOfDailyNeeds": 29.22
                         },
                         {
                             "title": "Fat",
                             "amount": 19.83,
                             "unit": "g",
+                            "percentOfDailyNeeds": 30.51
+                        },
+                        {
+                            "title": "Saturated Fat",
+                            "amount": 8.09,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 50.57
                         },
                         {
                             "title": "Carbohydrates",
                             "amount": 83.71,
                             "unit": "g",
+                            "percentOfDailyNeeds": 27.9
+                        },
+                        {
+                            "title": "Net Carbohydrates",
+                            "amount": 76.98,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 27.99
+                        },
+                        {
+                            "title": "Sugar",
+                            "amount": 5.36,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 5.95
                         },
                         {
                             "title": "Cholesterol",
                             "amount": 31.02,
                             "unit": "mg",
+                            "percentOfDailyNeeds": 10.34
                         },
                         {
                             "title": "Sodium",
                             "amount": 451.42,
                             "unit": "mg",
-                            "": 19.63
+                            "percentOfDailyNeeds": 19.63
+                        },
+                        {
+                            "title": "Alcohol",
+                            "amount": 1.55,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 8.58
                         },
                         {
                             "title": "Protein",
                             "amount": 18.98,
                             "unit": "g",
+                            "percentOfDailyNeeds": 37.97
                         },
+                        {
+                            "title": "Selenium",
+                            "amount": 57.72,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 82.45
+                        },
+                        {
+                            "title": "Vitamin C",
+                            "amount": 56.62,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 68.64
+                        },
+                        {
+                            "title": "Manganese",
+                            "amount": 1.11,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 55.52
+                        },
+                        {
+                            "title": "Vitamin K",
+                            "amount": 58.27,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 55.49
+                        },
+                        {
+                            "title": "Phosphorus",
+                            "amount": 304.38,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 30.44
+                        },
+                        {
+                            "title": "Fiber",
+                            "amount": 6.73,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 26.92
+                        },
+                        {
+                            "title": "Folate",
+                            "amount": 87.14,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 21.79
+                        },
+                        {
+                            "title": "Vitamin B6",
+                            "amount": 0.43,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 21.46
+                        },
+                        {
+                            "title": "Magnesium",
+                            "amount": 71.55,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 17.89
+                        },
+                        {
+                            "title": "Calcium",
+                            "amount": 178.12,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 17.81
+                        },
+                        {
+                            "title": "Potassium",
+                            "amount": 597.53,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 17.07
+                        },
+                        {
+                            "title": "Iron",
+                            "amount": 3.07,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 17.04
+                        },
+                        {
+                            "title": "Copper",
+                            "amount": 0.33,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 16.43
+                        },
+                        {
+                            "title": "Zinc",
+                            "amount": 2.12,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 14.15
+                        },
+                        {
+                            "title": "Vitamin B5",
+                            "amount": 1.17,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 11.69
+                        },
+                        {
+                            "title": "Vitamin B2",
+                            "amount": 0.2,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 11.5
+                        },
+                        {
+                            "title": "Vitamin A",
+                            "amount": 537.51,
+                            "unit": "IU",
+                            "percentOfDailyNeeds": 10.75
+                        },
+                        {
+                            "title": "Vitamin B3",
+                            "amount": 2.14,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 10.71
+                        },
+                        {
+                            "title": "Vitamin B1",
+                            "amount": 0.16,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 10.46
+                        },
+                        {
+                            "title": "Vitamin E",
+                            "amount": 1.53,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 10.2
+                        },
+                        {
+                            "title": "Vitamin B12",
+                            "amount": 0.14,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 2.28
+                        },
+                        {
+                            "title": "Vitamin D",
+                            "amount": 0.2,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 1.31
+                        }
                     ],
                 },
                 "summary": "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for. This recipe makes 2 servings with <b>636 calories</b>, <b>21g of protein</b>, and <b>20g of fat</b> each. For <b>$1.83 per serving</b>, this recipe <b>covers 24%</b> of your daily requirements of vitamins and minerals. From preparation to the plate, this recipe takes about <b>45 minutes</b>. This recipe is liked by 209 foodies and cooks. If you have pasta, salt and pepper, cheese, and a few other ingredients on hand, you can make it. To use up the extra virgin olive oil you could follow this main course with the <a href=\"https://spoonacular.com/recipes/peach-crisp-healthy-crisp-for-breakfast-487698\">Peach Crisp: Healthy Crisp for Breakfast</a> as a dessert. All things considered, we decided this recipe <b>deserves a spoonacular score of 86%</b>. This score is tremendous. Try <a href=\"https://spoonacular.com/recipes/cauliflower-gratin-with-garlic-breadcrumbs-318375\">Cauliflower Gratin with Garlic Breadcrumbs</a>, <a href=\"https://spoonacular.com/recipes/pasta-with-cauliflower-sausage-breadcrumbs-30437\">Pasta With Cauliflower, Sausage, & Breadcrumbs</a>, and <a href=\"https://spoonacular.com/recipes/pasta-with-roasted-cauliflower-parsley-and-breadcrumbs-30738\">Pasta With Roasted Cauliflower, Parsley, And Breadcrumbs</a> for similar recipes.",
@@ -508,32 +1188,176 @@ export function getRecipeById(id) {
                             "title": "Calories",
                             "amount": 521.13,
                             "unit": "cal",
+                            "percentOfDailyNeeds": 26.06
                         },
                         {
                             "title": "Fat",
                             "amount": 10.27,
                             "unit": "g",
+                            "percentOfDailyNeeds": 15.8
+                        },
+                        {
+                            "title": "Saturated Fat",
+                            "amount": 4.12,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 25.74
                         },
                         {
                             "title": "Carbohydrates",
                             "amount": 69.02,
                             "unit": "g",
+                            "percentOfDailyNeeds": 23.01
+                        },
+                        {
+                            "title": "Net Carbohydrates",
+                            "amount": 66.07,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 24.03
+                        },
+                        {
+                            "title": "Sugar",
+                            "amount": 2.54,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 2.82
                         },
                         {
                             "title": "Cholesterol",
                             "amount": 67.58,
                             "unit": "mg",
+                            "percentOfDailyNeeds": 22.53
                         },
                         {
                             "title": "Sodium",
                             "amount": 209.26,
                             "unit": "mg",
+                            "percentOfDailyNeeds": 9.1
                         },
                         {
                             "title": "Protein",
                             "amount": 35.12,
                             "unit": "g",
+                            "percentOfDailyNeeds": 70.24
                         },
+                        {
+                            "title": "Selenium",
+                            "amount": 90.42,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 129.17
+                        },
+                        {
+                            "title": "Vitamin B1",
+                            "amount": 0.69,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 46.12
+                        },
+                        {
+                            "title": "Phosphorus",
+                            "amount": 448.3,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 44.83
+                        },
+                        {
+                            "title": "Vitamin B3",
+                            "amount": 8.84,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 44.19
+                        },
+                        {
+                            "title": "Manganese",
+                            "amount": 0.85,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 42.6
+                        },
+                        {
+                            "title": "Vitamin B6",
+                            "amount": 0.8,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 39.92
+                        },
+                        {
+                            "title": "Zinc",
+                            "amount": 2.98,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 19.86
+                        },
+                        {
+                            "title": "Magnesium",
+                            "amount": 76.75,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 19.19
+                        },
+                        {
+                            "title": "Copper",
+                            "amount": 0.32,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 15.99
+                        },
+                        {
+                            "title": "Potassium",
+                            "amount": 552.74,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 15.79
+                        },
+                        {
+                            "title": "Vitamin B2",
+                            "amount": 0.26,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 15.07
+                        },
+                        {
+                            "title": "Calcium",
+                            "amount": 144.07,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 14.41
+                        },
+                        {
+                            "title": "Fiber",
+                            "amount": 2.94,
+                            "unit": "g",
+                            "percentOfDailyNeeds": 11.78
+                        },
+                        {
+                            "title": "Vitamin B5",
+                            "amount": 1.1,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 11.01
+                        },
+                        {
+                            "title": "Vitamin B12",
+                            "amount": 0.6,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 10.01
+                        },
+                        {
+                            "title": "Iron",
+                            "amount": 1.73,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 9.62
+                        },
+                        {
+                            "title": "Folate",
+                            "amount": 17.26,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 4.31
+                        },
+                        {
+                            "title": "Vitamin D",
+                            "amount": 0.41,
+                            "unit": "µg",
+                            "percentOfDailyNeeds": 2.75
+                        },
+                        {
+                            "title": "Vitamin A",
+                            "amount": 81.73,
+                            "unit": "IU",
+                            "percentOfDailyNeeds": 1.63
+                        },
+                        {
+                            "title": "Vitamin E",
+                            "amount": 0.24,
+                            "unit": "mg",
+                            "percentOfDailyNeeds": 1.61
+                        }
                     ],
                 },
                 "summary": "You can never have too many main course recipes, so give What to make for dinner tonight?? Bruschetta Style Pork & Pastan a try. For <b>$1.45 per serving</b>, this recipe <b>covers 22%</b> of your daily requirements of vitamins and minerals. This recipe makes 5 servings with <b>521 calories</b>, <b>35g of protein</b>, and <b>10g of fat</b> each. 163 people have tried and liked this recipe. If you have bow tie pasta, pork chops, recipe makers chicken bruschetta pasta, and a few other ingredients on hand, you can make it. To use up the pasta you could follow this main course with the <a href=\"https://spoonacular.com/recipes/chocolate-dessert-pasta-138646\">Chocolate Dessert Pasta</a> as a dessert. This recipe is typical of Mediterranean cuisine. From preparation to the plate, this recipe takes around <b>35 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 90%</b>. This score is awesome. Try <a href=\"https://spoonacular.com/recipes/dinner-tonight-grilled-romesco-style-pork-209128\">Dinner Tonight: Grilled Romesco-Style Pork</a>, <a href=\"https://spoonacular.com/recipes/dinner-tonight-chickpea-bruschetta-31868\">Dinner Tonight: Chickpea Bruschetta</a>, and <a href=\"https://spoonacular.com/recipes/dinner-tonight-pasta-with-pork-loin-chinese-eggplant-baby-bok-choy-and-spicy-miso-sauce-206706\">Dinner Tonight: Pasta with Pork Loin, Chinese Eggplant, Baby Bok Choy, and Spicy Miso Sauce</a> for similar recipes.",
