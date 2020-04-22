@@ -1,8 +1,8 @@
 <template>
-    <div class="home">
-        <Carousel />
-        <CardsContainer :recipe-list="randomRecipeList" />
-    </div>
+	<div class="home">
+		<Carousel />
+		<CardsContainer :recipe-list="randomRecipeList" :recipes-per-page="6" />
+	</div>
 </template>
 
 <script>
@@ -13,22 +13,22 @@ import CardsContainer from "@/components/cards-container/CardsContainer.vue";
 import { getMockRecipeList } from "../mock/RecipeData.js";
 
 export default {
-    name: "HomePage",
-    components: {
-        Carousel,
-        CardsContainer,
-    },
-    data() {
-        return {
-            randomRecipeList: getMockRecipeList(),
-        };
-    },
+	name: "HomePage",
+	components: {
+		Carousel,
+		CardsContainer,
+	},
+	data() {
+		return {
+			randomRecipeList: getMockRecipeList(),
+		};
+	},
 };
 </script>
 <style scoped>
 .home {
-    display: grid;
-    row-gap: 20px;
-    margin-bottom: 20px;
+	display: grid;
+	row-gap: 20px;
+	margin-bottom: 20px;
 }
 </style>
