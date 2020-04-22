@@ -432,7 +432,7 @@ export default {
 
 			store.commit(
 				"setSearchResult",
-				getMockResultsByName(query, number)
+				getMockResultsByName()
 			);
 
 			store.commit("setSearchData", this.searchData);
@@ -443,15 +443,15 @@ export default {
 			let cleanExcludings = this.removeEmpty(this.excludings);
 
 			let query = this.keywords;
-			let include = cleanIncludings.join();
-			let exclude = cleanExcludings.join();
+			// let include = cleanIncludings.join();
+			// let exclude = cleanExcludings.join();
 			let number = 10;
 
 			this.setSearchData(query, cleanIncludings, cleanExcludings, number);
 
 			store.commit(
 				"setSearchResult",
-				getMockSearchRecipesComplex(query, include, exclude, number)
+				getMockSearchRecipesComplex()
 			);
 
 			store.commit("setSearchData", this.searchData);
