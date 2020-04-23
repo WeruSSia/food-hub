@@ -46,6 +46,9 @@
 						/>
 					</div>
 				</div>
+				<div>
+					{{ error_message }}
+				</div>
 				<button class="action-button" @click="onActionButtonClicked">
 					{{ actionButtonName }}
 				</button>
@@ -82,6 +85,8 @@
 </template>
 <script>
 import { MODAL_MODE } from "./ModalMode.js";
+import * as firebase from "firebase/app";
+require("firebase/auth");
 
 export default {
 	computed: {
@@ -135,11 +140,13 @@ export default {
 		return {
 			email: "",
 			password: "",
+			user: "",
+			error_message: "",
 			modalMode: MODAL_MODE.SIGN_IN,
 		};
 	},
 	mounted() {
-		// prevent scrolling
+		// prevent  scrolling
 		document.body.style.overflowY = "hidden";
 		document.addEventListener("keydown", this.handleEscapeClickedEvent);
 	},
@@ -153,7 +160,18 @@ export default {
 			this.$emit("toggleSignInModal");
 		},
 		onContinueWithFacebookClicked() {
-			console.log("CONTIUNEWITHFB");
+			var provider = new firebase.auth.FacebookAuthProvider();
+			firebase
+				.auth()
+				.signInWithPopup(provider)
+				.then(result => {
+					this.user = result.user;
+					this.$emit("toggleSignInModal");
+				})
+				.catch(error => {
+					this.error_message = error;
+					this.clearData();
+				});
 		},
 		async onActionButtonClicked() {
 			switch (this.modalMode) {
@@ -172,13 +190,43 @@ export default {
 			}
 		},
 		async signInAction() {
-			console.log("SIGNIN");
+			firebase
+				.auth()
+				.signInWithEmailAndPassword(this.email, this.password)
+				.then(result => {
+					this.user = result.user;
+					this.$emit("toggleSignInModal");
+				})
+				.catch(error => {
+					this.error_message = error;
+					this.clearData();
+				});
 		},
 		async signUpAction() {
-			console.log("SIGN_UP");
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(this.email, this.password)
+				.then(result => {
+					this.error_message = "You can log in now!";
+					console.log(result);
+					this.clearData();
+				})
+				.catch(error => {
+					this.error_message = error;
+					this.clearData();
+				});
 		},
 		async forgotPasswordAction() {
-			console.log("FORGOTPASSWORD");
+			firebase
+				.auth()
+				.sendPasswordResetEmail(this.email)
+				.then(result => {
+					this.clearData();
+					console.log(result);
+				})
+				.catch(error => {
+					this.error_message = error;
+				});
 		},
 		onForgotPasswordClicked() {
 			this.modalMode = MODAL_MODE.FORGOT_PASSWORD;
