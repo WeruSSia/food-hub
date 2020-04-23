@@ -1,7 +1,6 @@
 /**
  * All API calls will be maintainted here
  */
-
 const API_KEY = "5c4fccbf09894f23b5a22cec1c932533";
 var response = "";
 
