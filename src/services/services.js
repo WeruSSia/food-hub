@@ -18,10 +18,7 @@ export async function getResultByName(query, number) {
             "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
             "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
         }, "params": {
-            "intolerances": "egg%2C gluten",
             "number": number,
-            "offset": "0",
-            "type": "main course",
             "query": query
         }
     })
@@ -54,7 +51,6 @@ export async function getRecipesByIngredients(ingredients, number) {
             "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
         }, "params": {
             "number": number,
-            "ranking": "1",
             "ingredients": ingriedientsString
         }
     })
