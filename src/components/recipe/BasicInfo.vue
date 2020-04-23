@@ -296,6 +296,16 @@ export default {
 	white-space: nowrap;
 }
 
+@media screen and (max-width: 420px) {
+	.recipe-info {
+		width: 50%;
+	}
+	.recipe-name-div {
+		font-size: 20px;
+		width: 40%;
+	}
+}
+
 .servings,
 .preparation-time,
 .calories {
@@ -308,6 +318,7 @@ export default {
 	font-family: "Poppins";
 	font-weight: 600;
 }
+
 .header {
 	border-bottom: 1.5px solid rgb(236, 236, 236);
 	width: 95%;
