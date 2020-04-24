@@ -86,3 +86,43 @@ export async function getRandomRecipes(number) {
             console.log(error)
         })
 }
+
+/**
+ *
+ * @param {Number} number - The number of random recipes to be returned (between 1 and 100).
+ * @param {string} query - name of dish
+ * @param {Array} includeIngredients -  list of ingredients that must be contained in the recipes
+ * @param {Array} excludeIngredients -  list of ingredients that must not be contained in the recipes
+ * @returns {Array} recipes
+ */
+
+export async function getComplexSearch(number, query, includeIngredients, excludeIngredients) {
+    const includeIngredientsArray = includeIngredients.map(ingredient =>
+        ingredient + '%2C'
+    );
+
+    const excludeIngredientsArray = excludeIngredients.map(ingredient =>
+        ingredient + '%2C'
+    );
+
+    axios({
+        "method": "GET",
+        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch",
+        "headers": {
+            "content-type": "application/octet-stream",
+            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+            "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
+        }, "params": {
+            "excludeIngredients": excludeIngredientsArray,
+            "includeIngredients": includeIngredientsArray,
+            "query": query,
+            "number": number
+        }
+    })
+        .then((response) => {
+            return response
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
