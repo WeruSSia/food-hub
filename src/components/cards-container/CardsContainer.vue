@@ -115,7 +115,7 @@ a {
 	padding: 6px 12px;
 	margin-left: -1px;
 	line-height: 1.42857143;
-	color: #337ab7;
+	color: rgb(217, 0, 27);
 	text-decoration: none;
 	background-color: #fff;
 	border: 1px solid #ddd;
@@ -135,8 +135,9 @@ a {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
+	outline: none;
 	z-index: 3;
-	color: #23527c;
+	color: rgb(217, 0, 27);
 	background-color: #eee;
 	border-color: #ddd;
 }
@@ -149,8 +150,8 @@ a {
 	z-index: 2;
 	color: #fff;
 	cursor: default;
-	background-color: #337ab7;
-	border-color: #337ab7;
+	background-color: rgb(217, 0, 27);
+	border-color: rgb(217, 0, 27);
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
