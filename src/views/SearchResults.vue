@@ -86,9 +86,7 @@
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
 import store from "../store/index.js";
-
-//TODO: Change this to get random recipe API call
-import { getMockRecipeList } from "../mock/RecipeData.js";
+import { getRandomRecipes } from "../services/services.js";
 
 export default {
 	name: "SearchResults",
@@ -97,7 +95,7 @@ export default {
 	},
 	data() {
 		return {
-			randomRecipeList: getMockRecipeList(),
+			randomRecipeList: this.getRandomRecipes()
 		};
 	},
 	computed: {
@@ -108,6 +106,11 @@ export default {
 			return store.state.searchData;
 		},
 	},
+	methods: {
+		async getRandomRecipes() {
+			return await getRandomRecipes();
+		}
+	}
 };
 </script>
 

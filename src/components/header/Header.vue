@@ -361,10 +361,9 @@
 	</div>
 </template>
 <script>
-//TODO: Change these two to get recipe API calls
-import { getMockResultsByName } from "../../mock/RecipeData.js";
-import { getMockSearchRecipesComplex } from "../../mock/RecipeData.js";
 
+import { getResultByName } from "../../services/services.js";
+import { getComplexSearch } from "../../services/services.js";
 import store from "../../store/index.js";
 
 export default {
@@ -424,36 +423,34 @@ export default {
 		showSignInModal() {
 			this.$emit("toggleSignInModal");
 		},
-		setQuery() {
+
+		async setQuery() {
 			let query = this.query;
-			let number = 10;
+			let number = 20;
 
 			this.setSearchData(query, null, null, number);
 
-			store.commit(
-				"setSearchResult",
-				getMockResultsByName()
-			);
+			const results = await getResultByName(query, number);
+			console.log("results = " + results)
 
+			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
 		},
 
-		setIngredients() {
+		async setIngredients() {
 			let cleanIncludings = this.removeEmpty(this.includings);
 			let cleanExcludings = this.removeEmpty(this.excludings);
 
 			let query = this.keywords;
-			// let include = cleanIncludings.join();
-			// let exclude = cleanExcludings.join();
-			let number = 10;
+			let include = cleanIncludings.join();
+			let exclude = cleanExcludings.join();
+			let number = 20;
 
 			this.setSearchData(query, cleanIncludings, cleanExcludings, number);
 
-			store.commit(
-				"setSearchResult",
-				getMockSearchRecipesComplex()
-			);
+			const results = await getComplexSearch(query, include, exclude, number);
 
+			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
 		},
 

@@ -2,27 +2,35 @@
  * All API calls will be maintainted here
  */
 
+import axios from "axios";
+
+var spoonacularRecipesAddress = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes";
+var contentType = "application/octet-stream";
+var xRapidApiHost = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+var xRapidApiKey = "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd";
 
 /**
  *
- * @param {string} query - name of dish
- * @param {number} number - defines # of returned receipes
- * @returns {Array}
+ * @param {string} query - The (natural language) recipe search query.
+ * @param {number} number - The number of results to return (between 1 and 100).
+ * @returns {Object}
  */
 export async function getResultByName(query, number) {
     axios({
         "method": "GET",
-        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
+        "url": spoonacularRecipesAddress + "/search",
         "headers": {
-            "content-type": "application/octet-stream",
-            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-            "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
+            "content-type": contentType,
+            "x-rapidapi-host": xRapidApiHost,
+            "x-rapidapi-key": xRapidApiKey
         }, "params": {
+            "query": query,
             "number": number,
-            "query": query
+            "instructionsRequired": true
         }
     })
         .then((response) => {
+            console.log("response = " + response)
             return response
         })
         .catch((error) => {
@@ -32,55 +40,23 @@ export async function getResultByName(query, number) {
 
 /**
  *
-
- * @param {Array} of ingredients
- * @returns {Array}
- */
-
-export async function getRecipesByIngredients(ingredients, number) {
-    const ingriedientsString = ingredients.map(ingredient =>
-        ingredient + '%2C'
-    );
-
-    axios({
-        "method": "GET",
-        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
-        "headers": {
-            "content-type": "application/octet-stream",
-            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-            "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
-        }, "params": {
-            "number": number,
-            "ingredients": ingriedientsString
-        }
-    })
-        .then((response) => {
-            return response
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-}
-/**
- *
- * @param {string} number - The number of random recipes to be returned (between 1 and 100).
  * @returns {Array} randomly picked recipes
  */
-
-export async function getRandomRecipes(number) {
-    axios({
+export async function getRandomRecipes() {
+    await axios({
         "method": "GET",
-        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random",
+        "url": spoonacularRecipesAddress + "/random",
         "headers": {
-            "content-type": "application/octet-stream",
-            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-            "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
+            "content-type": contentType,
+            "x-rapidapi-host": xRapidApiHost,
+            "x-rapidapi-key": xRapidApiKey
         }, "params": {
-            "number": number
+            "number": 20
         }
     })
-        .then(response => {
-            return response
+        .then((response) => {
+            console.log(response.data.recipes)
+            return response.data.recipes
         })
         .catch((error) => {
             console.log(error)
@@ -89,37 +65,59 @@ export async function getRandomRecipes(number) {
 
 /**
  *
- * @param {Number} number - The number of random recipes to be returned (between 1 and 100).
- * @param {string} query - name of dish
- * @param {Array} includeIngredients -  list of ingredients that must be contained in the recipes
- * @param {Array} excludeIngredients -  list of ingredients that must not be contained in the recipes
- * @returns {Array} recipes
+ * @param {string} query - The (natural language) recipe search query.
+ * @param {string} includeIngredients -  list of ingredients that must be contained in the recipes
+ * @param {string} excludeIngredients -  list of ingredients that must not be contained in the recipes
+ * @param {number} number - The number of random recipes to be returned (between 1 and 100).
+ * @returns {Object} recipes
  */
+export async function getComplexSearch(query, includeIngredients, excludeIngredients, number) {
+    const includeIngredientsSeparated = includeIngredients.replace(/,/g, '%2C');
+    const excludeIngredientsSeparated = excludeIngredients.replace(/,/g, '%2C');
 
-export async function getComplexSearch(number, query, includeIngredients, excludeIngredients) {
-    const includeIngredientsArray = includeIngredients.map(ingredient =>
-        ingredient + '%2C'
-    );
-
-    const excludeIngredientsArray = excludeIngredients.map(ingredient =>
-        ingredient + '%2C'
-    );
-
-    axios({
+    await axios({
         "method": "GET",
-        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch",
+        "url": spoonacularRecipesAddress + "/complexSearch",
         "headers": {
-            "content-type": "application/octet-stream",
-            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-            "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
+            "content-type": contentType,
+            "x-rapidapi-host": xRapidApiHost,
+            "x-rapidapi-key": xRapidApiKey
         }, "params": {
-            "excludeIngredients": excludeIngredientsArray,
-            "includeIngredients": includeIngredientsArray,
             "query": query,
+            "includeIngredients": includeIngredientsSeparated,
+            "excludeIngredients": excludeIngredientsSeparated,
+            "instructionsRequired": true,
             "number": number
         }
     })
         .then((response) => {
+            console.log(response.data)
+            return response.data
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+
+/**
+ *
+ * @param {number} id - The id of the recipe.
+ * @returns {Object}
+ */
+export async function getRecipe(id) {
+    axios({
+        "method": "GET",
+        "url": spoonacularRecipesAddress + "/" + id + "/information",
+        "headers": {
+            "content-type": contentType,
+            "x-rapidapi-host": xRapidApiHost,
+            "x-rapidapi-key": xRapidApiKey
+        }, "params": {
+            "includeNutrition": true
+        }
+    })
+        .then((response) => {
+            console.log(response)
             return response
         })
         .catch((error) => {

@@ -8,9 +8,7 @@
 <script>
 import Carousel from "@/components/carousel/Carousel.vue";
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-
-//TODO: Change this to get random recipe API call
-import { getMockRecipeList } from "../mock/RecipeData.js";
+import { getRandomRecipes } from "../services/services.js";
 
 export default {
 	name: "HomePage",
@@ -20,9 +18,17 @@ export default {
 	},
 	data() {
 		return {
-			randomRecipeList: getMockRecipeList(),
+			randomRecipeList: [],
 		};
 	},
+	beforeMount() {
+		this.randomRecipeList = this.getRandomRecipes();
+	},
+	methods: {
+		async getRandomRecipes() {
+			return await getRandomRecipes();
+		}
+	}
 };
 </script>
 <style scoped>
