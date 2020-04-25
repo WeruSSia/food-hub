@@ -108,11 +108,6 @@ export default {
 			return store.state.searchData;
 		},
 	},
-	watch: {
-		searchDataFromVuex() {
-			//handle searching here, I am leaving this here becuase of how router works, you cannot use mounted
-		},
-	},
 };
 </script>
 
