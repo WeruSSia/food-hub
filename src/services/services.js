@@ -4,8 +4,9 @@
 
 import axios from "axios";
 
-var spoonacularRecipesAddress = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes";
-var contentType = "application/octet-stream";
+var spoonacularRecipesAddress =
+	"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes";
+var contentType = "application/json";
 var xRapidApiHost = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
 var xRapidApiKey = "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd";
 
@@ -16,26 +17,27 @@ var xRapidApiKey = "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd";
  * @returns {Object}
  */
 export async function getResultByName(query, number) {
-    axios({
-        "method": "GET",
-        "url": spoonacularRecipesAddress + "/search",
-        "headers": {
-            "content-type": contentType,
-            "x-rapidapi-host": xRapidApiHost,
-            "x-rapidapi-key": xRapidApiKey
-        }, "params": {
-            "query": query,
-            "number": number,
-            "instructionsRequired": true
-        }
-    })
-        .then((response) => {
-            console.log("response = " + response)
-            return response
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+	return axios({
+		method: "GET",
+		url: spoonacularRecipesAddress + "/search",
+		headers: {
+			"content-type": contentType,
+			"x-rapidapi-host": xRapidApiHost,
+			"x-rapidapi-key": xRapidApiKey,
+		},
+		params: {
+			query: query,
+			number: number,
+			instructionsRequired: true,
+		},
+	})
+		.then(response => {
+			console.log("response = ", response.data.results);
+			return response.data.results;
+		})
+		.catch(error => {
+			console.log(error);
+		});
 }
 
 /**
@@ -43,24 +45,25 @@ export async function getResultByName(query, number) {
  * @returns {Array} randomly picked recipes
  */
 export async function getRandomRecipes() {
-    await axios({
-        "method": "GET",
-        "url": spoonacularRecipesAddress + "/random",
-        "headers": {
-            "content-type": contentType,
-            "x-rapidapi-host": xRapidApiHost,
-            "x-rapidapi-key": xRapidApiKey
-        }, "params": {
-            "number": 20
-        }
-    })
-        .then((response) => {
-            console.log(response.data.recipes)
-            return response.data.recipes
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+	return axios({
+		method: "GET",
+		url: spoonacularRecipesAddress + "/random",
+		headers: {
+			"content-type": contentType,
+			"x-rapidapi-host": xRapidApiHost,
+			"x-rapidapi-key": xRapidApiKey,
+		},
+		params: {
+			number: 20,
+		},
+	})
+		.then(response => {
+			console.log(response.data.recipes);
+			return response.data.recipes;
+		})
+		.catch(error => {
+			console.log(error);
+		});
 }
 
 /**
@@ -71,32 +74,38 @@ export async function getRandomRecipes() {
  * @param {number} number - The number of random recipes to be returned (between 1 and 100).
  * @returns {Object} recipes
  */
-export async function getComplexSearch(query, includeIngredients, excludeIngredients, number) {
-    const includeIngredientsSeparated = includeIngredients.replace(/,/g, '%2C');
-    const excludeIngredientsSeparated = excludeIngredients.replace(/,/g, '%2C');
+export async function getComplexSearch(
+	query,
+	includeIngredients,
+	excludeIngredients,
+	number
+) {
+	const includeIngredientsSeparated = includeIngredients.replace(/,/g, "%2C");
+	const excludeIngredientsSeparated = excludeIngredients.replace(/,/g, "%2C");
 
-    await axios({
-        "method": "GET",
-        "url": spoonacularRecipesAddress + "/complexSearch",
-        "headers": {
-            "content-type": contentType,
-            "x-rapidapi-host": xRapidApiHost,
-            "x-rapidapi-key": xRapidApiKey
-        }, "params": {
-            "query": query,
-            "includeIngredients": includeIngredientsSeparated,
-            "excludeIngredients": excludeIngredientsSeparated,
-            "instructionsRequired": true,
-            "number": number
-        }
-    })
-        .then((response) => {
-            console.log(response.data)
-            return response.data
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+	await axios({
+		method: "GET",
+		url: spoonacularRecipesAddress + "/complexSearch",
+		headers: {
+			"content-type": contentType,
+			"x-rapidapi-host": xRapidApiHost,
+			"x-rapidapi-key": xRapidApiKey,
+		},
+		params: {
+			query: query,
+			includeIngredients: includeIngredientsSeparated,
+			excludeIngredients: excludeIngredientsSeparated,
+			instructionsRequired: true,
+			number: number,
+		},
+	})
+		.then(response => {
+			console.log(response.data);
+			return response.data;
+		})
+		.catch(error => {
+			console.log(error);
+		});
 }
 
 /**
@@ -105,22 +114,23 @@ export async function getComplexSearch(query, includeIngredients, excludeIngredi
  * @returns {Object}
  */
 export async function getRecipe(id) {
-    axios({
-        "method": "GET",
-        "url": spoonacularRecipesAddress + "/" + id + "/information",
-        "headers": {
-            "content-type": contentType,
-            "x-rapidapi-host": xRapidApiHost,
-            "x-rapidapi-key": xRapidApiKey
-        }, "params": {
-            "includeNutrition": true
-        }
-    })
-        .then((response) => {
-            console.log(response)
-            return response
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+	axios({
+		method: "GET",
+		url: spoonacularRecipesAddress + "/" + id + "/information",
+		headers: {
+			"content-type": contentType,
+			"x-rapidapi-host": xRapidApiHost,
+			"x-rapidapi-key": xRapidApiKey,
+		},
+		params: {
+			includeNutrition: true,
+		},
+	})
+		.then(response => {
+			console.log(response);
+			return response;
+		})
+		.catch(error => {
+			console.log(error);
+		});
 }

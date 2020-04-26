@@ -76,7 +76,7 @@
 		<hr />
 		<div class="results">
 			<CardsContainer
-				:recipe-list="searchResultFromVuex.results"
+				:recipe-list="searchResultFromVuex"
 				:recipes-per-page="9"
 			/>
 		</div>
@@ -95,7 +95,7 @@ export default {
 	},
 	data() {
 		return {
-			randomRecipeList: this.getRandomRecipes()
+			randomRecipeList: [],
 		};
 	},
 	computed: {
@@ -108,9 +108,9 @@ export default {
 	},
 	methods: {
 		async getRandomRecipes() {
-			return await getRandomRecipes();
-		}
-	}
+			return getRandomRecipes();
+		},
+	},
 };
 </script>
 

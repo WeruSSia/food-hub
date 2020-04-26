@@ -22,13 +22,16 @@ export default {
 		};
 	},
 	beforeMount() {
-		this.randomRecipeList = this.getRandomRecipes();
+		this.getRandomRecipes();
 	},
 	methods: {
 		async getRandomRecipes() {
-			return await getRandomRecipes();
-		}
-	}
+			const result = await getRandomRecipes();
+			if (result) {
+				this.randomRecipeList = result;
+			}
+		},
+	},
 };
 </script>
 <style scoped>

@@ -361,7 +361,6 @@
 	</div>
 </template>
 <script>
-
 import { getResultByName } from "../../services/services.js";
 import { getComplexSearch } from "../../services/services.js";
 import store from "../../store/index.js";
@@ -431,7 +430,7 @@ export default {
 			this.setSearchData(query, null, null, number);
 
 			const results = await getResultByName(query, number);
-			console.log("results = " + results)
+			console.log("results = ", results);
 
 			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
@@ -448,7 +447,12 @@ export default {
 
 			this.setSearchData(query, cleanIncludings, cleanExcludings, number);
 
-			const results = await getComplexSearch(query, include, exclude, number);
+			const results = await getComplexSearch(
+				query,
+				include,
+				exclude,
+				number
+			);
 
 			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
