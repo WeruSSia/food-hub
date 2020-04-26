@@ -398,10 +398,8 @@ export default {
 			this.clearHeader();
 		},
 		goToHistory() {
-			//TODO router
-			// this.$router.push("/history").catch(() => {});
-			// this.clearHeader();
-			//this.clearSearchData();
+			this.$router.push("/history").catch(() => {});
+			this.clearHeader();
 		},
 		goToFavourites() {
 			this.$router.push("/favourites").catch(() => {});
