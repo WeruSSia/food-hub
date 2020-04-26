@@ -31,9 +31,10 @@ export async function getResultByName(query) {
     })
         .then(response => {
             response.data.results = response.data.results.map(el => {
-                const type = el.image.split('.')[1];
-
-                el.image = `${response.data.baseUri}${el.id}-312x231.${type}`
+                if (el.image != undefined) {
+                    const type = el.image.split('.')[1];
+                    el.image = `${response.data.baseUri}${el.id}-312x231.${type}`
+                }
                 return el;
             })
             return response.data;
