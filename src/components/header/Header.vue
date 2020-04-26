@@ -383,28 +383,28 @@ export default {
 	},
 	methods: {
 		goToHomePage() {
-			this.$router.push("/");
+			this.$router.push("/").catch(() => {});
 			this.clearHeader();
 			this.clearSearchData();
 		},
 		searchRecipes() {
-			this.$router.push("/results");
+			this.$router.push("/results").catch(() => {});
 			this.setQuery();
 			this.clearHeader();
 		},
 		searchByIngredients() {
-			this.$router.push("/results");
+			this.$router.push("/results").catch(() => {});
 			this.setIngredients();
 			this.clearHeader();
 		},
 		goToHistory() {
 			//TODO router
-			// this.$router.push("/history");
+			// this.$router.push("/history").catch(() => {});
 			// this.clearHeader();
 			//this.clearSearchData();
 		},
 		goToFavourites() {
-			this.$router.push("/favourites");
+			this.$router.push("/favourites").catch(() => {});
 			this.clearHeader();
 			this.clearSearchData();
 		},
@@ -413,7 +413,7 @@ export default {
 		},
 		goToProfile() {
 			//TODO router
-			// this.$router.push("/profile");
+			// this.$router.push("/profile").catch(() => {});
 			// this.clearResponsive();
 			// TODO: add that modal is shown only when user is not logged in
 			this.showSignInModal();
