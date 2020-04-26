@@ -378,7 +378,6 @@ export default {
 				queryString: "",
 				includes: [],
 				excludes: [],
-				number: 0,
 			},
 		};
 	},
@@ -425,12 +424,10 @@ export default {
 
 		async setQuery() {
 			let query = this.query;
-			let number = 20;
 
-			this.setSearchData(query, null, null, number);
+			this.setSearchData(query, null, null);
 
-			const results = await getResultByName(query, number);
-			console.log("results = ", results);
+			const results = await getResultByName(query);
 
 			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
@@ -443,16 +440,10 @@ export default {
 			let query = this.keywords;
 			let include = cleanIncludings.join();
 			let exclude = cleanExcludings.join();
-			let number = 20;
 
-			this.setSearchData(query, cleanIncludings, cleanExcludings, number);
+			this.setSearchData(query, cleanIncludings, cleanExcludings);
 
-			const results = await getComplexSearch(
-				query,
-				include,
-				exclude,
-				number
-			);
+			const results = await getComplexSearch(query, include, exclude);
 
 			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
@@ -468,11 +459,10 @@ export default {
 			return toReturn;
 		},
 
-		setSearchData(query, include, exclude, number) {
+		setSearchData(query, include, exclude) {
 			this.searchData.queryString = query;
 			this.searchData.includes = include;
 			this.searchData.excludes = exclude;
-			this.searchData.number = number;
 		},
 
 		clearSearchData() {

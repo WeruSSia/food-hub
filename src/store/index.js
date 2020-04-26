@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		isUserLoggedIn: false,
-		searchResult: [],
+		searchResult: {},
 		searchData: {},
 	},
 	mutations: {

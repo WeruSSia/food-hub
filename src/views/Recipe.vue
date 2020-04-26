@@ -22,18 +22,21 @@ export default {
 		Directions,
 		NutritionFacts,
 	},
-	beforeMount() {
-		this.recipe = this.getRecipeInfo;
-	},
 	data() {
 		return {
 			recipe: {},
 		};
 	},
+	beforeMount() {
+		this.getRecipeInfo();
+	},
 	methods: {
 		async getRecipeInfo() {
-			return await getRecipe(this.$route.params.id);
-		}
+			const result = await getRecipe(this.$route.params.id);
+			if (result) {
+				this.recipe = result;
+			}
+		},
 	}
 };
 </script>
