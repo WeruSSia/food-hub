@@ -181,6 +181,10 @@
 </template>
 
 <script>
+import * as firebase from "firebase/app";
+require("firebase/auth");
+import "firebase/database";
+
 export default {
 	props: {
 		recipe: {
@@ -213,7 +217,20 @@ export default {
 	},
 	methods: {
 		addToFavourites() {
-			//TODO addToFavourites(this.recipe.id);
+			var user = firebase.auth().currentUser;
+			var data = {
+				name: this.recipe.title,
+				image: this.recipe.image,
+			};
+
+			if (user) {
+				var userId = user.uid;
+				var database = firebase.database();
+				var ref = database.ref("users/" + userId + "/favourites");
+				ref.push(data);
+			} else {
+				console.log("is not logged");
+			}
 		},
 		printRecipe() {
 			window.print();
