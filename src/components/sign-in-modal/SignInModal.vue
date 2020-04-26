@@ -28,6 +28,7 @@
 							type="text"
 							class="email-input input-text"
 							placeholder="E-mail"
+							@keyup.enter="onActionButtonClicked"
 						/>
 					</div>
 				</div>
@@ -43,6 +44,7 @@
 							type="password"
 							class="password-input text-input"
 							placeholder="Password"
+							@keyup.enter="onActionButtonClicked"
 						/>
 					</div>
 				</div>
@@ -87,7 +89,6 @@
 import { MODAL_MODE } from "./ModalMode.js";
 import * as firebase from "firebase/app";
 require("firebase/auth");
-import store from "../../store/index.js";
 
 export default {
 	computed: {
@@ -168,7 +169,6 @@ export default {
 				.auth()
 				.signInWithPopup(provider)
 				.then(() => {
-					store.commit("setUserLoggedIn", true);
 					this.$emit("toggleSignInModal");
 				})
 				.catch(error => {
@@ -199,7 +199,6 @@ export default {
 				.auth()
 				.signInWithEmailAndPassword(this.email, this.password)
 				.then(() => {
-					store.commit("setUserLoggedIn", true);
 					this.$emit("toggleSignInModal");
 				})
 				.catch(error => {
