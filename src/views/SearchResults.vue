@@ -2,9 +2,9 @@
 	<!-- typing /results in page address -->
 	<div
 		v-if="
-			(searchResultFromVuex == null && searchDataFromVuex == null) ||
+			(searchDataFromVuex == null && searchResultFromVuex == null) ||
 				Object.keys(searchResultFromVuex).length === 0 ||
-				Object.keys(searchResultFromVuex).length === 0
+				Object.keys(searchDataFromVuex).length === 0
 		"
 	>
 		<h3>You should search some recipes first!</h3>
@@ -13,9 +13,37 @@
 	<!-- no results found -->
 	<div v-else-if="searchResultFromVuex.totalResults === 0">
 		<h2>We're sorry, no results have been found...</h2>
-		<h3 class="subcaption">See other recipes and smart cooking ideas:</h3>
+		<h3 class="subcaption">
+			See other recipes and smart cooking ideas:
+		</h3>
 		<div class="results">
-			<CardsContainer :recipe-list="randomRecipeList" />
+			<CardsContainer
+				:recipe-list="randomRecipeList"
+				:recipes-per-page="9"
+			/>
+		</div>
+	</div>
+
+	<!-- no data provided -->
+	<div
+		v-else-if="
+			(searchDataFromVuex.includes == null &&
+				searchDataFromVuex.excludes == null &&
+				searchDataFromVuex.queryString === '') ||
+				(searchDataFromVuex.queryString === '' &&
+					!searchDataFromVuex.includes.length &&
+					!searchDataFromVuex.excludes.length)
+		"
+	>
+		<h2>We're sorry, no results have been found...</h2>
+		<h3 class="subcaption">
+			See other recipes and smart cooking ideas:
+		</h3>
+		<div class="results">
+			<CardsContainer
+				:recipe-list="searchResultFromVuex.results"
+				:recipes-per-page="9"
+			/>
 		</div>
 	</div>
 
@@ -23,8 +51,8 @@
 	<div v-else class="container">
 		<div class="heading">
 			<h2>
-				{{ searchResultFromVuex.totalResults }} results have been found
-				for your query!
+				{{ searchResultFromVuex.number }} results have been found for
+				your query!
 			</h2>
 			<div
 				v-if="
@@ -86,9 +114,7 @@
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
 import store from "../store/index.js";
-
-//TODO: Change this to get random recipe API call
-import { getMockRecipeList } from "../mock/RecipeData.js";
+import { getRandomRecipes } from "../services/services.js";
 
 export default {
 	name: "SearchResults",
@@ -97,7 +123,7 @@ export default {
 	},
 	data() {
 		return {
-			randomRecipeList: getMockRecipeList(),
+			randomRecipeList: [],
 		};
 	},
 	computed: {
@@ -108,6 +134,17 @@ export default {
 			return store.state.searchData;
 		},
 	},
+	beforeMount() {
+		this.getRandomRecipes();
+	},
+	methods: {
+		async getRandomRecipes() {
+			const result = await getRandomRecipes();
+			if (result) {
+				this.randomRecipeList = result;
+			}
+		},
+	},
 };
 </script>
 
@@ -116,6 +153,13 @@ h2 {
 	display: flex;
 	margin-top: 10px;
 	margin-bottom: 5px;
+	margin-left: 2.4%;
+}
+
+.subcaption {
+	display: flex;
+	margin-top: 10px;
+	margin-bottom: 20px;
 	margin-left: 2.4%;
 }
 
