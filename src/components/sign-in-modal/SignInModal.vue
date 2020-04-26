@@ -1,6 +1,6 @@
 <template>
 	<div class="sign-in-modal">
-		<div class="sign-in-modal-content">
+		<div class="sign-in-modal-content" ref="sign-in-modal-content">
 			<i
 				class="fas fa-times fa-lg sign-in-modal-close-button"
 				@click="onCloseButtonClicked"
@@ -46,6 +46,9 @@
 						/>
 					</div>
 				</div>
+				<div class="sign-in-modal-response-message">
+					{{ message }}
+				</div>
 				<button class="action-button" @click="onActionButtonClicked">
 					{{ actionButtonName }}
 				</button>
@@ -82,6 +85,9 @@
 </template>
 <script>
 import { MODAL_MODE } from "./ModalMode.js";
+import * as firebase from "firebase/app";
+require("firebase/auth");
+import store from "../../store/index.js";
 
 export default {
 	computed: {
@@ -133,13 +139,16 @@ export default {
 	},
 	data() {
 		return {
+			isLoading: true,
 			email: "",
 			password: "",
+			user: "",
+			message: "",
 			modalMode: MODAL_MODE.SIGN_IN,
 		};
 	},
 	mounted() {
-		// prevent scrolling
+		// prevent  scrolling
 		document.body.style.overflowY = "hidden";
 		document.addEventListener("keydown", this.handleEscapeClickedEvent);
 	},
@@ -152,8 +161,21 @@ export default {
 		onCloseButtonClicked() {
 			this.$emit("toggleSignInModal");
 		},
-		onContinueWithFacebookClicked() {
-			console.log("CONTIUNEWITHFB");
+		async onContinueWithFacebookClicked() {
+			let loader = this.startLoading();
+			var provider = new firebase.auth.FacebookAuthProvider();
+			await firebase
+				.auth()
+				.signInWithPopup(provider)
+				.then(() => {
+					store.commit("setUserLoggedIn", true);
+					this.$emit("toggleSignInModal");
+				})
+				.catch(error => {
+					this.message = error;
+					this.clearData();
+				})
+				.finally(() => loader.hide());
 		},
 		async onActionButtonClicked() {
 			switch (this.modalMode) {
@@ -172,21 +194,57 @@ export default {
 			}
 		},
 		async signInAction() {
-			console.log("SIGNIN");
+			let loader = this.startLoading();
+			await firebase
+				.auth()
+				.signInWithEmailAndPassword(this.email, this.password)
+				.then(() => {
+					store.commit("setUserLoggedIn", true);
+					this.$emit("toggleSignInModal");
+				})
+				.catch(error => {
+					this.message = error;
+					this.clearData();
+				})
+				.finally(() => loader.hide());
 		},
 		async signUpAction() {
-			console.log("SIGN_UP");
+			let loader = this.startLoading();
+			await firebase
+				.auth()
+				.createUserWithEmailAndPassword(this.email, this.password)
+				.then(() => {
+					this.message = "You can log in now!";
+					this.clearData();
+				})
+				.catch(error => {
+					this.message = error;
+				})
+				.finally(() => loader.hide());
 		},
 		async forgotPasswordAction() {
-			console.log("FORGOTPASSWORD");
+			let loader = this.startLoading();
+			await firebase
+				.auth()
+				.sendPasswordResetEmail(this.email)
+				.then(() => {
+					this.clearData();
+				})
+				.catch(error => {
+					this.message = error;
+				})
+				.finally(() => loader.hide());
 		},
 		onForgotPasswordClicked() {
+			this.message = "";
 			this.modalMode = MODAL_MODE.FORGOT_PASSWORD;
 		},
 		onFooterLinkSignUpClicked() {
+			this.message = "";
 			this.modalMode = MODAL_MODE.SIGN_UP;
 		},
 		onFooterLinkSignInClicked() {
+			this.message = "";
 			this.modalMode = MODAL_MODE.SIGN_IN;
 		},
 		handleEscapeClickedEvent(event) {
@@ -198,6 +256,12 @@ export default {
 			this.email = "";
 			this.password = "";
 			this.modalMode = MODAL_MODE.SIGN_IN;
+		},
+		startLoading() {
+			return this.$loading.show({
+				container: this.$refs["sign-in-modal-content"],
+				canCancel: false,
+			});
 		},
 	},
 };
@@ -410,5 +474,9 @@ export default {
 .sign-in-modal-footer-link:hover,
 .sign-in-modal-forgot-password:hover {
 	text-decoration: underline;
+}
+
+.sign-in-modal-response-message {
+	max-width: 300px;
 }
 </style>

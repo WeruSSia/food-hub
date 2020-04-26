@@ -361,10 +361,8 @@
 	</div>
 </template>
 <script>
-//TODO: Change these two to get recipe API calls
-import { getMockResultsByName } from "../../mock/RecipeData.js";
-import { getMockSearchRecipesComplex } from "../../mock/RecipeData.js";
-
+import { getResultByName } from "../../services/services.js";
+import { getComplexSearch } from "../../services/services.js";
 import store from "../../store/index.js";
 
 export default {
@@ -380,34 +378,33 @@ export default {
 				queryString: "",
 				includes: [],
 				excludes: [],
-				number: 0,
 			},
 		};
 	},
 	methods: {
 		goToHomePage() {
-			this.$router.push("/");
+			this.$router.push("/").catch(() => {});
 			this.clearHeader();
 			this.clearSearchData();
 		},
 		searchRecipes() {
-			this.$router.push("/results");
+			this.$router.push("/results").catch(() => {});
 			this.setQuery();
 			this.clearHeader();
 		},
 		searchByIngredients() {
-			this.$router.push("/results");
+			this.$router.push("/results").catch(() => {});
 			this.setIngredients();
 			this.clearHeader();
 		},
 		goToHistory() {
 			//TODO router
-			// this.$router.push("/history");
+			// this.$router.push("/history").catch(() => {});
 			// this.clearHeader();
 			//this.clearSearchData();
 		},
 		goToFavourites() {
-			this.$router.push("/favourites");
+			this.$router.push("/favourites").catch(() => {});
 			this.clearHeader();
 			this.clearSearchData();
 		},
@@ -416,7 +413,7 @@ export default {
 		},
 		goToProfile() {
 			//TODO router
-			// this.$router.push("/profile");
+			// this.$router.push("/profile").catch(() => {});
 			// this.clearResponsive();
 			// TODO: add that modal is shown only when user is not logged in
 			this.showSignInModal();
@@ -424,36 +421,31 @@ export default {
 		showSignInModal() {
 			this.$emit("toggleSignInModal");
 		},
-		setQuery() {
+
+		async setQuery() {
 			let query = this.query;
-			let number = 10;
 
-			this.setSearchData(query, null, null, number);
+			this.setSearchData(query, null, null);
 
-			store.commit(
-				"setSearchResult",
-				getMockResultsByName()
-			);
+			const results = await getResultByName(query);
 
+			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
 		},
 
-		setIngredients() {
+		async setIngredients() {
 			let cleanIncludings = this.removeEmpty(this.includings);
 			let cleanExcludings = this.removeEmpty(this.excludings);
 
 			let query = this.keywords;
-			// let include = cleanIncludings.join();
-			// let exclude = cleanExcludings.join();
-			let number = 10;
+			let include = cleanIncludings.join();
+			let exclude = cleanExcludings.join();
 
-			this.setSearchData(query, cleanIncludings, cleanExcludings, number);
+			this.setSearchData(query, cleanIncludings, cleanExcludings);
 
-			store.commit(
-				"setSearchResult",
-				getMockSearchRecipesComplex()
-			);
+			const results = await getComplexSearch(query, include, exclude);
 
+			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
 		},
 
@@ -467,11 +459,10 @@ export default {
 			return toReturn;
 		},
 
-		setSearchData(query, include, exclude, number) {
+		setSearchData(query, include, exclude) {
 			this.searchData.queryString = query;
 			this.searchData.includes = include;
 			this.searchData.excludes = exclude;
-			this.searchData.number = number;
 		},
 
 		clearSearchData() {
