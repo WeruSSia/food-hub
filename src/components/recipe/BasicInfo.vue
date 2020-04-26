@@ -221,6 +221,7 @@ export default {
 			var data = {
 				name: this.recipe.title,
 				image: this.recipe.image,
+				id: this.recipe.id,
 			};
 
 			if (user) {
