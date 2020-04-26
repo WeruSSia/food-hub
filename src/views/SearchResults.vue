@@ -50,7 +50,20 @@
 	<!-- at least 1 result found -->
 	<div v-else class="container">
 		<div class="heading">
-			<h2>
+			<h2 v-if="searchResultFromVuex.totalResults === 1">
+				{{ searchResultFromVuex.totalResults }} result have been found
+				for your query!
+			</h2>
+			<h2
+				v-else-if="
+					searchResultFromVuex.totalResults < 20 &&
+						searchResultFromVuex.totalResults > 1
+				"
+			>
+				{{ searchResultFromVuex.totalResults }} results have been found
+				for your query!
+			</h2>
+			<h2 v-else>
 				{{ searchResultFromVuex.number }} results have been found for
 				your query!
 			</h2>
