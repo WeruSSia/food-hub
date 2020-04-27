@@ -13,6 +13,9 @@ import Ingredients from "@/components/recipe/Ingredients.vue";
 import Directions from "@/components/recipe/Directions.vue";
 import NutritionFacts from "@/components/recipe/NutritionFacts.vue";
 import { getRecipe } from "../services/services.js";
+import * as firebase from "firebase/app";
+require("firebase/auth");
+import "firebase/database";
 
 export default {
 	name: "Recipe",
@@ -35,8 +38,23 @@ export default {
 			const result = await getRecipe(this.$route.params.id);
 			if (result) {
 				this.recipe = result;
+				var user = firebase.auth().currentUser;
+				var data = {
+					name: this.recipe.title,
+					image: this.recipe.image,
+					id: this.recipe.id,
+				};
+
+				if (user) {
+					var userId = user.uid;
+					var database = firebase.database();
+					var ref = database.ref("users/" + userId + "/history");
+					ref.push(data);
+				} else {
+					console.log("is not logged");
+				}
 			}
 		},
-	}
+	},
 };
 </script>
