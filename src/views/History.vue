@@ -26,9 +26,9 @@ export default {
 	computed: {
 		historyHeaderTitle() {
 			if (this.historyRecipeList.length > 0) {
-				return `Your recent searches (${this.historyRecipeList.length})`;
+				return `Your recent search history (${this.historyRecipeList.length})`;
 			}
-			return "You haven't search anything yet";
+			return "Your recent search history is empty";
 		},
 	},
 	data() {
@@ -118,7 +118,7 @@ export default {
 
 @media screen and (max-width: 400px) {
 	.history-header-title {
-		font-size: 18px;
+		font-size: 17px;
 	}
 }
 </style>
