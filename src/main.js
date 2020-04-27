@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import * as firebase from "firebase/app";
+import 'firebase/database';
 import "firebase/analytics";
 import "firebase/auth";
 import Loading from "vue-loading-overlay";
@@ -26,6 +27,15 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+firebase.database();
+
+firebase.auth().onAuthStateChanged(user => {
+	if (user) {
+		store.commit("setUserLoggedIn", true);
+	} else {
+		store.commit("setUserLoggedIn", false);
+	}
+});
 
 new Vue({
 	router,

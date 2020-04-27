@@ -5,6 +5,7 @@ import SearchResults from "../views/SearchResults.vue";
 import Favourites from "../views/Favourites.vue";
 import Recipe from "../views/Recipe.vue";
 import History from "../views/History.vue";
+import Profile from "../views/Profile.vue";
 
 Vue.use(VueRouter);
 
@@ -20,19 +21,24 @@ const routes = [
 		component: SearchResults,
 	},
 	{
-		path: "/favourites",
-		name: "Favourites",
-		component: Favourites,
-	},
-	{
 		path: "/history",
 		name: "History",
 		component: History,
 	},
 	{
+		path: "/favourites",
+		name: "Favourites",
+		component: Favourites,
+	},
+	{
 		path: "/recipe/:id",
 		name: "Recipe",
 		component: Recipe,
+	},
+	{
+		path: "/profile",
+		name: "Profile",
+		component: Profile,
 	},
 ];
 
