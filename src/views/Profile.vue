@@ -30,7 +30,7 @@
 		</div>
 		<div class="random-joke-div">
 			<p class="random-joke">
-				{{ getRandomJoke() }}
+				{{ randomJoke }}
 			</p>
 		</div>
 	</div>
@@ -38,13 +38,18 @@
 
 <script>
 import defaultPicture from "../assets/profile-icon.svg";
+import { getRandomJoke } from "../services/services.js";
 export default {
 	name: "Profile",
 	data() {
 		return {
 			headerTitle: "Your profile",
 			emailAddress: "", //TODO e-mail address from firebase
+			randomJoke: "",
 		};
+	},
+	beforeMount() {
+		this.printJoke();
 	},
 	methods: {
 		getProfilePicture: function() {
@@ -59,8 +64,11 @@ export default {
 		deleteAccount: function() {
 			//TODO
 		},
-		getRandomJoke: function() {
-			//TODO
+		async printJoke() {
+			const result = await getRandomJoke();
+			if (result) {
+				this.randomJoke = result.text;
+			}
 		},
 	},
 };
