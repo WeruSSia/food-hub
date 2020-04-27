@@ -14,7 +14,6 @@
 
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-import { getRandomRecipes } from "../services/services.js";
 import * as firebase from "firebase/app";
 require("firebase/auth");
 import "firebase/database";
@@ -26,7 +25,7 @@ export default {
 	},
 	data() {
 		return {
-			favouritesHeaderTitle: "Your favourite recipes",
+			favouritesHeaderTitle: "Your favourite recipe list is empty",
 			favouriteRecipeList: [],
 		};
 	},
@@ -48,18 +47,11 @@ export default {
 					.once("value")
 					.then(async snapshot => {
 						const result = snapshot.val();
-						if (result && Object.values(result).length > 0) {
+						if (result) {
 							this.favouriteRecipeList = Object.values(
 								result
 							).map(recipe => recipe);
-							this.favouritesHeaderTitle = `Your favourite recipes (${this.favouriteRecipeList.length})`;
-						} else {
-							const result = await getRandomRecipes();
-							if (result) {
-								this.favouriteRecipeList = result;
-								this.favouritesHeaderTitle =
-									"No favourites? Maybe you will like:";
-							}
+							this.favouritesHeaderTitle = `Your favourite recipe list (${this.favouriteRecipeList.length})`;
 						}
 					})
 					.finally(() => loader.hide());
