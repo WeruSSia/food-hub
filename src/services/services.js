@@ -129,3 +129,26 @@ export async function getRecipe(id) {
             console.log(error);
         });
 }
+
+
+/**
+ *
+ * @param {number} id - The id of the recipe.
+ * @returns {Object}
+ */
+export async function getRandomJoke() {
+    axios({
+        "method": "GET",
+        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/jokes/random",
+        "headers": {
+            "content-type": "application/octet-stream",
+            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+            "x-rapidapi-key": "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd"
+        }
+    })
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            console.log(error)
+        })
