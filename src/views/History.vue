@@ -25,7 +25,10 @@ export default {
 	},
 	computed: {
 		historyHeaderTitle() {
-			return `Your recent searches (${this.historyRecipeList.length})`;
+			if (this.historyRecipeList.length > 0) {
+				return `Your recent searches (${this.historyRecipeList.length})`;
+			}
+			return "You haven't search anything yet";
 		},
 	},
 	data() {
