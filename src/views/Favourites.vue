@@ -1,5 +1,5 @@
 <template>
-	<div class="favourites">
+	<div ref="favourites" class="favourites">
 		<div class="favourites-header">
 			<p class="favourites-header-title">
 				{{ favouritesHeaderTitle }}
@@ -14,7 +14,11 @@
 
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-import { getMockRecipeList } from "../mock/RecipeData.js";
+import { getRandomRecipes } from "../services/services.js";
+import * as firebase from "firebase/app";
+require("firebase/auth");
+import "firebase/database";
+
 export default {
 	name: "Favourites",
 	components: {
@@ -23,21 +27,43 @@ export default {
 	data() {
 		return {
 			favouritesHeaderTitle: "Your favourite recipes",
-			favouriteRecipeList: getMockRecipeList(),
+			favouriteRecipeList: [],
 		};
 	},
-	beforeMount() {
+	mounted() {
 		this.initializeFavourites();
 	},
 	methods: {
 		async initializeFavourites() {
-			//get favourites from database
-			// if favourites list empty -> get random recipes
-			// this.favouriteRecipeList = responseRandomRecipes;
-			// this.favouritesHeaderTitle = "No favourites? Maybe you will like:"
-			// else
-			//this.favouriteRecipeList = favouritesResponse;
-			//this.favouritesHeaderTitle = `Your favourite recipes (${this.favouriteRecipeList.length})`;
+			const loader = this.$loading.show({
+				container: this.$refs["favourites"],
+				canCancel: false,
+			});
+			const user = firebase.auth().currentUser;
+			if (user) {
+				const userId = user.uid;
+				firebase
+					.database()
+					.ref("users/" + userId + "/favourites")
+					.once("value")
+					.then(async snapshot => {
+						const result = snapshot.val();
+						if (result && Object.values(result).length > 0) {
+							this.favouriteRecipeList = Object.values(
+								result
+							).map(recipe => recipe);
+							this.favouritesHeaderTitle = `Your favourite recipes (${this.favouriteRecipeList.length})`;
+						} else {
+							const result = await getRandomRecipes();
+							if (result) {
+								this.favouriteRecipeList = result;
+								this.favouritesHeaderTitle =
+									"No favourites? Maybe you will like:";
+							}
+						}
+					})
+					.finally(() => loader.hide());
+			}
 		},
 	},
 };
