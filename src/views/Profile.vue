@@ -6,36 +6,61 @@
 			</span>
 		</div>
 		<div class="container">
-			<div class="photo">
-				<!-- <img :src="getProfilePicture()" class="profile-picture" /> -->
-				<img
-					src="../assets/food-hub-logo.png"
-					class="profile-picture"
-				/>
+			<div class="profile-picture-div">
+				<img :src="getProfilePicture()" class="profile-picture" />
 			</div>
 			<div class="information">
-				<p>e-mail:</p>
-				<input type="button" value="change password" />
-				<input type="button" value="sign out" />
-				<input type="button" value="delete account" />
+				<p>
+					<span class="e-mail">e-mail:</span>
+					<span>{{ emailAddress }}</span>
+				</p>
+				<input
+					type="button"
+					value="Sign out"
+					class="info-button"
+					@click="signOut()"
+				/>
+				<input
+					type="button"
+					value="Delete account"
+					class="info-button"
+					@click="deleteAccount()"
+				/>
 			</div>
+		</div>
+		<div class="random-joke-div">
+			<p class="random-joke">
+				{{ getRandomJoke() }}
+			</p>
 		</div>
 	</div>
 </template>
 
 <script>
+import defaultPicture from "../assets/profile-icon.svg";
 export default {
 	name: "Profile",
 	data() {
 		return {
 			headerTitle: "Your profile",
+			emailAddress: "", //TODO e-mail address from firebase
 		};
 	},
 	methods: {
 		getProfilePicture: function() {
 			//TODO if logged in from Facebook
-			//return profile picture link
-			//else return default profile picture link
+			//return facebook profile picture link
+			//else return default profile picture link like below
+			return defaultPicture;
+		},
+		signOut: function() {
+			//TODO
+		},
+		deleteAccount: function() {
+			//TODO
+		},
+		getRandomJoke: function() {
+			//TODO
 		},
 	},
 };
@@ -54,17 +79,67 @@ export default {
 	padding: 5px;
 	font-weight: 600;
 }
-.profile-image {
-	max-width: 100%;
-	height: auto;
+.profile-picture {
 	object-fit: cover;
+	width: 100%;
+	height: auto;
+	border-radius: 15px;
+	box-shadow: 3px 3px 10px rgb(236, 236, 236);
+	vertical-align: middle;
 }
-.photo {
-	width: 50px;
-	display: inline-block;
-	border: 1px solid black;
+.profile-picture-div {
+	width: 200px;
+	height: auto;
+	float: left;
+	border: 1px solid rgb(236, 236, 236);
+	border-radius: 15px;
+	box-shadow: 3px 3px 10px rgb(236, 236, 236);
+	margin-right: 20px;
 }
 .information {
-	display: inline-block;
+	width: auto;
+	float: left;
+	vertical-align: top;
+	text-align: start;
+}
+.container {
+	margin: 30px 50px 50px 30px;
+}
+.e-mail {
+	font-weight: 600;
+	color: #333333;
+}
+.info-button {
+	display: block;
+	margin: 20px 0 20px 0;
+	width: auto;
+	height: 40px;
+	font-family: "Poppins", sans-serif;
+	font-weight: 200;
+	color: white;
+	border: none;
+	background-color: #cccccc;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	padding: 10px;
+}
+.info-button:focus {
+	outline: none;
+}
+.info-button:hover {
+	cursor: pointer;
+}
+.random-joke-div {
+	clear: both;
+	text-align: left;
+	margin: 0 30px 0 30px;
+	max-width: 450px;
+}
+.random-joke {
+	padding: 30px 0 30px 0;
+	font-style: italic;
+	color: #555555;
 }
 </style>
