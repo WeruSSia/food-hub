@@ -1,5 +1,5 @@
 <template>
-	<div class="history">
+	<div ref="history" class="history">
 		<div class="history-header">
 			<p class="history-header-title">
 				{{ historyHeaderTitle }}
@@ -33,11 +33,15 @@ export default {
 			historyRecipeList: [],
 		};
 	},
-	beforeMount() {
+	mounted() {
 		this.initializeHistory();
 	},
 	methods: {
 		async initializeHistory() {
+			const loader = this.$loading.show({
+				container: this.$refs["history"],
+				canCancel: false,
+			});
 			const user = firebase.auth().currentUser;
 			if (user) {
 				const userId = user.uid;
@@ -50,7 +54,8 @@ export default {
 						this.historyRecipeList = Object.values(result).map(
 							recipe => recipe
 						);
-					});
+					})
+					.finally(() => loader.hide());
 			}
 		},
 	},
