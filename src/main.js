@@ -26,6 +26,13 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+firebase.auth().onAuthStateChanged(user => {
+	if (user) {
+		store.commit("setUserLoggedIn", true);
+	} else {
+		store.commit("setUserLoggedIn", false);
+	}
+});
 
 new Vue({
 	router,

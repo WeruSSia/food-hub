@@ -50,7 +50,12 @@
 				</svg>
 			</div>
 
-			<div id="history-icon" class="icon" @click="goToHistory">
+			<div
+				v-show="isUserLoggedIn"
+				id="history-icon"
+				class="icon"
+				@click="goToHistory"
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
@@ -65,7 +70,12 @@
 				</svg>
 			</div>
 
-			<div id="favourites-icon" class="icon" @click="goToFavourites">
+			<div
+				v-show="isUserLoggedIn"
+				id="favourites-icon"
+				class="icon"
+				@click="goToFavourites"
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
@@ -80,7 +90,7 @@
 				</svg>
 			</div>
 
-			<div>
+			<div v-show="!isUserLoggedIn" class="button-container-sign-in">
 				<button class="button" @click="onSignInClicked">
 					<span>SIGN IN</span>
 				</button>
@@ -366,6 +376,11 @@ import { getComplexSearch } from "../../services/services.js";
 import store from "../../store/index.js";
 
 export default {
+	computed: {
+		isUserLoggedIn() {
+			return store.state.isUserLoggedIn;
+		},
+	},
 	data() {
 		return {
 			query: "",
@@ -412,11 +427,11 @@ export default {
 			this.showSignInModal();
 		},
 		goToProfile() {
-			//TODO router
-			// this.$router.push("/profile").catch(() => {});
-			// this.clearResponsive();
-			// TODO: add that modal is shown only when user is not logged in
-			this.showSignInModal();
+			if (this.isUserLoggedIn) {
+				this.$router.push("/profile").catch(() => {});
+			} else {
+				this.showSignInModal();
+			}
 		},
 		showSignInModal() {
 			this.$emit("toggleSignInModal");
@@ -942,6 +957,10 @@ export default {
 	margin-left: auto;
 }
 
+.button-container-sign-in {
+	margin-left: auto;
+}
+
 .button {
 	width: 96px;
 	height: 44px;
@@ -1221,6 +1240,9 @@ export default {
 	#search,
 	#items .button {
 		display: none;
+	}
+	.button-container-sign-in {
+		margin-left: 0;
 	}
 	#search-icon {
 		display: block;
