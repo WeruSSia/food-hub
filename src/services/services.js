@@ -130,14 +130,13 @@ export async function getRecipe(id) {
         });
 }
 
-
 /**
  *
  * This is hilarious - we should defenitely use it
  * @returns {Object}
  */
 export async function getRandomJoke() {
-    axios({
+    return axios({
         "method": "GET",
         "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/jokes/random",
         "headers": {
