@@ -14,7 +14,10 @@
 
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-import { getMockRecipeList } from "../mock/RecipeData.js";
+import * as firebase from "firebase/app";
+require("firebase/auth");
+import "firebase/database";
+
 export default {
 	name: "history",
 	components: {
@@ -27,21 +30,28 @@ export default {
 	},
 	data() {
 		return {
-			historyRecipeList: getMockRecipeList(),
+			historyRecipeList: [],
 		};
 	},
 	beforeMount() {
 		this.initializeHistory();
 	},
 	methods: {
-		async initializehistory() {
-			//get history from database
-			// if history list empty -> get random recipes
-			// this.favouriteRecipeList = responseRandomRecipes;
-			// this.historyHeaderTitle = "No history? Maybe you will like:"
-			// else
-			//this.favouriteRecipeList = historyResponse;
-			//this.historyHeaderTitle = `Your favourite recipes (${this.favouriteRecipeList.length})`;
+		async initializeHistory() {
+			const user = firebase.auth().currentUser;
+			if (user) {
+				const userId = user.uid;
+				firebase
+					.database()
+					.ref("users/" + userId + "/history")
+					.once("value")
+					.then(snapshot => {
+						const result = snapshot.val();
+						this.historyRecipeList = Object.values(result).map(
+							recipe => recipe
+						);
+					});
+			}
 		},
 	},
 };
