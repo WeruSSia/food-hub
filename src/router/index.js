@@ -4,6 +4,7 @@ import HomePage from "../views/HomePage.vue";
 import SearchResults from "../views/SearchResults.vue";
 import Favourites from "../views/Favourites.vue";
 import Recipe from "../views/Recipe.vue";
+import Profile from "../views/Profile.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,12 @@ const routes = [
         path: "/recipe/:id",
         name: "Recipe",
         component: Recipe,
+    }
+    ,
+    {
+        path: "/profile",
+        name: "Profile",
+        component: Profile,
     }
 
 ];
