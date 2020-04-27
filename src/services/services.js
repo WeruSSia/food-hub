@@ -133,7 +133,7 @@ export async function getRecipe(id) {
 
 /**
  *
- * @param {number} id - The id of the recipe.
+ * This is hilarious - we should defenitely use it
  * @returns {Object}
  */
 export async function getRandomJoke() {
@@ -152,3 +152,4 @@ export async function getRandomJoke() {
         .catch((error) => {
             console.log(error)
         })
+}
