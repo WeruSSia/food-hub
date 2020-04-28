@@ -45,21 +45,23 @@ export default {
 				container: this.$refs["history"],
 				canCancel: false,
 			});
-			const user = firebase.auth().currentUser;
-			if (user) {
-				const userId = user.uid;
-				firebase
-					.database()
-					.ref("users/" + userId + "/history")
-					.once("value")
-					.then(snapshot => {
-						const result = snapshot.val();
-						this.historyRecipeList = Object.values(result).map(
-							recipe => recipe
-						);
-					})
-					.finally(() => loader.hide());
-			}
+			setTimeout(() => {
+				const user = firebase.auth().currentUser;
+				if (user) {
+					const userId = user.uid;
+					firebase
+						.database()
+						.ref("users/" + userId + "/history")
+						.once("value")
+						.then(snapshot => {
+							const result = snapshot.val();
+							this.historyRecipeList = Object.values(result).map(
+								recipe => recipe
+							);
+						})
+						.finally(() => loader.hide());
+				}
+			}, 1000);
 		},
 	},
 };
