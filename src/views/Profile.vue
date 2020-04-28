@@ -1,5 +1,5 @@
 <template>
-	<div class="profile">
+	<div class="profile" ref="profile-container">
 		<div class="header">
 			<span class="header-name">
 				{{ headerTitle }}
@@ -86,7 +86,7 @@ export default {
 		},
 		async getEmail() {
 			const loader = this.$loading.show({
-				container: this.$refs["Profile"],
+				container: this.$refs["profile-container"],
 				canCancel: false,
 			});
 			setTimeout(() => {
