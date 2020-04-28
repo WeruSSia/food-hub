@@ -1,5 +1,5 @@
 <template>
-	<div class="favourites">
+	<div ref="favourites" class="favourites">
 		<div class="favourites-header">
 			<p class="favourites-header-title">
 				{{ favouritesHeaderTitle }}
@@ -14,7 +14,10 @@
 
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-import { getMockRecipeList } from "../mock/RecipeData.js";
+import * as firebase from "firebase/app";
+require("firebase/auth");
+import "firebase/database";
+
 export default {
 	name: "Favourites",
 	components: {
@@ -22,22 +25,39 @@ export default {
 	},
 	data() {
 		return {
-			favouritesHeaderTitle: "Your favourite recipes",
-			favouriteRecipeList: getMockRecipeList(),
+			favouritesHeaderTitle: "Your favourite recipe list is empty",
+			favouriteRecipeList: [],
 		};
 	},
-	beforeMount() {
+	mounted() {
 		this.initializeFavourites();
 	},
 	methods: {
 		async initializeFavourites() {
-			//get favourites from database
-			// if favourites list empty -> get random recipes
-			// this.favouriteRecipeList = responseRandomRecipes;
-			// this.favouritesHeaderTitle = "No favourites? Maybe you will like:"
-			// else
-			//this.favouriteRecipeList = favouritesResponse;
-			//this.favouritesHeaderTitle = `Your favourite recipes (${this.favouriteRecipeList.length})`;
+			const loader = this.$loading.show({
+				container: this.$refs["favourites"],
+				canCancel: false,
+			});
+			setTimeout(() => {
+				const user = firebase.auth().currentUser;
+				if (user) {
+					const userId = user.uid;
+					firebase
+						.database()
+						.ref("users/" + userId + "/favourites")
+						.once("value")
+						.then(async snapshot => {
+							const result = snapshot.val();
+							if (result) {
+								this.favouriteRecipeList = Object.values(
+									result
+								).map(recipe => recipe);
+								this.favouritesHeaderTitle = `Your favourite recipe list (${this.favouriteRecipeList.length})`;
+							}
+						})
+						.finally(() => loader.hide());
+				}
+			}, 1500);
 		},
 	},
 };
