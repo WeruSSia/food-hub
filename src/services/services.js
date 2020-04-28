@@ -39,9 +39,7 @@ export async function getResultByName(query) {
             })
             return response.data;
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(() => { });
 }
 
 /**
@@ -64,9 +62,7 @@ export async function getRandomRecipes() {
         .then(response => {
             return response.data.recipes;
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(() => { });
 }
 
 /**
@@ -99,9 +95,7 @@ export async function getComplexSearch(query, includeIngredients, excludeIngredi
         .then(response => {
             return response.data;
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(() => { });
 }
 
 /**
@@ -125,9 +119,7 @@ export async function getRecipe(id) {
         .then(response => {
             return response.data;
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(() => { });
 }
 
 /**
@@ -148,7 +140,5 @@ export async function getRandomJoke() {
         .then((response) => {
             return response.data
         })
-        .catch((error) => {
-            console.log(error)
-        })
+        .catch(() => { })
 }
