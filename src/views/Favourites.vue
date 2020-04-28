@@ -38,24 +38,26 @@ export default {
 				container: this.$refs["favourites"],
 				canCancel: false,
 			});
-			const user = firebase.auth().currentUser;
-			if (user) {
-				const userId = user.uid;
-				firebase
-					.database()
-					.ref("users/" + userId + "/favourites")
-					.once("value")
-					.then(async snapshot => {
-						const result = snapshot.val();
-						if (result) {
-							this.favouriteRecipeList = Object.values(
-								result
-							).map(recipe => recipe);
-							this.favouritesHeaderTitle = `Your favourite recipe list (${this.favouriteRecipeList.length})`;
-						}
-					})
-					.finally(() => loader.hide());
-			}
+			setTimeout(() => {
+				const user = firebase.auth().currentUser;
+				if (user) {
+					const userId = user.uid;
+					firebase
+						.database()
+						.ref("users/" + userId + "/favourites")
+						.once("value")
+						.then(async snapshot => {
+							const result = snapshot.val();
+							if (result) {
+								this.favouriteRecipeList = Object.values(
+									result
+								).map(recipe => recipe);
+								this.favouritesHeaderTitle = `Your favourite recipe list (${this.favouriteRecipeList.length})`;
+							}
+						})
+						.finally(() => loader.hide());
+				}
+			}, 1000);
 		},
 	},
 };
