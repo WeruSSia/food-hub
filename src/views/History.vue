@@ -1,12 +1,12 @@
 <template>
-	<div ref="favourites" class="favourites">
-		<div class="favourites-header">
-			<p class="favourites-header-title">
-				{{ favouritesHeaderTitle }}
+	<div ref="history" class="history">
+		<div class="history-header">
+			<p class="history-header-title">
+				{{ historyHeaderTitle }}
 			</p>
 		</div>
 		<CardsContainer
-			:recipe-list="favouriteRecipeList"
+			:recipe-list="historyRecipeList"
 			:recipes-per-page="9"
 		/>
 	</div>
@@ -19,23 +19,30 @@ require("firebase/auth");
 import "firebase/database";
 
 export default {
-	name: "Favourites",
+	name: "history",
 	components: {
 		CardsContainer,
 	},
+	computed: {
+		historyHeaderTitle() {
+			if (this.historyRecipeList.length > 0) {
+				return `Your recent search history (${this.historyRecipeList.length})`;
+			}
+			return "Your recent search history is empty";
+		},
+	},
 	data() {
 		return {
-			favouritesHeaderTitle: "Your favourite recipe list is empty",
-			favouriteRecipeList: [],
+			historyRecipeList: [],
 		};
 	},
 	mounted() {
-		this.initializeFavourites();
+		this.initializeHistory();
 	},
 	methods: {
-		async initializeFavourites() {
+		async initializeHistory() {
 			const loader = this.$loading.show({
-				container: this.$refs["favourites"],
+				container: this.$refs["history"],
 				canCancel: false,
 			});
 			setTimeout(() => {
@@ -44,16 +51,13 @@ export default {
 					const userId = user.uid;
 					firebase
 						.database()
-						.ref("users/" + userId + "/favourites")
+						.ref("users/" + userId + "/history")
 						.once("value")
-						.then(async snapshot => {
+						.then(snapshot => {
 							const result = snapshot.val();
-							if (result) {
-								this.favouriteRecipeList = Object.values(
-									result
-								).map(recipe => recipe);
-								this.favouritesHeaderTitle = `Your favourite recipe list (${this.favouriteRecipeList.length})`;
-							}
+							this.historyRecipeList = Object.values(result).map(
+								recipe => recipe
+							);
 						})
 						.finally(() => loader.hide());
 				}
@@ -63,19 +67,19 @@ export default {
 };
 </script>
 <style scoped>
-.favourites {
+.history {
 	display: grid;
 	row-gap: 20px;
 	margin-bottom: 20px;
 }
 
-.favourites-header {
+.history-header {
 	padding-top: 10px;
 	padding-left: 20px;
 	padding-right: 20px;
 }
 
-.favourites-header:after {
+.history-header:after {
 	content: "\a0";
 	display: block;
 	padding: 2px 0;
@@ -83,7 +87,7 @@ export default {
 	border-bottom: 1px solid rgb(238, 238, 238);
 }
 
-.favourites-header-title {
+.history-header-title {
 	color: rgb(51, 51, 51);
 	font-weight: 600;
 	font-style: normal;
@@ -97,26 +101,26 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-	.favourites-header-title {
+	.history-header-title {
 		font-size: 24px;
 	}
 }
 
 @media screen and (max-width: 500px) {
-	.favourites-header-title {
+	.history-header-title {
 		font-size: 22px;
 	}
 }
 
 @media screen and (max-width: 450px) {
-	.favourites-header-title {
+	.history-header-title {
 		font-size: 20px;
 	}
 }
 
 @media screen and (max-width: 400px) {
-	.favourites-header-title {
-		font-size: 18px;
+	.history-header-title {
+		font-size: 17px;
 	}
 }
 </style>

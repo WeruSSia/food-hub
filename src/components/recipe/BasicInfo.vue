@@ -262,18 +262,15 @@ export default {
 		addToFavourites() {
 			var user = firebase.auth().currentUser;
 			var data = {
-				name: this.recipe.title,
-				image: this.recipe.image,
+				title: this.recipe.title,
+				image: this.recipe.image || "",
 				id: this.recipe.id,
 			};
-
 			if (user) {
 				var userId = user.uid;
 				var database = firebase.database();
 				var ref = database.ref("users/" + userId + "/favourites");
 				ref.push(data);
-			} else {
-				console.log("is not logged");
 			}
 			this.isRecipeInFavourites = true;
 		},

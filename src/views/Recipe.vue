@@ -40,8 +40,8 @@ export default {
 				this.recipe = result;
 				var user = firebase.auth().currentUser;
 				var data = {
-					name: this.recipe.title,
-					image: this.recipe.image,
+					title: this.recipe.title,
+					image: this.recipe.image || "",
 					id: this.recipe.id,
 				};
 
@@ -50,8 +50,6 @@ export default {
 					var database = firebase.database();
 					var ref = database.ref("users/" + userId + "/history");
 					ref.push(data);
-				} else {
-					console.log("is not logged");
 				}
 			}
 		},
