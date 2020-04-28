@@ -54,6 +54,8 @@ export default {
 	},
 	beforeMount() {
 		this.printJoke();
+	},
+	mounted() {
 		this.getEmail();
 	},
 	methods: {
@@ -83,10 +85,12 @@ export default {
 			}
 		},
 		async getEmail() {
-			const user = firebase.auth().currentUser;
-			if (user) {
-				this.emailAddress = user.email;
-			}
+			setTimeout(() => {
+				const user = firebase.auth().currentUser;
+				if (user) {
+					this.emailAddress = user.email;
+				}
+			}, 1500);
 		},
 	},
 };
