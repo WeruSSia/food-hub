@@ -11,7 +11,7 @@
 			</div>
 			<div class="information">
 				<p>
-					<span class="e-mail">e-mail:</span>
+					<span class="e-mail">e-mail: </span>
 					<span>{{ emailAddress }}</span>
 				</p>
 				<input
@@ -20,6 +20,7 @@
 					class="info-button"
 					@click="signOut()"
 				/>
+
 				<input
 					type="button"
 					value="Delete account"
@@ -39,17 +40,21 @@
 <script>
 import defaultPicture from "../assets/profile-icon.svg";
 import { getRandomJoke } from "../services/services.js";
+import * as firebase from "firebase/app";
+require("firebase/auth");
+import "firebase/database";
 export default {
 	name: "Profile",
 	data() {
 		return {
 			headerTitle: "Your profile",
-			emailAddress: "", //TODO e-mail address from firebase
+			emailAddress: "",
 			randomJoke: "",
 		};
 	},
 	beforeMount() {
 		this.printJoke();
+		this.getEmail();
 	},
 	methods: {
 		getProfilePicture: function() {
@@ -59,15 +64,28 @@ export default {
 			return defaultPicture;
 		},
 		signOut: function() {
-			//TODO
+			firebase.auth().signOut();
+			this.$router.push("/");
 		},
 		deleteAccount: function() {
-			//TODO
+			if (confirm("Are you sure you want to delete your account?")) {
+				const user = firebase.auth().currentUser;
+				if (user) {
+					user.delete();
+					this.signOut();
+				}
+			}
 		},
 		async printJoke() {
 			const result = await getRandomJoke();
 			if (result) {
 				this.randomJoke = result.text;
+			}
+		},
+		async getEmail() {
+			const user = firebase.auth().currentUser;
+			if (user) {
+				this.emailAddress = user.email;
 			}
 		},
 	},
