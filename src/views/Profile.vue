@@ -34,6 +34,12 @@
 				{{ randomJoke }}
 			</p>
 		</div>
+		<input
+			type="button"
+			value="Give me another one!"
+			class="joke-button"
+			@click="printJoke()"
+		/>
 	</div>
 </template>
 
@@ -160,11 +166,31 @@ export default {
 	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
 	padding: 10px;
 }
-.info-button:focus {
+.info-button:focus,
+.joke-button {
 	outline: none;
 }
-.info-button:hover {
+.info-button:hover,
+.joke-button {
 	cursor: pointer;
+}
+
+.joke-button {
+	display: block;
+	margin: 20px 0 20px 0;
+	width: auto;
+	height: 40px;
+	font-family: "Poppins", sans-serif;
+	font-weight: 200;
+	color: white;
+	border: none;
+	background-color: #cccccc;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	padding: 10px;
+	margin: 0 30px 30px 30px;
 }
 .random-joke-div {
 	clear: both;
@@ -173,7 +199,7 @@ export default {
 	max-width: 450px;
 }
 .random-joke {
-	padding: 30px 0 30px 0;
+	padding: 30px 0 10px 0;
 	font-style: italic;
 	color: #555555;
 }
