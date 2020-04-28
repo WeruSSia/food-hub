@@ -85,10 +85,15 @@ export default {
 			}
 		},
 		async getEmail() {
+			const loader = this.$loading.show({
+				container: this.$refs["Profile"],
+				canCancel: false,
+			});
 			setTimeout(() => {
 				const user = firebase.auth().currentUser;
 				if (user) {
 					this.emailAddress = user.email;
+					loader.hide();
 				}
 			}, 1500);
 		},
