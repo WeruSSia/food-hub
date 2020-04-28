@@ -228,12 +228,14 @@ export default {
 			type: Object,
 			required: true,
 		},
-	},
-	data() {
-		return {
-			isRecipeInFavourites: false,
-			loggedIn: true,
-		};
+		isRecipeInFavourites: {
+			type: Boolean,
+			required: true,
+		},
+		loggedIn: {
+			type: Boolean,
+			required: true,
+		},
 	},
 	computed: {
 		calories() {
@@ -272,16 +274,12 @@ export default {
 				var ref = database.ref("users/" + userId + "/favourites");
 				ref.push(data);
 			}
-			this.isRecipeInFavourites = true;
+			this.$emit("update:isRecipeInFavourites", true);
 		},
 		removeFromFavourites() {
 			//TODO
 			//remove from favourites
 			//set isRecipeInFavourites to false
-		},
-		isUserLoggedIn() {
-			//TODO
-			//set loggedIn
 		},
 		printRecipe() {
 			window.print();
@@ -482,5 +480,9 @@ span {
 .unfavourite-icon {
 	padding-top: 25px;
 	padding-bottom: 20px;
+}
+
+.disabled-favourite-icon > svg {
+	cursor: not-allowed;
 }
 </style>
