@@ -30,9 +30,9 @@ const routes = [
 		beforeEnter(to, from, next) {
 			// if refresh delay
 			if (from.name === null) {
-				setTimeout(() => routeIfUserLoggedIn(to, from, next), 1500);
+				setTimeout(() => authorizeRouting(to, from, next), 1500);
 			} else {
-				routeIfUserLoggedIn(to, from, next);
+				authorizeRouting(to, from, next);
 			}
 		},
 	},
@@ -43,9 +43,9 @@ const routes = [
 		beforeEnter(to, from, next) {
 			// if refresh delay
 			if (from.name === null) {
-				setTimeout(() => routeIfUserLoggedIn(to, from, next), 1500);
+				setTimeout(() => authorizeRouting(to, from, next), 1500);
 			} else {
-				routeIfUserLoggedIn(to, from, next);
+				authorizeRouting(to, from, next);
 			}
 		},
 	},
@@ -61,20 +61,20 @@ const routes = [
 		beforeEnter(to, from, next) {
 			// if refresh delay
 			if (from.name === null) {
-				setTimeout(() => routeIfUserLoggedIn(to, from, next), 1500);
+				setTimeout(() => authorizeRouting(to, from, next), 1500);
 			} else {
-				routeIfUserLoggedIn(to, from, next);
+				authorizeRouting(to, from, next);
 			}
 		},
 	},
 ];
 
-function routeIfUserLoggedIn(to, from, next) {
+function authorizeRouting(to, from, next) {
 	if (store.state.isUserLoggedIn) {
 		next();
 	} else {
 		next({
-			name: "Home", // back to safety route //
+			name: "Home", // back to home page //
 		});
 	}
 }
