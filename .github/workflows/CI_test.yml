@@ -14,8 +14,13 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Build 🔧
-        run: npm run build
+      - name: Install Dependencies 🔧
+        run: npm install
+        
+      - name: Install Build 🔧
+        run: |
+          npm install
+          npm run build
 
       - name: Install SSH Client 🔑
         uses: webfactory/ssh-agent@v0.2.0
