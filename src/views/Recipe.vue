@@ -16,11 +16,12 @@ import BasicInfo from "@/components/recipe/BasicInfo.vue";
 import Ingredients from "@/components/recipe/Ingredients.vue";
 import Directions from "@/components/recipe/Directions.vue";
 import NutritionFacts from "@/components/recipe/NutritionFacts.vue";
-import { getRecipe } from "../services/services.js";
-import * as firebase from "firebase/app";
 import store from "../store/index.js";
-require("firebase/auth");
-import "firebase/database";
+import { getRecipe } from "../services/services.js";
+import {
+	addToUserSearchHistory,
+	checkIfRecipeIsInFavourites,
+} from "../services/FirebaseServices.js";
 
 export default {
 	name: "Recipe",
@@ -55,10 +56,7 @@ export default {
 					container: this.$refs["recipe"],
 					canCancel: false,
 				});
-				const user = firebase.auth().currentUser;
-				if (user) {
-					this.checkIfAlreadyFavourite(user, loader);
-				}
+				this.checkIfAlreadyFavourite(loader);
 			}
 		},
 	},
@@ -71,42 +69,32 @@ export default {
 			const result = await getRecipe(this.$route.params.id);
 			if (result) {
 				this.recipe = result;
-				var user = firebase.auth().currentUser;
-				var data = {
+				const recipeData = {
 					title: this.recipe.title,
 					image: this.recipe.image || "",
 					id: this.recipe.id,
 				};
-				if (user) {
-					var userId = user.uid;
-					var database = firebase.database();
-					var ref = database.ref("users/" + userId + "/history");
-					ref.push(data);
-					await this.checkIfAlreadyFavourite(user, loader);
-				} else {
-					loader.hide();
-				}
+				await this.addToUserHistory(recipeData, loader);
+			} else {
+				loader.hide();
 			}
 		},
-		async checkIfAlreadyFavourite(user, loader) {
+		async addToUserHistory(recipeData, loader) {
 			setTimeout(() => {
-				const userId = user.uid;
-				firebase
-					.database()
-					.ref("users/" + userId + "/favourites")
-					.once("value")
-					.then(async snapshot => {
-						const result = snapshot.val();
-						if (result) {
-							for (const recipe of Object.values(result)) {
-								if (
-									recipe.id === Number(this.$route.params.id)
-								) {
-									this.isRecipeInFavourites = true;
-									break;
-								}
-							}
-						}
+				addToUserSearchHistory(recipeData).then(async result => {
+					if (result) {
+						await this.checkIfAlreadyFavourite(loader);
+					} else {
+						loader.hide();
+					}
+				});
+			}, 1500);
+		},
+		async checkIfAlreadyFavourite(loader) {
+			setTimeout(() => {
+				checkIfRecipeIsInFavourites(Number(this.$route.params.id))
+					.then(result => {
+						this.isRecipeInFavourites = result;
 					})
 					.finally(() => loader.hide());
 			}, 1500);

@@ -87,8 +87,12 @@
 </template>
 <script>
 import { MODAL_MODE } from "./ModalMode.js";
-import * as firebase from "firebase/app";
-require("firebase/auth");
+import {
+	signInWithFacebook,
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	sendPasswordResetEmail,
+} from "../../services/FirebaseServices.js";
 
 export default {
 	computed: {
@@ -164,16 +168,14 @@ export default {
 		},
 		async onContinueWithFacebookClicked() {
 			let loader = this.startLoading();
-			var provider = new firebase.auth.FacebookAuthProvider();
-			await firebase
-				.auth()
-				.signInWithPopup(provider)
-				.then(() => {
-					this.$emit("toggleSignInModal");
-				})
-				.catch(error => {
-					this.message = error;
-					this.clearData();
+			signInWithFacebook()
+				.then(error => {
+					if (!error) {
+						this.$emit("toggleSignInModal");
+					} else {
+						this.message = error;
+						this.clearData();
+					}
 				})
 				.finally(() => loader.hide());
 		},
@@ -195,42 +197,40 @@ export default {
 		},
 		async signInAction() {
 			let loader = this.startLoading();
-			await firebase
-				.auth()
-				.signInWithEmailAndPassword(this.email, this.password)
-				.then(() => {
-					this.$emit("toggleSignInModal");
-				})
-				.catch(error => {
-					this.message = error;
-					this.clearData();
+			signInWithEmailAndPassword(this.email, this.password)
+				.then(error => {
+					if (!error) {
+						this.$emit("toggleSignInModal");
+					} else {
+						this.message = error;
+						this.clearData();
+					}
 				})
 				.finally(() => loader.hide());
 		},
 		async signUpAction() {
 			let loader = this.startLoading();
-			await firebase
-				.auth()
-				.createUserWithEmailAndPassword(this.email, this.password)
-				.then(() => {
-					this.message = "You can log in now!";
-					this.clearData();
-				})
-				.catch(error => {
-					this.message = error;
+			createUserWithEmailAndPassword(this.email, this.password)
+				.then(error => {
+					if (!error) {
+						this.$emit("toggleSignInModal");
+					} else {
+						this.message = error;
+					}
 				})
 				.finally(() => loader.hide());
 		},
 		async forgotPasswordAction() {
 			let loader = this.startLoading();
-			await firebase
-				.auth()
-				.sendPasswordResetEmail(this.email)
-				.then(() => {
-					this.clearData();
-				})
-				.catch(error => {
-					this.message = error;
+			sendPasswordResetEmail(this.email)
+				.then(error => {
+					if (!error) {
+						this.message = "Reset password request sent";
+						this.clearData();
+					} else {
+						this.message = error;
+						this.clearData();
+					}
 				})
 				.finally(() => loader.hide());
 		},
@@ -239,7 +239,7 @@ export default {
 			this.modalMode = MODAL_MODE.FORGOT_PASSWORD;
 		},
 		onFooterLinkSignUpClicked() {
-			this.message = "";
+			this.message = "Creating an account will automatically log you in";
 			this.modalMode = MODAL_MODE.SIGN_UP;
 		},
 		onFooterLinkSignInClicked() {

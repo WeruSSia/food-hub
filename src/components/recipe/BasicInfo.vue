@@ -223,9 +223,10 @@
 </template>
 
 <script>
-import * as firebase from "firebase/app";
-require("firebase/auth");
-import "firebase/database";
+import {
+	addToUserFavourites,
+	removeFromUserFavourites,
+} from "../../services/FirebaseServices.js";
 
 export default {
 	props: {
@@ -269,32 +270,37 @@ export default {
 		addToFavourites() {
 			const snackbar = document.getElementById("snackbar-fav");
 			snackbar.className = "show";
-			setTimeout(function() {
-				snackbar.className = snackbar.className.replace("show", "");
-			}, 3000);
-			var user = firebase.auth().currentUser;
-			var data = {
+			const recipeData = {
 				title: this.recipe.title,
 				image: this.recipe.image || "",
 				id: this.recipe.id,
 			};
-			if (user) {
-				var userId = user.uid;
-				var database = firebase.database();
-				var ref = database.ref("users/" + userId + "/favourites");
-				ref.push(data);
-			}
-			this.$emit("update:isRecipeInFavourites", true);
+			addToUserFavourites(recipeData).then(result => {
+				if (result) {
+					setTimeout(function() {
+						snackbar.className = snackbar.className.replace(
+							"show",
+							""
+						);
+					}, 3000);
+					this.$emit("update:isRecipeInFavourites", true);
+				}
+			});
 		},
 		removeFromFavourites() {
 			const snackbar = document.getElementById("snackbar-unfav");
 			snackbar.className = "show";
-			setTimeout(function() {
-				snackbar.className = snackbar.className.replace("show", "");
-			}, 3000);
-			//TODO
-			//remove from favourites
-			//set isRecipeInFavourites to false
+			removeFromUserFavourites(this.recipe.id).then(result => {
+				if (result) {
+					setTimeout(function() {
+						snackbar.className = snackbar.className.replace(
+							"show",
+							""
+						);
+					}, 3000);
+				}
+				this.$emit("update:isRecipeInFavourites", false);
+			});
 		},
 		printRecipe() {
 			window.print();
