@@ -2,10 +2,19 @@
 	<div class="footer">
 		<span class="footer-info">
 			Copyright © 2020 FoodHUB Project Team. All rights reserved.
-			<a href="" class="about">About</a></span
+			<span @click="goToAboutPage" class="about">About</span></span
 		>
 	</div>
 </template>
+<script>
+export default {
+	methods: {
+		goToAboutPage() {
+			this.$router.push("/about");
+		},
+	},
+};
+</script>
 <style scoped>
 .footer {
 	align-items: center;
@@ -23,6 +32,8 @@
 }
 .about {
 	color: #ffffff;
+	text-decoration: underline;
+	cursor: pointer;
 }
 .about:hover {
 	color: #bbbbbb;

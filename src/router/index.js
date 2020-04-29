@@ -7,6 +7,7 @@ import Favourites from "../views/Favourites.vue";
 import Recipe from "../views/Recipe.vue";
 import History from "../views/History.vue";
 import Profile from "../views/Profile.vue";
+import About from "../views/About.vue";
 
 import store from "../store/index.js";
 
@@ -67,6 +68,11 @@ const routes = [
 			}
 		},
 	},
+	{
+		path: "/about",
+		name: "About",
+		component: About,
+	}
 ];
 
 function authorizeRouting(to, from, next) {
