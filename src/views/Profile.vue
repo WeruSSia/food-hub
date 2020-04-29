@@ -99,8 +99,8 @@ export default {
 				const user = firebase.auth().currentUser;
 				if (user) {
 					this.emailAddress = user.email;
-					loader.hide();
 				}
+				loader.hide();
 			}, 1500);
 		},
 	},

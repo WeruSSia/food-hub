@@ -56,6 +56,8 @@ export default {
 							}
 						})
 						.finally(() => loader.hide());
+				} else {
+					loader.hide();
 				}
 			}, 1500);
 		},
