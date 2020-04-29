@@ -49,9 +49,9 @@ export default {
 						.then(async snapshot => {
 							const result = snapshot.val();
 							if (result) {
-								this.favouriteRecipeList = Object.values(
-									result
-								).map(recipe => recipe);
+								this.favouriteRecipeList = Object.values(result)
+									.map(recipe => recipe)
+									.reverse();
 								this.favouritesHeaderTitle = `Your favourite recipe list (${this.favouriteRecipeList.length})`;
 							}
 						})
