@@ -69,8 +69,10 @@
 			</h2>
 			<div
 				v-if="
-					searchDataFromVuex.includes.length !== 0 ||
-						searchDataFromVuex.excludes.length !== 0
+					(searchDataFromVuex.includes !== null &&
+						searchDataFromVuex.includes.length !== 0) ||
+						(searchDataFromVuex.excludes !== null &&
+							searchDataFromVuex.excludes.length !== 0)
 				"
 				class="ingredients"
 			>
