@@ -42,6 +42,10 @@ export default {
 		};
 	},
 	mounted() {
+		window.scrollTo({
+			top: this.$el.offsetTop,
+			behavior: "smooth",
+		});
 		this.getRecipeInfo();
 	},
 	watch: {
