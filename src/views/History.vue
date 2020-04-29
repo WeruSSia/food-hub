@@ -55,11 +55,13 @@ export default {
 						.once("value")
 						.then(snapshot => {
 							const result = snapshot.val();
-							this.historyRecipeList = Object.values(result).map(
-								recipe => recipe
-							);
+							this.historyRecipeList = Object.values(result)
+								.map(recipe => recipe)
+								.reverse();
 						})
 						.finally(() => loader.hide());
+				} else {
+					loader.hide();
 				}
 			}, 1500);
 		},

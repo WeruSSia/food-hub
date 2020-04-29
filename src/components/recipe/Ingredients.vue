@@ -8,8 +8,8 @@
 		<div class="ingredients-list">
 			<div
 				class="checkbox"
-				v-for="ingredient in recipe.extendedIngredients"
-				v-bind:key="ingredient.id"
+				v-for="(ingredient, index) in recipe.extendedIngredients"
+				v-bind:key="index"
 			>
 				<p class="checkbox-p">
 					<input type="checkbox" class="checkbox-input" />
