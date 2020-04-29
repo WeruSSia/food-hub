@@ -10,7 +10,7 @@
 export default {
 	methods: {
 		goToAboutPage() {
-			this.$router.push("/about");
+			this.$router.push("/about").catch(() => {});
 		},
 	},
 };
