@@ -49,7 +49,7 @@
 			wpisać pożądaną frazę, a następnie nacisnąć ikonę lupy w celu
 			wyszukania przepisów.
 		</p>
-		<img src="../assets/header_not_logged_in.png" width="97%" />
+		<img src="../assets/about_page/header_not_logged_in.png" width="97%" />
 		<p class="img-label">
 			<strong>Rys. 1</strong> - Górny pasek nawigacyjny
 		</p>
@@ -64,7 +64,7 @@
 			zatwierdzeniu wszystkich kryteriów, należy wyszukać przepisy
 			przyciskiem "Search".
 		</p>
-		<img src="../assets/search_area_filled.png" width="97%" />
+		<img src="../assets/about_page/search_area_filled.png" width="97%" />
 		<p class="img-label">
 			<strong>Rys. 2</strong> - Strefa wyszukiwania wypełniona składnikami
 		</p>
@@ -75,7 +75,7 @@
 			lista wprowadzonych wcześniej składników (jeśli wyszukiwanie
 			odbywało się ścieżką z wyborem składników).
 		</p>
-		<img src="../assets/searching_results.png" width="97%" />
+		<img src="../assets/about_page/searching_results.png" width="97%" />
 		<p class="img-label">
 			<strong>Rys. 3</strong> - Widok wyników wyszukiwania
 		</p>
@@ -94,7 +94,7 @@
 			Podczas wykonywania przepisu jest możliwość odznaczania
 			wykorzystanych już składników bądź wykonanych kroków.
 		</p>
-		<img src="../assets/recipe_details.png" width="70%" />
+		<img src="../assets/about_page/recipe_details.png" width="70%" />
 		<p class="img-label">
 			<strong>Rys. 4</strong> - Widok szczegółów przepisu
 		</p>
@@ -105,7 +105,7 @@
 			aplikacji (<strong>Rys. 5</strong>). Możliwe jest logowanie przy
 			użyciu konta na Facebook'u lub tradycyjnie, z użyciem adresu e-mail.
 		</p>
-		<img src="../assets/sign_in_modal.png" width="35%" />
+		<img src="../assets/about_page/sign_in_modal.png" width="35%" />
 		<p class="img-label"><strong>Rys. 5</strong> - Okno logowania</p>
 		<p>
 			Posiadanie konta w aplikacji niesie ze sobą korzyści w postaci
@@ -115,7 +115,7 @@
 			przycisków w górnym pasku nawigacyjnym, które pojawiają się po
 			zalogowaniu (<strong>Rys. 6</strong>).
 		</p>
-		<img src="../assets/header_logged_in.png" width="97%" />
+		<img src="../assets/about_page/header_logged_in.png" width="97%" />
 		<p class="img-label">
 			<strong>Rys. 6</strong> - Górny pasek nawigacyjny dla zalogowanego
 			użytkownika
@@ -126,7 +126,7 @@
 			sekcja losowych przepisów, dostępnych bez konieczności
 			jakiegokolwiek wyszukiwania (<strong>Rys. 7</strong>).
 		</p>
-		<img src="../assets/start_page.png" width="97%" />
+		<img src="../assets/about_page/start_page.png" width="97%" />
 		<p class="img-label"><strong>Rys. 7</strong> - Ekran startowy</p>
 		<p>
 			Dostęp do swojego konta użytkownik posiada poprzez wybranie ikony
@@ -136,7 +136,7 @@
 			losowy kulinarny dowcip, na poprawę humoru (<strong>Rys. 8</strong
 			>).
 		</p>
-		<img src="../assets/profile_page.png" width="97%" />
+		<img src="../assets/about_page/profile_page.png" width="97%" />
 		<p class="img-label">
 			<strong>Rys. 7</strong> - Ekran profilu użytkownika
 		</p>

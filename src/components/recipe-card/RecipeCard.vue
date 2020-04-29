@@ -12,7 +12,7 @@
 			<img
 				v-else
 				class="image"
-				src="../../assets/recipe-card-no-image.jpg"
+				src="../../assets/cards_container/recipe-card-no-image.jpg"
 			/>
 			<div class="infobox">
 				<div class="title-container">

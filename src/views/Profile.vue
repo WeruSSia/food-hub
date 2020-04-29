@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import defaultPicture from "../assets/profile-icon.svg";
+import defaultPicture from "../assets/profile_page/profile-icon.svg";
 import { getRandomJoke } from "../services/services.js";
 import * as firebase from "firebase/app";
 require("firebase/auth");

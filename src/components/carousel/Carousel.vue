@@ -7,7 +7,7 @@
 		:centerMode="true"
 	>
 		<slide>
-			<img src="../../assets/slide1.jpg" />
+			<img src="../../assets/homepage/carousel/slide1.jpg" />
 			<div class="slide-description">
 				<div class="slide-description-text">
 					Search for recipes by entering the ingredients that you have
@@ -15,7 +15,7 @@
 			</div>
 		</slide>
 		<slide>
-			<img src="../../assets/slide2.jpg" />
+			<img src="../../assets/homepage/carousel/slide2.jpg" />
 			<div class="slide-description">
 				<div class="slide-description-text">
 					Mark which ingredients are not to appear in the recipe
@@ -23,7 +23,7 @@
 			</div>
 		</slide>
 		<slide>
-			<img src="../../assets/slide3.jpg" />
+			<img src="../../assets/homepage/carousel/slide3.jpg" />
 			<div class="slide-description">
 				<div class="slide-description-text">
 					Follow the recipes without any problems thanks to simple
@@ -32,7 +32,7 @@
 			</div>
 		</slide>
 		<slide>
-			<img src="../../assets/slide4.jpg" />
+			<img src="../../assets/homepage/carousel/slide4.jpg" />
 			<div class="slide-description">
 				<div class="slide-description-text">
 					Store the best recipes in one place by adding them to
@@ -41,7 +41,7 @@
 			</div>
 		</slide>
 		<slide>
-			<img src="../../assets/slide5.jpg" />
+			<img src="../../assets/homepage/carousel/slide5.jpg" />
 			<div class="slide-description">
 				<div class="slide-description-text">
 					Browse the history of recently seen recipes
