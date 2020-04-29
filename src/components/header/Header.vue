@@ -3,7 +3,7 @@
 		<div id="items">
 			<div class="img-box" @click="goToHomePage">
 				<img
-					src="../../assets/food-hub-logo.png"
+					src="../../assets/homepage/food-hub-logo.png"
 					width="70"
 					height="56"
 				/>
