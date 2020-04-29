@@ -161,53 +161,64 @@
 </template>
 
 <script>
-export default {};
+export default {
+	mounted() {
+		window.scrollTo({
+			top: this.$el.offsetTop,
+			behavior: "smooth",
+		});
+	},
+};
 </script>
 <style scoped>
 #container {
-    display: flex-inline;
-    height: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 30px;
+	display: flex-inline;
+	height: auto;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-bottom: 30px;
 }
 
-h2,h3,p,ul {
-    text-align: justify;
+h2,
+h3,
+p,
+ul {
+	text-align: justify;
 }
 
 hr {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
-h2,h3 {
-    margin-bottom: 10px;
+h2,
+h3 {
+	margin-bottom: 10px;
 }
 
 p {
-    margin-top: 7px;
-    margin-bottom: 7px;
+	margin-top: 7px;
+	margin-bottom: 7px;
 }
 
 ul {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 img {
-    margin-top: 10px;
-    border: 2px solid lightgray;
-    border-radius: 14px;
+	margin-top: 10px;
+	border: 2px solid lightgray;
+	border-radius: 14px;
 }
 
 a {
-    color: #D9001B;
-    text-decoration: none;
+	color: #d9001b;
+	text-decoration: none;
 }
 
 .img-label {
-    margin-left: 1.6%;
-    margin-bottom: 15px;
-    margin-top: 0;
-    font-size: 14px;
+	margin-left: 1.6%;
+	margin-bottom: 15px;
+	margin-top: 0;
+	font-size: 14px;
 }
 </style>
