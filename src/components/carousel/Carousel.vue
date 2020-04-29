@@ -70,7 +70,7 @@ img {
 
 .slide-description {
 	background: gray;
-	opacity: 70%;
+	opacity: 0.7;
 	position: absolute;
 	bottom: 20px;
 	height: 30%;
