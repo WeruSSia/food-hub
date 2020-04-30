@@ -16,6 +16,9 @@
 import Header from "@/components/header/Header.vue";
 import Footer from "@/components/footer/Footer.vue";
 import SignInModal from "@/components/sign-in-modal/SignInModal.vue";
+import Vue from "vue";
+import vueHeadful from "vue-headful";
+Vue.component("vue-headful", vueHeadful);
 export default {
 	components: {
 		Header,

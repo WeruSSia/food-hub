@@ -1,5 +1,6 @@
 <template>
 	<div class="profile" ref="profile-container">
+		<vue-headful title="Profile" />
 		<div class="header">
 			<span class="header-name">
 				{{ headerTitle }}

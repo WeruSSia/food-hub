@@ -1,5 +1,6 @@
 <template>
 	<div class="home">
+		<vue-headful title="Food Hub" />
 		<Carousel />
 		<CardsContainer :recipe-list="randomRecipeList" :recipes-per-page="6" />
 	</div>

@@ -1,5 +1,6 @@
 <template>
 	<div ref="history" class="history">
+		<vue-headful title="Recently viewed recipes" />
 		<div class="history-header">
 			<p class="history-header-title">
 				{{ historyHeaderTitle }}
