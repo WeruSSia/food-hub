@@ -26,7 +26,7 @@
 							v-model="email"
 							autocomplete="nope"
 							type="text"
-							class="email-input input-text"
+							class="email-input"
 							placeholder="E-mail"
 							@keyup.enter="onActionButtonClicked"
 						/>
@@ -360,7 +360,6 @@ export default {
 	font-family: "Arial Pogrubiony", "Arial Normalny", "Arial", sans-serif;
 	font-weight: 700;
 	font-style: normal;
-	font-size: 16px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	height: 50px;
@@ -413,6 +412,7 @@ export default {
 	height: 35px;
 	font-size: 16px;
 	font-family: "Poppins", sans-serif;
+	width: 250px;
 }
 
 .email-input::placeholder,
@@ -493,5 +493,12 @@ export default {
 	display: flex;
 	justify-content: center;
 	width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+	.text-button,
+	.action-button {
+		font-size: 16px;
+	}
 }
 </style>
