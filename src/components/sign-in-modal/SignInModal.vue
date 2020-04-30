@@ -400,14 +400,15 @@ export default {
 .password-input-container {
 	border: 1px solid rgb(201, 201, 201);
 	border-radius: 5px;
+	box-sizing: border-box;
 	height: 50px;
 	width: 300px;
-	box-sizing: border-box;
 }
 
 .email-input,
 .password-input {
 	border: none;
+	box-sizing: border-box;
 	color: rgb(201, 201, 201);
 	height: 35px;
 	font-size: 16px;
