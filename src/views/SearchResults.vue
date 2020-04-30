@@ -161,8 +161,8 @@ export default {
 				}
 			},
 			deep: true,
-			immediate: true
-		}
+			immediate: true,
+		},
 	},
 	methods: {
 		async getResults(dataFromVuex, loader) {
@@ -180,10 +180,6 @@ export default {
 				}
 			} else {
 				const result = await getResultByName(query);
-				console.log('result', result)
-				console.log('keys', Object.keys(result).length === 0)
-				console.log('length', result.results.length)
-				console.log('dataFromVuex', Object.keys(dataFromVuex).length === 0)
 				if (result.results.length === 0) {
 					this.getRandomRecipes(loader);
 				} else {
@@ -200,7 +196,6 @@ export default {
 			}
 		},
 	},
-	
 };
 </script>
 
