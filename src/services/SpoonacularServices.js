@@ -32,8 +32,6 @@ export async function getResultByName(query, offset) {
 		},
 	})
 		.then(response => {
-			console.log(response.data);
-
 			response.data.results = response.data.results.map(el => {
 				if (el.image != undefined) {
 					const type = el.image.split(".")[1];
@@ -103,7 +101,6 @@ export async function getComplexSearch(
 		},
 	})
 		.then(response => {
-			console.log(response.data);
 			return response.data;
 		})
 		.catch(() => {});

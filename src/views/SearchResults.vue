@@ -108,6 +108,7 @@
 			<hr />
 			<div class="results">
 				<CardsContainer
+					ref="result-card-container"
 					:recipe-list="result.results"
 					:recipes-per-page="9"
 					:total-results="result.totalResults"
@@ -152,6 +153,9 @@ export default {
 						container: this.$refs["results"],
 						canCancel: false,
 					});
+					if (this.$refs["result-card-container"]) {
+						this.$refs["result-card-container"].resetIndex();
+					}
 					this.getResults(this.searchDataFromVuex, loader, 0);
 				}
 			},

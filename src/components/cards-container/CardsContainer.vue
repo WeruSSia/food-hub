@@ -8,6 +8,7 @@
 			/>
 		</div>
 		<Paginate
+			v-model="pageIndex"
 			v-if="pageCount > 1"
 			:page-count="pageCount"
 			:page-range="3"
@@ -82,6 +83,9 @@ export default {
 				top: this.offsetTop,
 				behavior: "smooth",
 			});
+		},
+		resetIndex() {
+			this.pageIndex = 1;
 		},
 	},
 };
