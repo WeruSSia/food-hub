@@ -14,9 +14,7 @@
 
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-import * as firebase from "firebase/app";
-require("firebase/auth");
-import "firebase/database";
+import { getUserFavourites } from "../services/FirebaseServices.js";
 
 export default {
 	name: "Favourites",
@@ -39,26 +37,14 @@ export default {
 				canCancel: false,
 			});
 			setTimeout(() => {
-				const user = firebase.auth().currentUser;
-				if (user) {
-					const userId = user.uid;
-					firebase
-						.database()
-						.ref("users/" + userId + "/favourites")
-						.once("value")
-						.then(async snapshot => {
-							const result = snapshot.val();
-							if (result) {
-								this.favouriteRecipeList = Object.values(result)
-									.map(recipe => recipe)
-									.reverse();
-								this.favouritesHeaderTitle = `Your favourite recipe list (${this.favouriteRecipeList.length})`;
-							}
-						})
-						.finally(() => loader.hide());
-				} else {
-					loader.hide();
-				}
+				getUserFavourites()
+					.then(result => {
+						if (result && result.length > 0) {
+							this.favouriteRecipeList = result;
+							this.favouritesHeaderTitle = `Your favourite recipe list (${result.length})`;
+						}
+					})
+					.finally(() => loader.hide());
 			}, 1500);
 		},
 	},

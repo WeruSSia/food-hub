@@ -46,9 +46,11 @@
 <script>
 import defaultPicture from "../assets/profile_page/profile-icon.svg";
 import { getRandomJoke } from "../services/services.js";
-import * as firebase from "firebase/app";
-require("firebase/auth");
-import "firebase/database";
+import {
+	getUser,
+	signOutUser,
+	deleteAccount,
+} from "../services/FirebaseServices.js";
 export default {
 	name: "Profile",
 	data() {
@@ -72,16 +74,19 @@ export default {
 			return defaultPicture;
 		},
 		signOut: function() {
-			firebase.auth().signOut();
-			this.$router.push("/");
+			signOutUser().then(result => {
+				if (result) {
+					this.$router.push("/");
+				}
+			});
 		},
 		deleteAccount: function() {
 			if (confirm("Are you sure you want to delete your account?")) {
-				const user = firebase.auth().currentUser;
-				if (user) {
-					user.delete();
-					this.signOut();
-				}
+				deleteAccount().then(result => {
+					if (result) {
+						this.$router.push("/");
+					}
+				});
 			}
 		},
 		async printJoke() {
@@ -96,7 +101,7 @@ export default {
 				canCancel: false,
 			});
 			setTimeout(() => {
-				const user = firebase.auth().currentUser;
+				const user = getUser();
 				if (user) {
 					this.emailAddress = user.email;
 				}

@@ -14,9 +14,7 @@
 
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-import * as firebase from "firebase/app";
-require("firebase/auth");
-import "firebase/database";
+import { getUserSearchHistory } from "../services/FirebaseServices.js";
 
 export default {
 	name: "history",
@@ -46,23 +44,13 @@ export default {
 				canCancel: false,
 			});
 			setTimeout(() => {
-				const user = firebase.auth().currentUser;
-				if (user) {
-					const userId = user.uid;
-					firebase
-						.database()
-						.ref("users/" + userId + "/history")
-						.once("value")
-						.then(snapshot => {
-							const result = snapshot.val();
-							this.historyRecipeList = Object.values(result)
-								.map(recipe => recipe)
-								.reverse();
-						})
-						.finally(() => loader.hide());
-				} else {
-					loader.hide();
-				}
+				getUserSearchHistory()
+					.then(result => {
+						if (result && result.length > 0) {
+							this.historyRecipeList = result;
+						}
+					})
+					.finally(() => loader.hide());
 			}, 1500);
 		},
 	},
