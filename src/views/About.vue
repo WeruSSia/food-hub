@@ -76,7 +76,7 @@
 			lista wprowadzonych wcześniej składników (jeśli wyszukiwanie
 			odbywało się ścieżką z wyborem składników).
 		</p>
-		<img src="../assets/about_page/searching_results.png" width="97%" />
+		<img src="../assets/about_page/searching_results.jpg" width="97%" />
 		<p class="img-label">
 			<strong>Rys. 3</strong> - Widok wyników wyszukiwania
 		</p>
@@ -127,7 +127,7 @@
 			sekcja losowych przepisów, dostępnych bez konieczności
 			jakiegokolwiek wyszukiwania (<strong>Rys. 7</strong>).
 		</p>
-		<img src="../assets/about_page/start_page.png" width="97%" />
+		<img src="../assets/about_page/start_page.jpg" width="97%" />
 		<p class="img-label"><strong>Rys. 7</strong> - Ekran startowy</p>
 		<p>
 			Dostęp do swojego konta użytkownik posiada poprzez wybranie ikony

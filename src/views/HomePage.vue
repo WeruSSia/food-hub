@@ -9,7 +9,7 @@
 <script>
 import Carousel from "@/components/carousel/Carousel.vue";
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
-import { getRandomRecipes } from "../services/services.js";
+import { getRandomRecipes } from "../services/SpoonacularServices.js";
 
 export default {
 	name: "HomePage",
