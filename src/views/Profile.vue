@@ -46,7 +46,7 @@
 
 <script>
 import defaultPicture from "../assets/profile_page/profile-icon.svg";
-import { getRandomJoke } from "../services/services.js";
+import { getRandomJoke } from "../services/SpoonacularServices.js";
 import {
 	getUser,
 	signOutUser,

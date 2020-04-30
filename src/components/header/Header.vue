@@ -469,8 +469,10 @@ export default {
 		},
 
 		addItemStandard(includeExclude) {
-			if ((includeExclude === "include" && this.include.length !== 0) 
-					|| (includeExclude === "exclude" && this.exclude.length !== 0)) {
+			if (
+				(includeExclude === "include" && this.include.length !== 0) ||
+				(includeExclude === "exclude" && this.exclude.length !== 0)
+			) {
 				var header = document.getElementById("header");
 				var standardSearch = document.getElementById("standardSearch");
 				var button = document.getElementsByClassName("button")[2];
@@ -483,13 +485,17 @@ export default {
 					container = document.getElementsByClassName(
 						"includedExcludedContainer"
 					)[0];
-					ingredients = document.getElementsByClassName("ingredients")[0];
+					ingredients = document.getElementsByClassName(
+						"ingredients"
+					)[0];
 					add = document.getElementsByClassName("add")[0];
 				} else {
 					container = document.getElementsByClassName(
 						"includedExcludedContainer"
 					)[1];
-					ingredients = document.getElementsByClassName("ingredients")[1];
+					ingredients = document.getElementsByClassName(
+						"ingredients"
+					)[1];
 					add = document.getElementsByClassName("add")[1];
 				}
 
@@ -500,14 +506,16 @@ export default {
 				var ingredientsHeight = ingredients.offsetHeight + 28;
 
 				if (
-					standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
+					standardSearch.offsetHeight - ingredients.offsetHeight ===
+						38 &&
 					standardSearch.offsetHeight < 102
 				) {
 					searchHeight = standardSearch.offsetHeight + 12;
 					header.style.height = headerHeight + "px";
 					standardSearch.style.height = searchHeight + "px";
 				} else if (
-					standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
+					standardSearch.offsetHeight - ingredients.offsetHeight ===
+						38 &&
 					standardSearch.offsetHeight >= 120
 				) {
 					searchHeight = standardSearch.offsetHeight + 30;
@@ -543,10 +551,14 @@ export default {
 		},
 
 		addItemResponsive(includeExclude) {
-			if ((includeExclude === "include" && this.include.length !== 0) 
-					|| (includeExclude === "exclude" && this.exclude.length !== 0)) {
+			if (
+				(includeExclude === "include" && this.include.length !== 0) ||
+				(includeExclude === "exclude" && this.exclude.length !== 0)
+			) {
 				var header = document.getElementById("header");
-				var responsiveSearch = document.getElementById("responsiveSearch");
+				var responsiveSearch = document.getElementById(
+					"responsiveSearch"
+				);
 
 				var container;
 				var ingredients;
@@ -555,13 +567,17 @@ export default {
 					container = document.getElementsByClassName(
 						"includedExcludedContainer"
 					)[2];
-					ingredients = document.getElementsByClassName("ingredients")[2];
+					ingredients = document.getElementsByClassName(
+						"ingredients"
+					)[2];
 					add = document.getElementsByClassName("add")[2];
 				} else {
 					container = document.getElementsByClassName(
 						"includedExcludedContainer"
 					)[3];
-					ingredients = document.getElementsByClassName("ingredients")[3];
+					ingredients = document.getElementsByClassName(
+						"ingredients"
+					)[3];
 					add = document.getElementsByClassName("add")[3];
 				}
 

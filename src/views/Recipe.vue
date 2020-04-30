@@ -18,7 +18,7 @@ import Ingredients from "@/components/recipe/Ingredients.vue";
 import Directions from "@/components/recipe/Directions.vue";
 import NutritionFacts from "@/components/recipe/NutritionFacts.vue";
 import store from "../store/index.js";
-import { getRecipe } from "../services/services.js";
+import { getRecipe } from "../services/SpoonacularServices.js";
 import {
 	addToUserSearchHistory,
 	checkIfRecipeIsInFavourites,

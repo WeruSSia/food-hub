@@ -130,9 +130,11 @@
 <script>
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
 import store from "../store/index.js";
-import { getRandomRecipes } from "../services/services.js";
-import { getResultByName } from "../services/services.js";
-import { getComplexSearch } from "../services/services.js";
+import {
+	getRandomRecipes,
+	getResultByName,
+	getComplexSearch,
+} from "../services/SpoonacularServices.js";
 
 export default {
 	name: "SearchResults",

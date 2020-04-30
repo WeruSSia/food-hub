@@ -268,8 +268,6 @@ export default {
 	},
 	methods: {
 		addToFavourites() {
-			const snackbar = document.getElementById("snackbar-fav");
-			snackbar.className = "show";
 			const recipeData = {
 				title: this.recipe.title,
 				image: this.recipe.image || "",
@@ -277,6 +275,8 @@ export default {
 			};
 			addToUserFavourites(recipeData).then(result => {
 				if (result) {
+					const snackbar = document.getElementById("snackbar-fav");
+					snackbar.className = "show";
 					setTimeout(function() {
 						snackbar.className = snackbar.className.replace(
 							"show",
@@ -288,18 +288,18 @@ export default {
 			});
 		},
 		removeFromFavourites() {
-			const snackbar = document.getElementById("snackbar-unfav");
-			snackbar.className = "show";
 			removeFromUserFavourites(this.recipe.id).then(result => {
 				if (result) {
+					const snackbar = document.getElementById("snackbar-unfav");
+					snackbar.className = "show";
 					setTimeout(function() {
 						snackbar.className = snackbar.className.replace(
 							"show",
 							""
 						);
 					}, 3000);
+					this.$emit("update:isRecipeInFavourites", false);
 				}
-				this.$emit("update:isRecipeInFavourites", false);
 			});
 		},
 		printRecipe() {

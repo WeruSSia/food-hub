@@ -1,6 +1,31 @@
+import store from "../store/index.js";
 import * as firebase from "firebase/app";
-require("firebase/auth");
-import "firebase/database";
+import "firebase/auth";
+import(/* webpackPrefetch: true */ "firebase/database");
+
+export function initializeFirebase() {
+	const firebaseConfig = {
+		apiKey: "AIzaSyAbynD2aV-eAsxpNHW5lg9cEJPokbLDxKo",
+		authDomain: "food-hub-42121.firebaseapp.com",
+		databaseURL: "https://food-hub-42121.firebaseio.com",
+		projectId: "food-hub-42121",
+		storageBucket: "food-hub-42121.appspot.com",
+		messagingSenderId: "966735208289",
+		appId: "1:966735208289:web:2b5e36db136dbd0b806f20",
+		measurementId: "G-LVNZKDKRCB",
+	};
+
+	firebase.initializeApp(firebaseConfig);
+	firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+	firebase.auth().onAuthStateChanged(user => {
+		if (user) {
+			store.commit("setUserLoggedIn", true);
+		} else {
+			store.commit("setUserLoggedIn", false);
+		}
+	});
+}
 
 export function getUser() {
 	return firebase.auth().currentUser;
@@ -116,9 +141,9 @@ export async function addToUserSearchHistory(recipeData) {
 	const user = getUser();
 	if (user) {
 		const userId = user.uid;
-		const database = firebase.database();
-		const ref = database.ref("users/" + userId + "/history");
-		return ref
+		return firebase
+			.database()
+			.ref("users/" + userId + "/history")
 			.push(recipeData)
 			.then(() => {
 				return true;
@@ -159,9 +184,9 @@ export async function addToUserFavourites(recipeData) {
 	const user = getUser();
 	if (user) {
 		const userId = user.uid;
-		const database = firebase.database();
-		const ref = database.ref("users/" + userId + "/favourites");
-		return ref
+		return firebase
+			.database()
+			.ref("users/" + userId + "/favourites")
 			.push(recipeData)
 			.then(() => {
 				return true;
@@ -178,30 +203,31 @@ export async function removeFromUserFavourites(recipeId) {
 	const user = getUser();
 	if (user) {
 		const userId = user.uid;
-		const database = firebase.database();
-		const ref = database.ref("users/" + userId + "/favourites");
-		return ref.once("value").then(async snapshot => {
-			const result = snapshot.val();
-			if (result) {
-				for (const [key, value] of Object.entries(result)) {
-					if (value.id === recipeId) {
-						const removeRef = database.ref(
-							"users/" + userId + "/favourites/" + key
-						);
-						removeRef
-							.remove()
-							.then(() => {
-								return true;
-							})
-							.catch(() => {
-								return false;
-							});
+		return firebase
+			.database()
+			.ref("users/" + userId + "/favourites")
+			.once("value")
+			.then(async snapshot => {
+				const result = snapshot.val();
+				if (result) {
+					for (const [key, value] of Object.entries(result)) {
+						if (value.id === recipeId) {
+							return firebase
+								.database()
+								.ref("users/" + userId + "/favourites/" + key)
+								.remove()
+								.then(() => {
+									return true;
+								})
+								.catch(() => {
+									return false;
+								});
+						}
 					}
+				} else {
+					return false;
 				}
-			} else {
-				return false;
-			}
-		});
+			});
 	} else {
 		return false;
 	}
