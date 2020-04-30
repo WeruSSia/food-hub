@@ -138,7 +138,7 @@
 		</p>
 		<img src="../assets/about_page/profile_page.png" width="97%" />
 		<p class="img-label">
-			<strong>Rys. 7</strong> - Ekran profilu użytkownika
+			<strong>Rys. 8</strong> - Ekran profilu użytkownika
 		</p>
 		<hr />
 		<h3>Linki do składowych projektu</h3>

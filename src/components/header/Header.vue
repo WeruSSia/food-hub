@@ -484,112 +484,128 @@ export default {
 		},
 
 		addItemStandard(includeExclude) {
-			var header = document.getElementById("header");
-			var standardSearch = document.getElementById("standardSearch");
-			var button = document.getElementsByClassName("button")[2];
-			var close = document.getElementById("close");
+			if ((includeExclude === "include" && this.include.length !== 0) 
+					|| (includeExclude === "exclude" && this.exclude.length !== 0)) {
+				var header = document.getElementById("header");
+				var standardSearch = document.getElementById("standardSearch");
+				var button = document.getElementsByClassName("button")[2];
+				var close = document.getElementById("close");
 
-			var container;
-			var ingredients;
-			var add;
-			if (includeExclude === "include") {
-				container = document.getElementsByClassName(
-					"includedExcludedContainer"
-				)[0];
-				ingredients = document.getElementsByClassName("ingredients")[0];
-				add = document.getElementsByClassName("add")[0];
-			} else {
-				container = document.getElementsByClassName(
-					"includedExcludedContainer"
-				)[1];
-				ingredients = document.getElementsByClassName("ingredients")[1];
-				add = document.getElementsByClassName("add")[1];
-			}
+				var container;
+				var ingredients;
+				var add;
+				if (includeExclude === "include") {
+					container = document.getElementsByClassName(
+						"includedExcludedContainer"
+					)[0];
+					ingredients = document.getElementsByClassName("ingredients")[0];
+					add = document.getElementsByClassName("add")[0];
+				} else {
+					container = document.getElementsByClassName(
+						"includedExcludedContainer"
+					)[1];
+					ingredients = document.getElementsByClassName("ingredients")[1];
+					add = document.getElementsByClassName("add")[1];
+				}
 
-			container.style.display = "inline-block";
+				container.style.display = "inline-block";
 
-			var searchHeight;
-			var headerHeight = header.offsetHeight + 30;
-			var ingredientsHeight = ingredients.offsetHeight + 28;
+				var searchHeight;
+				var headerHeight = header.offsetHeight + 30;
+				var ingredientsHeight = ingredients.offsetHeight + 28;
 
-			if (
-				standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
-				standardSearch.offsetHeight < 102
-			) {
-				searchHeight = standardSearch.offsetHeight + 12;
-				header.style.height = headerHeight + "px";
-				standardSearch.style.height = searchHeight + "px";
-			} else if (
-				standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
-				standardSearch.offsetHeight >= 120
-			) {
-				searchHeight = standardSearch.offsetHeight + 30;
-				header.style.height = headerHeight + "px";
-				standardSearch.style.height = searchHeight - 18 + "px";
-			}
+				if (
+					standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
+					standardSearch.offsetHeight < 102
+				) {
+					searchHeight = standardSearch.offsetHeight + 12;
+					header.style.height = headerHeight + "px";
+					standardSearch.style.height = searchHeight + "px";
+				} else if (
+					standardSearch.offsetHeight - ingredients.offsetHeight === 38 &&
+					standardSearch.offsetHeight >= 120
+				) {
+					searchHeight = standardSearch.offsetHeight + 30;
+					header.style.height = headerHeight + "px";
+					standardSearch.style.height = searchHeight - 18 + "px";
+				}
 
-			ingredients.style.height = ingredientsHeight + "px";
+				ingredients.style.height = ingredientsHeight + "px";
 
-			ingredients.style.alignItems = "flex-start";
-			standardSearch.style.alignItems = "flex-start";
-			standardSearch.style.paddingTop = "18px";
+				ingredients.style.alignItems = "flex-start";
+				standardSearch.style.alignItems = "flex-start";
+				standardSearch.style.paddingTop = "18px";
 
-			button.style.marginTop = "4px";
+				button.style.marginTop = "4px";
 
-			add.style.borderRadius = "0 14px 0 14px";
+				add.style.borderRadius = "0 14px 0 14px";
 
-			close.style.marginTop = "16px";
+				close.style.marginTop = "16px";
 
-			if (includeExclude === "include") {
-				this.includings.push(this.include);
-				this.include = "";
-			} else {
-				this.excludings.push(this.exclude);
-				this.exclude = "";
+				var input1 = document.getElementsByClassName("input")[1];
+				var input2 = document.getElementsByClassName("input")[2];
+
+				if (includeExclude === "include") {
+					this.includings.push(this.include);
+					this.include = "";
+					input1.focus();
+				} else {
+					this.excludings.push(this.exclude);
+					this.exclude = "";
+					input2.focus();
+				}
 			}
 		},
 
 		addItemResponsive(includeExclude) {
-			var header = document.getElementById("header");
-			var responsiveSearch = document.getElementById("responsiveSearch");
+			if ((includeExclude === "include" && this.include.length !== 0) 
+					|| (includeExclude === "exclude" && this.exclude.length !== 0)) {
+				var header = document.getElementById("header");
+				var responsiveSearch = document.getElementById("responsiveSearch");
 
-			var container;
-			var ingredients;
-			var add;
-			if (includeExclude === "include") {
-				container = document.getElementsByClassName(
-					"includedExcludedContainer"
-				)[2];
-				ingredients = document.getElementsByClassName("ingredients")[2];
-				add = document.getElementsByClassName("add")[2];
-			} else {
-				container = document.getElementsByClassName(
-					"includedExcludedContainer"
-				)[3];
-				ingredients = document.getElementsByClassName("ingredients")[3];
-				add = document.getElementsByClassName("add")[3];
-			}
+				var container;
+				var ingredients;
+				var add;
+				if (includeExclude === "include") {
+					container = document.getElementsByClassName(
+						"includedExcludedContainer"
+					)[2];
+					ingredients = document.getElementsByClassName("ingredients")[2];
+					add = document.getElementsByClassName("add")[2];
+				} else {
+					container = document.getElementsByClassName(
+						"includedExcludedContainer"
+					)[3];
+					ingredients = document.getElementsByClassName("ingredients")[3];
+					add = document.getElementsByClassName("add")[3];
+				}
 
-			container.style.display = "inline-block";
+				container.style.display = "inline-block";
 
-			var headerHeight = header.offsetHeight + 31;
-			var searchHeight = responsiveSearch.offsetHeight + 31;
-			var ingredientsHeight = ingredients.offsetHeight + 29;
+				var headerHeight = header.offsetHeight + 31;
+				var searchHeight = responsiveSearch.offsetHeight + 31;
+				var ingredientsHeight = ingredients.offsetHeight + 29;
 
-			header.style.height = headerHeight + "px";
-			responsiveSearch.style.height = searchHeight - 20 + "px";
-			ingredients.style.height = ingredientsHeight + "px";
+				header.style.height = headerHeight + "px";
+				responsiveSearch.style.height = searchHeight - 20 + "px";
+				ingredients.style.height = ingredientsHeight + "px";
 
-			ingredients.style.alignItems = "flex-start";
+				ingredients.style.alignItems = "flex-start";
 
-			add.style.borderRadius = "0 14px 0 14px";
+				add.style.borderRadius = "0 14px 0 14px";
 
-			if (includeExclude === "include") {
-				this.includings.push(this.include);
-				this.include = "";
-			} else {
-				this.excludings.push(this.exclude);
-				this.exclude = "";
+				var input4 = document.getElementsByClassName("input")[4];
+				var input5 = document.getElementsByClassName("input")[5];
+
+				if (includeExclude === "include") {
+					this.includings.push(this.include);
+					this.include = "";
+					input4.focus();
+				} else {
+					this.excludings.push(this.exclude);
+					this.exclude = "";
+					input5.focus();
+				}
 			}
 		},
 
