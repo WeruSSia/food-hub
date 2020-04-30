@@ -1,5 +1,6 @@
 <template>
 	<div id="container">
+		<vue-headful title="About the project" />
 		<h2>Charakterystyka projektu</h2>
 		<p>
 			<strong>FoodHUB</strong> - aplikacja webowa wspomagająca wybór

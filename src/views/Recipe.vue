@@ -1,5 +1,6 @@
 <template>
 	<div ref="recipe" class="recipe">
+		<vue-headful :title="recipe.title" />
 		<BasicInfo
 			:recipe="recipe"
 			:is-recipe-in-favourites.sync="isRecipeInFavourites"

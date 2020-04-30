@@ -1,5 +1,6 @@
 <template>
 	<div ref="favourites" class="favourites">
+		<vue-headful title="Favourite recipes" />
 		<div class="favourites-header">
 			<p class="favourites-header-title">
 				{{ favouritesHeaderTitle }}

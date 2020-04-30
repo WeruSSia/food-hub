@@ -1,5 +1,6 @@
 <template>
 	<div ref="results">
+		<vue-headful title="Search results" />
 		<!-- typing /results in page address -->
 		<div
 			v-if="
