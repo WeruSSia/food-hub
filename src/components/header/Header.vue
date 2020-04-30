@@ -371,8 +371,6 @@
 	</div>
 </template>
 <script>
-import { getResultByName } from "../../services/services.js";
-import { getComplexSearch } from "../../services/services.js";
 import store from "../../store/index.js";
 
 export default {
@@ -435,30 +433,18 @@ export default {
 			this.$emit("toggleSignInModal");
 		},
 
-		async setQuery() {
+		setQuery() {
 			let query = this.query;
-
-			this.setSearchData(query, null, null);
-
-			const results = await getResultByName(query);
-
-			store.commit("setSearchResult", results);
+			this.setSearchData(query, [], []);
 			store.commit("setSearchData", this.searchData);
 		},
 
-		async setIngredients() {
+		setIngredients() {
 			let cleanIncludings = this.removeEmpty(this.includings);
 			let cleanExcludings = this.removeEmpty(this.excludings);
 
 			let query = this.keywords;
-			let include = cleanIncludings.join();
-			let exclude = cleanExcludings.join();
-
 			this.setSearchData(query, cleanIncludings, cleanExcludings);
-
-			const results = await getComplexSearch(query, include, exclude);
-
-			store.commit("setSearchResult", results);
 			store.commit("setSearchData", this.searchData);
 		},
 
@@ -479,7 +465,6 @@ export default {
 		},
 
 		clearSearchData() {
-			store.commit("setSearchResult", null);
 			store.commit("setSearchData", null);
 		},
 

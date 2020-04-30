@@ -1,127 +1,127 @@
 <template>
-	<!-- typing /results in page address -->
-	<div
-		v-if="
-			(searchDataFromVuex == null && searchResultFromVuex == null) ||
-				Object.keys(searchResultFromVuex).length === 0 ||
-				Object.keys(searchDataFromVuex).length === 0
-		"
-	>
-		<h3>You should search some recipes first!</h3>
-	</div>
-
-	<!-- no results found -->
-	<div v-else-if="searchResultFromVuex.totalResults === 0">
-		<h2>We're sorry, no results have been found...</h2>
-		<h3 class="subcaption">
-			See other recipes and smart cooking ideas:
-		</h3>
-		<div class="results">
-			<CardsContainer
-				:recipe-list="randomRecipeList"
-				:recipes-per-page="9"
-			/>
+	<div ref="results">
+		<!-- typing /results in page address -->
+		<div
+			v-if="
+				searchDataFromVuex == null ||
+					Object.keys(result).length === 0 ||
+					Object.keys(searchDataFromVuex).length === 0
+			"
+		>
+			<h3>No results have been found</h3>
 		</div>
-	</div>
 
-	<!-- no data provided -->
-	<div
-		v-else-if="
-			(searchDataFromVuex.includes == null &&
-				searchDataFromVuex.excludes == null &&
-				searchDataFromVuex.queryString === '') ||
-				(searchDataFromVuex.queryString === '' &&
-					!searchDataFromVuex.includes.length &&
-					!searchDataFromVuex.excludes.length)
-		"
-	>
-		<h2>We're sorry, no results have been found...</h2>
-		<h3 class="subcaption">
-			See other recipes and smart cooking ideas:
-		</h3>
-		<div class="results">
-			<CardsContainer
-				:recipe-list="searchResultFromVuex.results"
-				:recipes-per-page="9"
-			/>
-		</div>
-	</div>
-
-	<!-- at least 1 result found -->
-	<div v-else class="container">
-		<div class="heading">
-			<h2 v-if="searchResultFromVuex.totalResults === 1">
-				{{ searchResultFromVuex.totalResults }} result have been found
-				for your query!
-			</h2>
-			<h2
-				v-else-if="
-					searchResultFromVuex.totalResults < 20 &&
-						searchResultFromVuex.totalResults > 1
-				"
-			>
-				{{ searchResultFromVuex.totalResults }} results have been found
-				for your query!
-			</h2>
-			<h2 v-else>
-				{{ searchResultFromVuex.number }} results have been found for
-				your query!
-			</h2>
-			<div
-				v-if="
-					(searchDataFromVuex.includes !== null &&
-						searchDataFromVuex.includes.length !== 0) ||
-						(searchDataFromVuex.excludes !== null &&
-							searchDataFromVuex.excludes.length !== 0)
-				"
-				class="ingredients"
-			>
-				<div
-					class="includingExcluding"
-					v-for="(item, index) in searchDataFromVuex.includes"
-					:key="index"
-				>
-					<div class="plus">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="white"
-							width="24px"
-							height="24px"
-						>
-							<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-							<path d="M0 0h24v24H0z" fill="none" />
-						</svg>
-					</div>
-					<div class="ingredient">{{ item }}</div>
-				</div>
-				<div
-					class="includingExcluding"
-					v-for="(item, index) in searchDataFromVuex.excludes"
-					:key="index"
-				>
-					<div class="minus">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="white"
-							width="24px"
-							height="24px"
-						>
-							<path d="M19 13H5v-2h14v2z" />
-							<path d="M0 0h24v24H0z" fill="none" />
-						</svg>
-					</div>
-					<div class="ingredient">{{ item }}</div>
-				</div>
+		<!-- no results found -->
+		<div v-else-if="result.totalResults === 0">
+			<h2>We're sorry, no results have been found...</h2>
+			<h3 class="subcaption">
+				See other recipes and smart cooking ideas:
+			</h3>
+			<div class="results">
+				<CardsContainer
+					:recipe-list="randomRecipeList"
+					:recipes-per-page="9"
+				/>
 			</div>
 		</div>
-		<hr />
-		<div class="results">
-			<CardsContainer
-				:recipe-list="searchResultFromVuex.results"
-				:recipes-per-page="9"
-			/>
+
+		<!-- no data provided -->
+		<div
+			v-else-if="
+				(searchDataFromVuex.includes == null &&
+					searchDataFromVuex.excludes == null &&
+					searchDataFromVuex.queryString === '') ||
+					(searchDataFromVuex.queryString === '' &&
+						!searchDataFromVuex.includes.length &&
+						!searchDataFromVuex.excludes.length)
+			"
+		>
+			<h2>We're sorry, no results have been found...</h2>
+			<h3 class="subcaption">
+				See other recipes and smart cooking ideas:
+			</h3>
+			<div class="results">
+				<CardsContainer
+					:recipe-list="result.results"
+					:recipes-per-page="9"
+				/>
+			</div>
+		</div>
+
+		<!-- at least 1 result found -->
+		<div v-else class="container">
+			<div class="heading">
+				<h2 v-if="result.totalResults === 1">
+					{{ result.totalResults }} result have been found for your
+					query!
+				</h2>
+				<h2
+					v-else-if="
+						result.totalResults < 20 && result.totalResults > 1
+					"
+				>
+					{{ result.totalResults }} results have been found for your
+					query!
+				</h2>
+				<h2 v-else>
+					{{ result.number }} results have been found for your query!
+				</h2>
+				<div
+					v-if="
+						(searchDataFromVuex.includes !== null &&
+							searchDataFromVuex.includes.length !== 0) ||
+							(searchDataFromVuex.excludes !== null &&
+								searchDataFromVuex.excludes.length !== 0)
+					"
+					class="ingredients"
+				>
+					<div
+						class="includingExcluding"
+						v-for="(item, index) in searchDataFromVuex.includes"
+						:key="index"
+					>
+						<div class="plus">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="white"
+								width="24px"
+								height="24px"
+							>
+								<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+								<path d="M0 0h24v24H0z" fill="none" />
+							</svg>
+						</div>
+						<div class="ingredient">{{ item }}</div>
+					</div>
+					<div
+						class="includingExcluding"
+						v-for="(item, index) in searchDataFromVuex.excludes"
+						:key="index"
+					>
+						<div class="minus">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="white"
+								width="24px"
+								height="24px"
+							>
+								<path d="M19 13H5v-2h14v2z" />
+								<path d="M0 0h24v24H0z" fill="none" />
+							</svg>
+						</div>
+						<div class="ingredient">{{ item }}</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="results">
+				<CardsContainer
+					:recipe-list="result.results"
+					:recipes-per-page="9"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -130,6 +130,8 @@
 import CardsContainer from "@/components/cards-container/CardsContainer.vue";
 import store from "../store/index.js";
 import { getRandomRecipes } from "../services/services.js";
+import { getResultByName } from "../services/services.js";
+import { getComplexSearch } from "../services/services.js";
 
 export default {
 	name: "SearchResults",
@@ -138,28 +140,67 @@ export default {
 	},
 	data() {
 		return {
+			result: {},
 			randomRecipeList: [],
 		};
 	},
 	computed: {
-		searchResultFromVuex() {
-			return store.state.searchResult;
-		},
 		searchDataFromVuex() {
 			return store.state.searchData;
 		},
 	},
-	beforeMount() {
-		this.getRandomRecipes();
+	watch: {
+		searchDataFromVuex: {
+			handler() {
+				if (this.searchDataFromVuex) {
+					const loader = this.$loading.show({
+						container: this.$refs["results"],
+						canCancel: false,
+					});
+					this.getResults(this.searchDataFromVuex, loader);
+				}
+			},
+			deep: true,
+			immediate: true
+		}
 	},
 	methods: {
-		async getRandomRecipes() {
+		async getResults(dataFromVuex, loader) {
+			var query = dataFromVuex.queryString;
+			var include = dataFromVuex.includes.join();
+			var exclude = dataFromVuex.excludes.join();
+
+			if (include !== "" || exclude !== "") {
+				const result = await getComplexSearch(query, include, exclude);
+				if (result.results.length === 0) {
+					this.getRandomRecipes(loader);
+				} else {
+					this.result = result;
+					loader.hide();
+				}
+			} else {
+				const result = await getResultByName(query);
+				console.log('result', result)
+				console.log('keys', Object.keys(result).length === 0)
+				console.log('length', result.results.length)
+				console.log('dataFromVuex', Object.keys(dataFromVuex).length === 0)
+				if (result.results.length === 0) {
+					this.getRandomRecipes(loader);
+				} else {
+					this.result = result;
+					loader.hide();
+				}
+			}
+		},
+		async getRandomRecipes(loader) {
 			const result = await getRandomRecipes();
 			if (result) {
 				this.randomRecipeList = result;
+				loader.hide();
 			}
 		},
 	},
+	
 };
 </script>
 
