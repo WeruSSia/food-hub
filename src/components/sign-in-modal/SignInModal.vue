@@ -54,7 +54,10 @@
 				<button class="action-button" @click="onActionButtonClicked">
 					{{ actionButtonName }}
 				</button>
-				<div v-if="isInSignInState">
+				<div
+					v-if="isInSignInState"
+					class="sign-in-modal-forgot-password-container"
+				>
 					<span
 						class="sign-in-modal-forgot-password"
 						@click="onForgotPasswordClicked"
@@ -345,6 +348,7 @@ export default {
 }
 
 .sign-in-modal-footer-content {
+	width: 260px;
 	padding: 20px;
 }
 
@@ -360,6 +364,7 @@ export default {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	height: 50px;
+	width: 300px;
 }
 
 .continue-with-facebook-button {
@@ -397,6 +402,8 @@ export default {
 	border: 1px solid rgb(201, 201, 201);
 	border-radius: 5px;
 	height: 50px;
+	width: 300px;
+	box-sizing: border-box;
 }
 
 .email-input,
@@ -456,6 +463,12 @@ export default {
 	color: rgb(153, 153, 153);
 	grid-column: 3;
 }
+.sign-in-modal-forgot-password {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	width: 300px;
+}
 
 .sign-in-modal-forgot-password {
 	font-family: "Arial Normalny", "Arial", sans-serif;
@@ -476,6 +489,9 @@ export default {
 }
 
 .sign-in-modal-response-message {
-	max-width: 300px;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	width: 300px;
 }
 </style>

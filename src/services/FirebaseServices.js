@@ -125,8 +125,7 @@ export async function getUserFavourites() {
 				const result = snapshot.val();
 				if (result) {
 					return Object.values(result)
-						.map(recipe => recipe)
-						.reverse();
+						.map(recipe => recipe).sort((a, b) => b.dateTime - a.dateTime);
 				}
 			})
 			.catch(() => {
@@ -144,7 +143,8 @@ export async function addToUserSearchHistory(recipeData) {
 		return firebase
 			.database()
 			.ref("users/" + userId + "/history")
-			.push(recipeData)
+			.child(recipeData.id)
+			.set(recipeData)
 			.then(() => {
 				return true;
 			})
@@ -168,8 +168,7 @@ export async function getUserSearchHistory() {
 				const result = snapshot.val();
 				if (result) {
 					return Object.values(result)
-						.map(recipe => recipe)
-						.reverse();
+						.map(recipe => recipe).sort((a, b) => b.dateTime - a.dateTime);
 				}
 			})
 			.catch(() => {
@@ -187,7 +186,8 @@ export async function addToUserFavourites(recipeData) {
 		return firebase
 			.database()
 			.ref("users/" + userId + "/favourites")
-			.push(recipeData)
+			.child(recipeData.id)
+			.set(recipeData)
 			.then(() => {
 				return true;
 			})
