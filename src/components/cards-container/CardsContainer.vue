@@ -8,6 +8,7 @@
 			/>
 		</div>
 		<Paginate
+			v-model="pageIndex"
 			v-if="pageCount > 1"
 			:page-count="pageCount"
 			:page-range="3"
@@ -37,16 +38,32 @@ export default {
 			required: false,
 			default: 6,
 		},
+		totalResults: {
+			type: Number,
+			required: false,
+		},
+		offsetMode: {
+			type: Boolean,
+			required: false,
+		},
 	},
 	computed: {
 		pageCount() {
-			return Math.ceil(this.recipeList.length / this.recipesPerPage);
+			if (this.totalResults) {
+				return Math.ceil(this.totalResults / this.recipesPerPage);
+			} else {
+				return Math.ceil(this.recipeList.length / this.recipesPerPage);
+			}
 		},
 		pageRecipeList() {
-			return this.recipeList.slice(
-				this.recipesPerPage * (this.pageIndex - 1),
-				this.recipesPerPage * this.pageIndex
-			);
+			if (this.offsetMode) {
+				return this.recipeList;
+			} else {
+				return this.recipeList.slice(
+					this.recipesPerPage * (this.pageIndex - 1),
+					this.recipesPerPage * this.pageIndex
+				);
+			}
 		},
 	},
 	data() {
@@ -61,10 +78,14 @@ export default {
 	methods: {
 		paginationClickHandler(index) {
 			this.pageIndex = index;
+			this.$emit("paginationClicked", index);
 			window.scrollTo({
 				top: this.offsetTop,
 				behavior: "smooth",
 			});
+		},
+		resetIndex() {
+			this.pageIndex = 1;
 		},
 	},
 };

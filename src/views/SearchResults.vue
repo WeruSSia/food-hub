@@ -43,7 +43,7 @@
 			</h3>
 			<div class="results">
 				<CardsContainer
-					:recipe-list="result.results"
+					:recipe-list="randomRecipeList"
 					:recipes-per-page="9"
 				/>
 			</div>
@@ -52,20 +52,9 @@
 		<!-- at least 1 result found -->
 		<div v-else class="container">
 			<div class="heading">
-				<h2 v-if="result.totalResults === 1">
-					{{ result.totalResults }} result have been found for your
-					query!
-				</h2>
-				<h2
-					v-else-if="
-						result.totalResults < 20 && result.totalResults > 1
-					"
-				>
+				<h2>
 					{{ result.totalResults }} results have been found for your
 					query!
-				</h2>
-				<h2 v-else>
-					{{ result.number }} results have been found for your query!
 				</h2>
 				<div
 					v-if="
@@ -119,8 +108,12 @@
 			<hr />
 			<div class="results">
 				<CardsContainer
+					ref="result-card-container"
 					:recipe-list="result.results"
 					:recipes-per-page="9"
+					:total-results="result.totalResults"
+					:offset-mode="true"
+					@paginationClicked="onPaginationClicked"
 				/>
 			</div>
 		</div>
@@ -160,7 +153,10 @@ export default {
 						container: this.$refs["results"],
 						canCancel: false,
 					});
-					this.getResults(this.searchDataFromVuex, loader);
+					if (this.$refs["result-card-container"]) {
+						this.$refs["result-card-container"].resetIndex();
+					}
+					this.getResults(this.searchDataFromVuex, loader, 0);
 				}
 			},
 			deep: true,
@@ -168,13 +164,25 @@ export default {
 		},
 	},
 	methods: {
-		async getResults(dataFromVuex, loader) {
+		onPaginationClicked(index) {
+			const loader = this.$loading.show({
+				container: this.$refs["results"],
+				canCancel: false,
+			});
+			this.getResults(this.searchDataFromVuex, loader, (index - 1) * 9);
+		},
+		async getResults(dataFromVuex, loader, offset) {
 			var query = dataFromVuex.queryString;
 			var include = dataFromVuex.includes.join();
 			var exclude = dataFromVuex.excludes.join();
 
 			if (include !== "" || exclude !== "") {
-				const result = await getComplexSearch(query, include, exclude);
+				const result = await getComplexSearch(
+					query,
+					include,
+					exclude,
+					offset
+				);
 				if (result.results.length === 0) {
 					this.getRandomRecipes(loader);
 				} else {
@@ -182,7 +190,7 @@ export default {
 					loader.hide();
 				}
 			} else {
-				const result = await getResultByName(query);
+				const result = await getResultByName(query, offset);
 				if (result.results.length === 0) {
 					this.getRandomRecipes(loader);
 				} else {

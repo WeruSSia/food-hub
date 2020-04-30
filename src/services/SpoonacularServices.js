@@ -15,7 +15,7 @@ var xRapidApiKey = "bb78fe07aamshc088cf396e29648p11c6f1jsn311f43158ebd";
  * @param {string} query - The (natural language) recipe search query.
  * @returns {Object}
  */
-export async function getResultByName(query) {
+export async function getResultByName(query, offset) {
 	return axios({
 		method: "GET",
 		url: spoonacularRecipesAddress + "/search",
@@ -26,8 +26,9 @@ export async function getResultByName(query) {
 		},
 		params: {
 			query: query,
-			number: 20,
+			number: 9,
 			instructionsRequired: true,
+			offset,
 		},
 	})
 		.then(response => {
@@ -57,7 +58,7 @@ export async function getRandomRecipes() {
 			"x-rapidapi-key": xRapidApiKey,
 		},
 		params: {
-			number: 20,
+			number: 18,
 		},
 	})
 		.then(response => {
@@ -76,7 +77,8 @@ export async function getRandomRecipes() {
 export async function getComplexSearch(
 	query,
 	includeIngredients,
-	excludeIngredients
+	excludeIngredients,
+	offset
 ) {
 	const includeIngredientsSeparated = includeIngredients.replace(/,/g, "%2C");
 	const excludeIngredientsSeparated = excludeIngredients.replace(/,/g, "%2C");
@@ -94,7 +96,8 @@ export async function getComplexSearch(
 			includeIngredients: includeIngredientsSeparated,
 			excludeIngredients: excludeIngredientsSeparated,
 			instructionsRequired: true,
-			number: 20,
+			number: 9,
+			offset,
 		},
 	})
 		.then(response => {
