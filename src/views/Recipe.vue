@@ -74,7 +74,7 @@ export default {
 					title: this.recipe.title,
 					image: this.recipe.image || "",
 					id: this.recipe.id,
-					dateTime: Math.round(+new Date()/1000)
+					dateTime: Math.round(+new Date() / 1000),
 				};
 				await this.addToUserHistory(recipeData, loader);
 			} else {
@@ -104,3 +104,10 @@ export default {
 	},
 };
 </script>
+<style scoped>
+.recipe {
+	page-break-after: avoid;
+	page-break-before: avoid;
+	page-break-inside: avoid;
+}
+</style>

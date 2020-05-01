@@ -272,7 +272,7 @@ export default {
 				title: this.recipe.title,
 				image: this.recipe.image || "",
 				id: this.recipe.id,
-				dateTime: Math.round(+new Date()/1000)
+				dateTime: Math.round(+new Date() / 1000),
 			};
 			addToUserFavourites(recipeData).then(result => {
 				if (result) {
@@ -323,6 +323,11 @@ export default {
 };
 </script>
 <style scoped>
+@page {
+	size: auto;
+	margin: 5mm;
+}
+
 .container {
 	margin: 20px;
 }
@@ -345,6 +350,12 @@ export default {
 	width: 20%;
 	display: inline-block;
 	vertical-align: middle;
+}
+
+@media print {
+	.action-bar-div {
+		display: none;
+	}
 }
 
 .action-bar {
