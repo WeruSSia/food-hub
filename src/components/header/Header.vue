@@ -10,10 +10,26 @@
 			</div>
 			<div id="search">
 				<input
+					id="query-input"
 					type="text"
 					placeholder="Search for recipes"
 					v-model="query"
 				/>
+				<div class="query-items-list">
+					<div
+						v-for="(item, index) in queryAutocompleteItems"
+						:key="index"
+					>
+						<div
+							class="item"
+							@click="
+								selectAutocompleteItem('query', item, false)
+							"
+						>
+							{{ item }}
+						</div>
+					</div>
+				</div>
 				<div>
 					<button class="button" @click="toggleSearchArea">
 						<span>Ingredients</span>
@@ -138,10 +154,29 @@
 				<div class="ingredients-container">
 					<input
 						type="text"
-						class="input"
+						class="input include"
 						placeholder="Include ingredients"
 						v-model="include"
 					/>
+					<div class="ingredients-items-list">
+						<div
+							v-for="(item, index) in includeAutocompleteItems"
+							:key="index"
+						>
+							<div
+								class="item"
+								@click="
+									selectAutocompleteItem(
+										'include',
+										item,
+										false
+									)
+								"
+							>
+								{{ item }}
+							</div>
+						</div>
+					</div>
 					<div class="includedExcludedContainer">
 						<div
 							class="added"
@@ -183,10 +218,29 @@
 				<div class="ingredients-container">
 					<input
 						type="text"
-						class="input"
+						class="input exclude"
 						placeholder="Exclude ingredients"
 						v-model="exclude"
 					/>
+					<div class="ingredients-items-list">
+						<div
+							v-for="(item, index) in excludeAutocompleteItems"
+							:key="index"
+						>
+							<div
+								class="item"
+								@click="
+									selectAutocompleteItem(
+										'exclude',
+										item,
+										false
+									)
+								"
+							>
+								{{ item }}
+							</div>
+						</div>
+					</div>
 					<div class="includedExcludedContainer">
 						<div
 							class="added"
@@ -261,20 +315,55 @@
 					<path d="M0 0h24v24H0z" fill="none" />
 				</svg>
 				<input
+					id="keywords-input"
 					type="text"
 					class="input"
 					placeholder="Keywords"
 					v-model="keywords"
 				/>
+				<div class="keywords-resp-items-list">
+					<div
+						v-for="(item, index) in keywordsAutocompleteItems"
+						:key="index"
+					>
+						<div
+							class="item"
+							@click="
+								selectAutocompleteItem('keywords', item, true)
+							"
+						>
+							{{ item }}
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="ingredients">
 				<div class="ingredients-container">
 					<input
 						type="text"
-						class="input"
+						class="input include"
 						placeholder="Include ingredients"
 						v-model="include"
 					/>
+					<div class="include-resp-items-list">
+						<div
+							v-for="(item, index) in includeAutocompleteItems"
+							:key="index"
+						>
+							<div
+								class="item"
+								@click="
+									selectAutocompleteItem(
+										'include',
+										item,
+										true
+									)
+								"
+							>
+								{{ item }}
+							</div>
+						</div>
+					</div>
 					<div class="includedExcludedContainer">
 						<div
 							class="added"
@@ -318,10 +407,29 @@
 				<div class="ingredients-container">
 					<input
 						type="text"
-						class="input"
+						class="input exclude"
 						placeholder="Exclude ingredients"
 						v-model="exclude"
 					/>
+					<div class="exclude-resp-items-list">
+						<div
+							v-for="(item, index) in excludeAutocompleteItems"
+							:key="index"
+						>
+							<div
+								class="item"
+								@click="
+									selectAutocompleteItem(
+										'exclude',
+										item,
+										true
+									)
+								"
+							>
+								{{ item }}
+							</div>
+						</div>
+					</div>
 					<div class="includedExcludedContainer">
 						<div
 							class="added"
@@ -371,6 +479,10 @@
 </template>
 <script>
 import store from "../../store/index.js";
+import {
+	getIngredientAutocomplete,
+	getRecipeNameAutocomplete
+} from "../../services/SpoonacularServices.js";
 
 export default {
 	computed: {
@@ -391,9 +503,142 @@ export default {
 				includes: [],
 				excludes: [],
 			},
+			queryAutocompleteItems: [],
+			keywordsAutocompleteItems: [],
+			includeAutocompleteItems: [],
+			excludeAutocompleteItems: [],
+			selectedItem: ""
 		};
 	},
+	watch: {
+		query() {
+			if (this.query === this.selectedItem) {
+				document.getElementsByClassName("query-items-list")[0].style.display = "none";
+				this.queryAutocompleteItems = [];
+				document.getElementById("query-input").focus();
+			} else if (this.query) {
+				document.getElementsByClassName("query-items-list")[0].style.display = "block";
+				this.getRecipeAutocomplete(this.query, "query")
+			} else {
+				this.queryAutocompleteItems = [];
+				document.getElementsByClassName("query-items-list")[0].style.display = "none";
+			}
+		},
+		keywords() {
+			if (this.keywords === this.selectedItem) {
+				document.getElementsByClassName("keywords-resp-items-list")[0].style.display = "none";
+				this.keywordsAutocompleteItems = [];
+				document.getElementById("keywords-input").focus();
+			} else if (this.keywords) {
+				document.getElementsByClassName("keywords-resp-items-list")[0].style.display = "block";
+				this.getRecipeAutocomplete(this.keywords, "keywords")
+			} else {
+				this.keywordsAutocompleteItems = [];
+				document.getElementsByClassName("keywords-resp-items-list")[0].style.display = "none";
+			}
+		},
+		include() {
+			if (this.include === this.selectedItem) {
+				document.getElementsByClassName("ingredients-items-list")[0].style.display = "none";
+				document.getElementsByClassName("include-resp-items-list")[0].style.display = "none";
+				this.includeAutocompleteItems = [];
+				document.getElementsByClassName("input include")[0].focus();
+				document.getElementsByClassName("input include")[1].focus();
+			} else if (this.include) {
+				document.getElementsByClassName("ingredients-items-list")[0].style.display = "block";
+				document.getElementsByClassName("include-resp-items-list")[0].style.display = "block";
+				this.getIngredientAutocomplete(this.include, 'include')
+			} else {
+				this.includeAutocompleteItems = [];
+				document.getElementsByClassName("ingredients-items-list")[0].style.display = "none";
+				document.getElementsByClassName("include-resp-items-list")[0].style.display = "none";
+			}
+		},
+		exclude() {
+			if (this.exclude === this.selectedItem) {
+				document.getElementsByClassName("ingredients-items-list")[1].style.display = "none";
+				document.getElementsByClassName("exclude-resp-items-list")[0].style.display = "none";
+				this.excludeAutocompleteItems = [];
+				document.getElementsByClassName("input exclude")[0].focus();
+				document.getElementsByClassName("input exclude")[1].focus();
+			} else if (this.exclude) {
+				document.getElementsByClassName("ingredients-items-list")[1].style.display = "block";
+				document.getElementsByClassName("exclude-resp-items-list")[0].style.display = "block";
+				this.getIngredientAutocomplete(this.exclude, 'exclude')
+			} else {
+				this.excludeAutocompleteItems = [];
+				document.getElementsByClassName("ingredients-items-list")[1].style.display = "none";
+				document.getElementsByClassName("exclude-resp-items-list")[0].style.display = "none";
+			}
+		}
+	},
+	created() {
+		window.addEventListener('scroll', this.handleScroll);
+	},
+	destroyed () {
+		window.removeEventListener('scroll', this.handleScroll);
+	},
 	methods: {
+		handleScroll() {
+			document.getElementsByClassName("query-items-list")[0].style.display = "none";
+			document.getElementsByClassName("ingredients-items-list")[0].style.display = "none";
+			document.getElementsByClassName("ingredients-items-list")[1].style.display = "none";
+			document.getElementsByClassName("keywords-resp-items-list")[0].style.display = "none";
+			document.getElementsByClassName("include-resp-items-list")[0].style.display = "none";
+			document.getElementsByClassName("exclude-resp-items-list")[0].style.display = "none";
+		},
+		async getRecipeAutocomplete(query, input) {
+			const result = await getRecipeNameAutocomplete(query);
+			var toReturn = [];
+			result.forEach(item => {
+				toReturn.push(item.title);
+			});
+			if (input === "query") {
+				this.queryAutocompleteItems = toReturn;
+			} else {
+				this.keywordsAutocompleteItems = toReturn;
+			}
+			return toReturn;
+		},
+		async getIngredientAutocomplete(query, includeExclude) {
+			const result = await getIngredientAutocomplete(query);
+			var toReturn = [];
+			result.forEach(item => {
+				toReturn.push(item.name);
+			});
+			if (includeExclude === "include") {
+				this.includeAutocompleteItems = toReturn;
+			} else {
+				this.excludeAutocompleteItems = toReturn;
+			}
+		},
+		selectAutocompleteItem(input, item, responsive) {
+			if (input === "query") {
+				this.query = item;
+				this.selectedItem = item;
+				document.getElementsByClassName("query-items-list")[0].style.display = "none";
+			} else if (input === "keywords") {
+				this.keywords = item;
+				this.selectedItem = item;
+				document.getElementsByClassName("keywords-resp-items-list")[0].style.display = "none";
+			} else if (input === "include") {
+				this.include = item;
+				this.selectedItem = item;
+				if (!responsive) {
+					document.getElementsByClassName("ingredients-items-list")[0].style.display = "none";
+				} else {
+					document.getElementsByClassName("include-resp-items-list")[0].style.display = "none";
+				}
+			} else if (input === "exclude") {
+				this.exclude = item;
+				this.selectedItem = item;
+				if (!responsive) {
+					document.getElementsByClassName("ingredients-items-list")[1].style.display = "none";
+				} else {
+					document.getElementsByClassName("exclude-resp-items-list")[0].style.display = "none";
+				}
+			}
+		},
 		goToHomePage() {
 			this.$router.push("/").catch(() => {});
 			this.clearHeader();
@@ -562,6 +807,7 @@ export default {
 				var container;
 				var ingredients;
 				var add;
+				var autocomplete;
 				if (includeExclude === "include") {
 					container = document.getElementsByClassName(
 						"includedExcludedContainer"
@@ -570,6 +816,9 @@ export default {
 						"ingredients"
 					)[2];
 					add = document.getElementsByClassName("add")[2];
+					autocomplete = document.getElementsByClassName(
+						"exclude-resp-items-list"
+					)[0];
 				} else {
 					container = document.getElementsByClassName(
 						"includedExcludedContainer"
@@ -585,10 +834,19 @@ export default {
 				var headerHeight = header.offsetHeight + 31;
 				var searchHeight = responsiveSearch.offsetHeight + 31;
 				var ingredientsHeight = ingredients.offsetHeight + 29;
-
+				
 				header.style.height = headerHeight + "px";
 				responsiveSearch.style.height = searchHeight - 20 + "px";
 				ingredients.style.height = ingredientsHeight + "px";
+				
+				if (includeExclude === "include") {
+					ingredients = document.getElementsByClassName(
+						"ingredients"
+					)[3];
+					let ingredientsHeight = ingredients.offsetHeight;
+					var autocompleteTop = headerHeight - (ingredientsHeight - 50) - 78;
+					autocomplete.style.top = autocompleteTop + "px";
+				}
 
 				ingredients.style.alignItems = "flex-start";
 
@@ -938,6 +1196,31 @@ export default {
 	border: none;
 }
 
+.query-items-list {
+	position: fixed;
+	width: 250px;
+	height: auto;
+	top: 70px;
+	margin-left: 10px;
+	z-index: 999;
+	border-radius: 0 0 14px 14px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	background-color: #ffffff;
+}
+
+.item {
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 16px;
+	font-family: "Poppins", sans-serif;
+}
+
+.item:hover {
+	cursor: pointer;
+	border-radius: 14px;
+	background-color: #cccccc;
+}
+
 #search input:focus,
 .button:focus {
 	outline: none;
@@ -1086,6 +1369,18 @@ export default {
 	border-bottom: 2px solid rgba(242, 242, 242, 1);
 }
 
+.ingredients-items-list {
+	display: none;
+	position: fixed;
+	width: 222px;
+	height: auto;
+	top: 155px;
+	z-index: 999;
+	border-radius: 0 0 14px 14px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	background-color: #ffffff;
+}
+
 .includedExcludedContainer {
 	display: none;
 	width: 100%;
@@ -1214,6 +1509,19 @@ export default {
 	border: none;
 }
 
+.keywords-resp-items-list {
+	display: none;
+	position: fixed;
+	width: 222px;
+	height: auto;
+	top: 161px;
+	z-index: 999;
+	margin-left: -20px;
+	border-radius: 0 0 14px 14px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	background-color: #ffffff;
+}
+
 .ingredients {
 	width: 96%;
 	height: 50px;
@@ -1226,6 +1534,30 @@ export default {
 	border-radius: 14px;
 	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
 	background-color: white;
+}
+
+.include-resp-items-list {
+	display: none;
+	position: fixed;
+	width: 222px;
+	height: auto;
+	top: 224px;
+	z-index: 999;
+	border-radius: 0 0 14px 14px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	background-color: #ffffff;
+}
+
+.exclude-resp-items-list {
+	display: none;
+	position: fixed;
+	width: 222px;
+	height: auto;
+	top: 289px;
+	z-index: 999;
+	border-radius: 0 0 14px 14px;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
+	background-color: #ffffff;
 }
 
 #responsiveSearch #searchButton {
