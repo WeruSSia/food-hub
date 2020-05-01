@@ -380,7 +380,7 @@ export default {
 	},
 	data() {
 		return {
-			query: "v1",
+			query: "",
 			keywords: "",
 			include: "",
 			includings: [],
