@@ -272,7 +272,7 @@ export default {
 				title: this.recipe.title,
 				image: this.recipe.image || "",
 				id: this.recipe.id,
-				dateTime: Math.round(+new Date()/1000)
+				dateTime: Math.round(+new Date() / 1000),
 			};
 			addToUserFavourites(recipeData).then(result => {
 				if (result) {
@@ -447,7 +447,7 @@ span {
 	padding: 16px;
 	position: fixed;
 	z-index: 1;
-	left: 50%;
+	transform: translateX(-50%);
 	bottom: 30px;
 }
 
