@@ -158,11 +158,13 @@ export default {
 	mounted() {
 		// prevent  scrolling
 		document.body.style.overflowY = "hidden";
+		document.body.style.marginRight = "17px";
 		document.addEventListener("keydown", this.handleEscapeClickedEvent);
 	},
 	beforeDestroy() {
 		this.clearData();
-		document.body.style.overflowY = "overlay";
+		document.body.style.overflowY = "scroll";
+		document.body.style.marginRight = "0";
 		document.removeEventListener("keydown", this.handleEscapeClickedEvent);
 	},
 	methods: {
