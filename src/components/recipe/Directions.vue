@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="directions">
 		<div class="header">
 			<span class="header-name">
 				{{ headerTitle }}
@@ -59,7 +59,7 @@
 				v-for="step in getAnalyzedInstructions()[0].steps"
 				v-bind:key="step.number"
 			>
-				<p>
+				<p class="step">
 					<input type="checkbox" class="checkbox-input" />
 
 					<span class="checkbox-label"
@@ -126,6 +126,15 @@ export default {
 </script>
 
 <style scoped>
+.directions {
+	page-break-after: avoid;
+	page-break-before: avoid;
+}
+
+.step {
+	page-break-inside: avoid;
+}
+
 .header {
 	border-bottom: 1.5px solid rgb(236, 236, 236);
 	width: 95%;

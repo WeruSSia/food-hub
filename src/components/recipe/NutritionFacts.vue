@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="nutritions">
 		<div class="header">
 			<span class="header-name">
 				{{ headerTitle }}
@@ -133,6 +133,12 @@ export default {
 </script>
 
 <style scoped>
+.nutritions {
+	page-break-after: avoid;
+	page-break-before: avoid;
+	page-break-inside: avoid;
+}
+
 .header {
 	border-bottom: 1.5px solid rgb(236, 236, 236);
 	width: 95%;

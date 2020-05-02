@@ -881,6 +881,12 @@ export default {
 	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
 }
 
+@media print {
+	.header {
+		display: none;
+	}
+}
+
 .img-box {
 	width: 130px;
 	height: 64px;
