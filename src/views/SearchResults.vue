@@ -9,15 +9,12 @@
 					Object.keys(searchDataFromVuex).length === 0
 			"
 		>
-			<h3>No results have been found</h3>
+			<h3>We're sorry, no results have been found...</h3>
 		</div>
 
 		<!-- no results found -->
 		<div v-else-if="result.totalResults === 0">
-			<h2>We're sorry, no results have been found...</h2>
-			<h3 class="subcaption">
-				See other recipes and smart cooking ideas:
-			</h3>
+			<h3>We're sorry, no results have been found...</h3>
 			<div class="results">
 				<CardsContainer
 					:recipe-list="randomRecipeList"
@@ -37,10 +34,7 @@
 						!searchDataFromVuex.excludes.length)
 			"
 		>
-			<h2>We're sorry, no results have been found...</h2>
-			<h3 class="subcaption">
-				See other recipes and smart cooking ideas:
-			</h3>
+			<h3>We're sorry, no results have been found...</h3>
 			<div class="results">
 				<CardsContainer
 					:recipe-list="randomRecipeList"
