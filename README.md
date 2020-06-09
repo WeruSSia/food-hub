@@ -1,8 +1,6 @@
 # food-hub
 Web application allowing users to search recipes by ingredients.
 
-------------------
-
 # Main functionalities
 * searching recipes by ingredients - it's possible to include ingredients you have or exclude the ones you don't want in your dish,
 * searching recipes by the name of the dish (autocompletion),
