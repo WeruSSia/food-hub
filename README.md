@@ -1,16 +1,18 @@
 # food-hub
-A repository for BAI project purpose.
+Web application allowing users to search recipes by ingredients.
 
 ------------------
-Project Team:
-- Weronika Mirek, WZISS2-1211, 215916
-- Konrad Adamik, WZISS2-1211, 215941
-- Kamil Cała, WZISS2-1211, 192426
-- Arkadiusz Hadała, WZISS2-2411, 192980
+
+# Main functionalities
+* searching recipes by ingredients - it's possible to include ingredients you have or exclude the ones you don't want in your dish,
+* searching recipes by the name of the dish (autocompletion),
+* searching recipes by keywords,
+* signing up/logging in (also using Facebook),
+* adding recipes to favourites (only for logged in users),
+* saving search history of recently seen recipes (only for logged in users).
 
 ------------------
-**Github Page link: https://riserax.github.io/food-hub/**
 
-**spoonacular API: https://spoonacular.com/food-api**
+**Project set up on Github Pages: https://riserax.github.io/food-hub/**
 
-**Interface project: https://dyf2f8.axshare.com**
+**Documentation: https://riserax.github.io/food-hub/#/about/**
